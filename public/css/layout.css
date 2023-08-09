@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#layoutContainer {
+    display: flex;
+    width: 100%;
+}
+
+#sectionContainer {
+    margin: auto;
+    width: 100%;
+    background-color: yellow;
+}
+
+#userContainer {
+    z-index: 5;
+    position: fixed;
+    right: 0%;
+    width: 300px;
+    background-color: blue;
+}

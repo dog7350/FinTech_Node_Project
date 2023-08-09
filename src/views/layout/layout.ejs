@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>One Team Board Site</title>
+
+        <link rel="stylesheet" type="text/css" href="/public/css/layout.css">
+    </head>
+
+    <body>
+        <div id="layoutContainer">
+            <div id="sectionContainer">
+                <header>
+                    <%- include("../default/header") %>
+                </header>
+
+                <section>
+                    <%- body %>
+                </section>
+
+                <footer>
+                    <%- include("../default/footer") %>
+                </footer>
+            </div>
+            <div id="userContainer">
+                <%- include("../default/user") %>
+            </div>
+        </div>
+    </body>
+</html>
