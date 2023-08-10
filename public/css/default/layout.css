@@ -14,7 +14,12 @@
 }
 
 #userContainer {
-    display: none;
+    visibility: hidden;
+    overflow: hidden;
     right: 0%;
-    width: 300px;
+    opacity: 0;
+    width: 0px;
+    transition-property: opacity, width;
+    transition-duration: 0.3s;
+    transition-delay: 0.1s;
 }

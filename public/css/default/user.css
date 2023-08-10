@@ -1,0 +1,11 @@
+#infoContainer {
+    display: none;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#chatContainer {
+    display: none;
+    margin-top: 15px;
+    text-align: center;
+}

@@ -16,6 +16,7 @@ app.use(cookieParser("CooKey"));
 
 // 공통 사용 파일 경로 등록
 app.use("/public", express.static(__dirname + "/public"));
+app.use("/upload", express.static(__dirname + "/upload"));
 app.use(layout);
 
 // 최상위 라우터 등록
