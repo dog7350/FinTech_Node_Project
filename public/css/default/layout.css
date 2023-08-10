@@ -19,7 +19,8 @@
     right: 0%;
     opacity: 0;
     width: 0px;
-    transition-property: opacity, width;
+    background-color: white;
+    transition-property: background-color, width, opacity;
     transition-duration: 0.3s;
     transition-delay: 0.1s;
 }
