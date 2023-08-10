@@ -1,3 +1,8 @@
+#exitUserMenu {
+    position: absolute;
+    right: 0%;
+}
+
 #infoContainer {
     display: none;
     margin-bottom: 15px;

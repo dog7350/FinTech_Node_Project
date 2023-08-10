@@ -2,12 +2,19 @@
 
 <div id="headerContainer">
     <div id="headerContent">
-        <img id="iconImg" src="/public/images/icon.jpg" alt="아이콘" width="100px" height="100px">
+        <a id="iconImg" href="/"><img src="/public/images/icon.jpg" alt="아이콘" width="100px" height="100px"></a>
         <div id="searchFormContainer">
-            Form!
+            <form id="searchForm" action="#" method="get">
+                <select>
+                    <option value="title">제목</option>
+                    <option value="writer">작성자</option>
+                </select>
+                <input type="text" class="form-control" placeholder="Input Search Keyword">
+                <input type="submit" class="btn btn-success" value="Search">
+            </form>
         </div>
         <div id="userButtonContainer">
-            <input id="userMenuButton" type="button" value="메뉴">
+            <input id="userMenuButton" class="btn btn-primary" type="button" value="유저">
         </div>
     </div>
 </div>

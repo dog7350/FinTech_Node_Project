@@ -14,13 +14,13 @@
 }
 
 #userContainer {
+    position: fixed;
     visibility: hidden;
     overflow: hidden;
     right: 0%;
     opacity: 0;
     width: 0px;
     background-color: white;
-    transition-property: background-color, width, opacity;
-    transition-duration: 0.3s;
-    transition-delay: 0.1s;
+    transition-property: width, opacity;
+    transition-duration: 0.5s;
 }

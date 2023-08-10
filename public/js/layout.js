@@ -1,38 +1,36 @@
-let flag = false;
-
-const menuClick = () => {
+const userMenuOpen = () => {
     const container = document.getElementById("userContainer");
     const info = document.getElementById("infoContainer");
     const chat = document.getElementById("chatContainer");
 
-    if (flag == false) {
-        container.style.visibility = "visible";
-        container.style.backgroundColor = "skyblue";
-        container.style.opacity = "1";
-        container.style.width = "300px";
+    container.style.visibility = "visible";
+    container.style.opacity = "1";
+    container.style.width = "300px";
 
-        setTimeout(() => {
-            info.style.display = "block";
-            chat.style.display = "block";
-        }, 220)
+    setTimeout(() => {
+        info.style.display = "block";
+        chat.style.display = "block";
+    }, 220)
+}
 
-        flag = true;
-    } else {
-        container.style.backgroundColor = "white";
-        container.style.opacity = "0";
-        container.style.width = "0px";
+const userMenuClose = () => {
+    const container = document.getElementById("userContainer");
+    const info = document.getElementById("infoContainer");
+    const chat = document.getElementById("chatContainer");
 
-        setTimeout(() => {
-            container.style.visibility = "hidden";
-            info.style.display = "none";
-            chat.style.display = "none";
-        }, 160);
+    container.style.opacity = "0";
+    container.style.width = "0px";
 
-        flag = false;
-    }
+    setTimeout(() => {
+        container.style.visibility = "hidden";
+        info.style.display = "none";
+        chat.style.display = "none";
+    }, 160);
 }
 
 window.onload = () => {
-    const button = document.getElementById("userMenuButton");
-    button.addEventListener("click", menuClick);
+    const userMenuButton = document.getElementById("userMenuButton");
+    const exitUserButton = document.getElementById("exitUserMenu");
+    userMenuButton.addEventListener("click", userMenuOpen);
+    exitUserButton.addEventListener("click", userMenuClose);
 }
