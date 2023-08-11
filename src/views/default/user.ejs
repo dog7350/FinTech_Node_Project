@@ -1,16 +1,21 @@
 <link rel="stylesheet" type="text/css" href="/public/css/default/user.css">
+<script src="/public/js/jquery.js"></script>
+<script src="/public/js/user.js"></script>
 
 <div id="infoContainer" class="p-3 bg-info bg-opacity-10 border border-info rounded">
     <input type="button" id="exitUserMenu" class="btn btn-danger" value="X">
 
-    로그인이 필요합니다.<br>
-    <input type="button" class="btn btn-primary" value="Login" onclick="location.href='/member/loginForm'">
-    <input type="button" class="btn btn-primary" value="Join" onclick="location.href='/member/joinForm'"><br>
-
-    <img id="profileImg" class="rounded-circle" src="/upload/DefaultProfile.gif" alt="프로필 사진" width="100px" height="100px"><br>
-    Nick(Name) 님!<br>
-    환영합니다!<br>
-    보유캐시 : <br>
+    <% if (user == undefined) { %>
+        로그인이 필요합니다.<br>
+        <input type="button" class="btn btn-primary" value="Login" onclick="showLoginModal()">
+        <input type="button" class="btn btn-primary" value="Join" onclick="location.href='/member/joinForm'"><br>
+    <% } else { %>
+        <img id="profileImg" class="rounded-circle" src="/upload/<%= user.PROFILE %>" alt="프로필 사진" width="100px" height="100px"><br>
+        <%= user.NICK %>(<%= user.NAME %>) 님!<br>
+        환영합니다!<br>
+        보유캐시 : <%= user.CASH %><br>
+        <input type="button" class="btn btn-primary" value="(<%= user.ID %>) Logout" onclick="location.href='/member/logout'">
+    <% } %>
 </div>
 
 <div id="chatContainer" class="p-3 bg-info bg-opacity-10 border border-info rounded">

@@ -14,8 +14,8 @@
         const code = `<%= code %>`;
 
         if (input == code) {
-            const txt = opener.document.getElementById("emailTxt");
-            txt.disabled = true;
+            opener.document.getElementById("emailTxt").readOnly = true;
+            opener.document.getElementById("emailTxt").style.backgroundColor = "gray";
             alert("인증되었습니다.");
             window.close();
         } else {
@@ -27,13 +27,14 @@
         document.write(`
                         <html>
                             <body>
+                                <link rel="stylesheet" type="text/css" href="/public/css/bootstrap/bootstrap.css">
                                 <link rel="stylesheet" type="text/css" href="/public/css/views/mailPopup.css">
 
-                                <div id="codeContainer">
+                                <div id="codeContainer" class="mb-3">
                                     <div id="timeDiv">60</div>
                                     <h1>인증코드</h1>
-                                    <input id="codeTxt" type="text" placeholder="Input Code"><br>
-                                    <input id="authBtn" type="button" value="인증" onclick="submitAuth()">
+                                    <input id="codeTxt" class="form-control" type="text" placeholder="Input Code"><br>
+                                    <input id="authBtn" class="btn btn-primary" type="button" value="인증" onclick="submitAuth()">
                                 </div>
                             <body>
                         </html>

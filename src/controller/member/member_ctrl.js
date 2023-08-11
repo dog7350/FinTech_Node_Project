@@ -1,7 +1,23 @@
-//const service = require("../../service/member_service");
+const service = require("../../service/member_service");
+const fs = require("fs");
+
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
+const aws = require("@aws-sdk/client-ses");
+const { defaultProvider } = require("@aws-sdk/credential-provider-node");
 const senderInfo = require("../../../config/sender_config");
+
+/*
+const ses = new aws.SES({
+    apiVersion: "2012-10-17",
+    region: "ap-northeast-2",
+    credentials: {
+        accessKeyId: senderInfo.config.accessKeyId,
+        secretAccessKey: senderInfo.config.secretAccessKey
+    },
+    defaultProvider
+});
+*/
 
 const views = {
     joinForm : (req, res) => {
@@ -13,6 +29,13 @@ const views = {
 };
 
 const process = {
+    joinIdCheck : async (req, res) => {
+        const result = await service.read.joinIdCheck(req.query.id);
+        let rid = undefined;
+        if (result != undefined) rid = result.ID;
+
+        res.render("member/joinIdPopup", { id : req.query.id, rid });
+    },
     rtnJusoPopup : (req, res) => {
         res.locals = req.body;
         res.render("member/jusoPopup");
@@ -29,10 +52,11 @@ const process = {
                         `;
 
         var transport = nodemailer.createTransport({
+            // SES : { ses, aws } > Linux
             service : email,
             auth : {
-                user : senderInfo.user,
-                pass : senderInfo.pass
+                user : senderInfo.user.user,
+                pass : senderInfo.user.pass
             },
             port : 587,
             host : 'smtp.gmail.com',
@@ -45,21 +69,54 @@ const process = {
             maxMessages : 10
         });
         var mailOptions = {
-            from : senderInfo.user,
+            from : senderInfo.user.user,
             to : email,
             subject : "메일 인증 코드",
-            html : content
+            html : content,
+            /*
+            ses : { // ses append
+                Tags : [
+                    {
+                        Name : "FNTC",
+                        Value : "EmailAuth"
+                    }
+                ]
+            }
+            */
         }
         transport.sendMail(mailOptions, (error, info) => {
             if (error) {
                 console.log("에러! : " + error);
                 return;
             } else {
-                console.log("전송 완료");
+                console.log("Send!");
             }
         });
 
         res.render("member/mailPopup", { email, code });
+    },
+    join : async (req, res) => {
+        let file = "";
+        if (req.file == undefined) file = "DefaultProfile.gif";
+        else file = req.file.filename;
+
+        const result = await service.insert.join(req.body, file);
+
+        res.redirect("/");
+    },
+    login : async (req, res) => {
+        const result = await service.read.login(req.body);
+
+        if (result == -1) res.send(`<script>alert("아이디가 존재하지 않습니다."); history.back();</script>`);
+        else if (result == 0) res.send(`<script>alert("비밀번호가 올바르지 않습니다."); history.back();</script>`);
+        else {
+            req.session.user = result;
+            res.send(`<script>alert("환영합니다. ${result.ID} 님!"); location.href='/';</script>`);
+        }
+    },
+    logout : (req, res) => {
+        req.session.destroy();
+        res.send(`<script>alert("로그아웃 되셨습니다."); location.href='/';</script>`);
     }
 };
 

@@ -1,0 +1,48 @@
+<script>
+    let time = 5;
+    const lifeCycle = () => {
+        if (time <= 0) {
+            window.close();
+        }
+        time--;
+        document.getElementById("timeDiv").innerHTML = time;
+    }
+
+    const setIdTxt = () => {
+        opener.document.getElementById("idTxt").readOnly = true;
+        opener.document.getElementById("idTxt").style.backgroundColor = "gray";
+        window.close();
+    }
+
+    window.onload = () => {
+        const rid = `<%= rid %>`;
+        let content = ``;
+        if (rid == "") {
+            content = `
+                        <h1><%= id %>은(는) 사용 가능합니다.</h1>
+                        <input id="authBtn" class="btn btn-danger" type="button" value="취소" onclick="window.close()">
+                        <input id="authBtn" class="btn btn-primary" type="button" value="확정" onclick="setIdTxt()">
+                      `;
+        } else {
+            content = `
+                        <div id="timeDiv">5</div>
+                        <h1><%= id %>은(는) 이미 존재합니다.</h1>
+                        <input class="btn btn-primary" type="button" value="닫기" onclick="window.close()">
+                      `;
+            setInterval(lifeCycle, 1000);
+        }
+
+        document.write(`
+                        <html>
+                            <body>
+                                <link rel="stylesheet" type="text/css" href="/public/css/bootstrap/bootstrap.css">
+                                <link rel="stylesheet" type="text/css" href="/public/css/views/mailPopup.css">
+                            
+                                <div id="codeContainer" class="mb-3">
+                                    ${content}
+                                </div>
+                            <body>
+                        </html>
+                        `);
+    }
+</script>
