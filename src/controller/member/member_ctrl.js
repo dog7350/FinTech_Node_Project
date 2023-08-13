@@ -1,5 +1,6 @@
 const service = require("../../service/member_service");
 const fs = require("fs");
+const renObj = require("../renObj");
 
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
@@ -21,10 +22,10 @@ const ses = new aws.SES({
 
 const views = {
     joinForm : (req, res) => {
-        res.render("member/joinForm");
+        res.render("member/joinForm", renObj(req, {}));
     },
     jusoPopup : (req, res) => {
-        res.render("member/jusoPopup");
+        res.render("member/jusoPopup", renObj(req, { layout : false }));
     }
 };
 
@@ -34,11 +35,11 @@ const process = {
         let rid = undefined;
         if (result != undefined) rid = result.ID;
 
-        res.render("member/joinIdPopup", { id : req.query.id, rid });
+        res.render("member/joinIdPopup", renObj(req, { id : req.query.id, rid, layout : false }));
     },
     rtnJusoPopup : (req, res) => {
         res.locals = req.body;
-        res.render("member/jusoPopup");
+        res.render("member/jusoPopup", renObj(req, { layout : false }));
     },
     mailAuth : (req, res) => {
         const code = crypto.randomBytes(5).toString("hex");
@@ -93,7 +94,7 @@ const process = {
             }
         });
 
-        res.render("member/mailPopup", { email, code });
+        res.render("member/mailPopup", renObj(req, { email, code, layout : false }));
     },
     join : async (req, res) => {
         let file = "";

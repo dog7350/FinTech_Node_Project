@@ -1,45 +1,50 @@
-<script>
-    let time = 60;
-    const lifeCycle = () => {
-        if (time <= 0) {
-            alert("다시 인증하세요.");
-            window.close();
-        }
-        time--;
-        document.getElementById("timeDiv").innerHTML = time;
-    }
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mail Popup</title>
+        <link rel="stylesheet" type="text/css" href="/public/css/bootstrap/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/public/css/views/mailPopup.css">
 
-    const submitAuth = () => {
-        const input = document.getElementById("codeTxt").value;
-        const code = `<%= code %>`;
+        <script>
+            let time = 60;
+            const lifeCycle = () => {
+                if (time <= 0) {
+                    alert("다시 인증하세요.");
+                    window.close();
+                }
+                time--;
+                document.getElementById("timeDiv").innerHTML = time;
+            }
 
-        if (input == code) {
-            opener.document.getElementById("emailTxt").readOnly = true;
-            opener.document.getElementById("emailTxt").style.backgroundColor = "gray";
-            alert("인증되었습니다.");
-            window.close();
-        } else {
-            alert("인증 코드가 잘 못 되었습니다.");
-        }
-    }
+            const submitAuth = () => {
+                const input = document.getElementById("codeTxt").value;
+                const code = `<%= code %>`;
 
-    window.onload = () => {
-        document.write(`
-                        <html>
-                            <body>
-                                <link rel="stylesheet" type="text/css" href="/public/css/bootstrap/bootstrap.css">
-                                <link rel="stylesheet" type="text/css" href="/public/css/views/mailPopup.css">
+                if (input == code) {
+                    opener.document.getElementById("emailTxt").readOnly = true;
+                    opener.document.getElementById("emailTxt").style.backgroundColor = "gray";
+                    alert("인증되었습니다.");
+                    window.close();
+                } else {
+                    alert("인증 코드가 잘 못 되었습니다.");
+                }
+            }
 
-                                <div id="codeContainer" class="mb-3">
-                                    <div id="timeDiv">60</div>
-                                    <h1>인증코드</h1>
-                                    <input id="codeTxt" class="form-control" type="text" placeholder="Input Code"><br>
-                                    <input id="authBtn" class="btn btn-primary" type="button" value="인증" onclick="submitAuth()">
-                                </div>
-                            <body>
-                        </html>
-                        `);
-        alert("<%= email %>로 인증 메일이 전송되었습니다.");
-        setInterval(lifeCycle, 1000);
-    }
-</script>
+            window.onload = () => {
+                alert("<%= email %>로 인증 메일이 전송되었습니다.");
+                setInterval(lifeCycle, 1000);
+            }
+        </script>
+    </head>
+
+    <body>
+        <div id="codeContainer" class="mb-3">
+            <div id="timeDiv">60</div>
+            <h1>인증코드</h1>
+            <input id="codeTxt" class="form-control" type="text" placeholder="Input Code"><br>
+            <input id="authBtn" class="btn btn-primary" type="button" value="인증" onclick="submitAuth()">
+        </div>
+    </body>
+</html>
