@@ -4,21 +4,7 @@ const renObj = require("../renObj");
 
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
-const aws = require("@aws-sdk/client-ses");
-const { defaultProvider } = require("@aws-sdk/credential-provider-node");
 const senderInfo = require("../../../config/sender_config");
-
-/*
-const ses = new aws.SES({
-    apiVersion: "2012-10-17",
-    region: "ap-northeast-2",
-    credentials: {
-        accessKeyId: senderInfo.config.accessKeyId,
-        secretAccessKey: senderInfo.config.secretAccessKey
-    },
-    defaultProvider
-});
-*/
 
 const views = {
     joinForm : (req, res) => {
@@ -53,37 +39,19 @@ const process = {
                         `;
 
         var transport = nodemailer.createTransport({
-            // SES : { ses, aws } > Linux
-            service : email,
+            service : 'gmail',
             auth : {
-                user : senderInfo.user.user,
-                pass : senderInfo.user.pass
+                user : senderInfo.sender.user,
+                pass : senderInfo.sender.pass
             },
-            port : 587,
-            host : 'smtp.gmail.com',
-            secure : false,
-            requireTLS : true,
-            tls : {
-                rejectUnauthorize : false
-            },
-            maxConnections : 5,
-            maxMessages : 10
+            port : 25,
+            host : 'smtp.gmail.com'
         });
         var mailOptions = {
-            from : senderInfo.user.user,
+            from : senderInfo.sender.user,
             to : email,
             subject : "메일 인증 코드",
-            html : content,
-            /*
-            ses : { // ses append
-                Tags : [
-                    {
-                        Name : "FNTC",
-                        Value : "EmailAuth"
-                    }
-                ]
-            }
-            */
+            html : content
         }
         transport.sendMail(mailOptions, (error, info) => {
             if (error) {
