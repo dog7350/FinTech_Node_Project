@@ -1,6 +1,8 @@
 #navContainer {
     display: flex;
+    margin-bottom: 10px;
     width: 100%;
+    min-height: 5vh;
     text-align: center;
 }
 

@@ -1,15 +1,17 @@
 #footerContainer {
     display: flex;
+    margin-top: 10px;
     width: 100%;
+    min-height: 10vh;
     text-align: center;
 }
 
 #leftFooter {
     width: 49.9999%;
-    background-color: pink;
+    border-right: 1px solid gray;
 }
 
 #rightFooter {
     width: 49.9999%;
-    background-color: lightgreen;
+    border-left: 1px solid gray;
 }

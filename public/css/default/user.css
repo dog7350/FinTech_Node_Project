@@ -13,5 +13,6 @@
 #chatContainer {
     display: none;
     margin-top: 15px;
+    height: 100%;
     text-align: center;
 }

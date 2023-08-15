@@ -1,7 +1,8 @@
 #ChatList {
     width: 100%;
-    height: 500px;
+    height: 40vh;
 }
+
 #messageList {
     margin: 0;
     padding: 0;
