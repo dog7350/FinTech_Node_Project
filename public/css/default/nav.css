@@ -13,6 +13,7 @@
 
 .mainmenu > ul {
     list-style: none;
+    background-color: white;
 }
 .mainmenu:hover > ul {
     visibility: visible;
@@ -23,7 +24,7 @@
     position: absolute;
     visibility: hidden;
     overflow: hidden;
-    margin-top: 5px;
+    margin-top: 7px;
     margin-left: -13px;
     padding: 0;
     height: 0px;
