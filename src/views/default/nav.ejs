@@ -1,4 +1,36 @@
 <link rel="stylesheet" type="text/css" href="/public/css/default/nav.css">
-<div id="navContainer">
-    네비 메뉴
+<div id="navContainer" class="justify-content-center">
+    <ul class="nav">
+        <li class="nav-item btn btn-outline-warning mainmenu">
+            <a class="nav-link" href="/">메인 페이지</a>
+        </li>
+        <li class="nav-item btn btn-outline-warning mainmenu">
+            <a class="nav-link" href="#">영상 게시판</a>
+
+            <ul class="submenu">
+                <li class="nav-item btn btn-outline-warning">
+                    <a class="nav-link" href="#">일반 게시글</a>
+                </li>
+                <li class="nav-item btn btn-outline-warning">
+                    <a class="nav-link" href="#">판매 게시글</a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item btn btn-outline-warning mainmenu">
+            <a class="nav-link" href="#">Q&A 게시판</a>
+        </li>
+        <% if (user != undefined) { %>
+            <li class="nav-item btn btn-outline-warning mainmenu">
+                <a class="nav-link" href="/">마이페이지</a>
+            </li>
+            <li class="nav-item btn btn-outline-warning mainmenu">
+                <a class="nav-link" href="#">결제</a>
+            </li>
+        <% } %>
+        <% if (user != undefined && user.ADMIN == 1) { %>
+            <li class="nav-item btn btn-outline-warning mainmenu">
+                <a class="nav-link" href="#">관리자 페이지</a>
+            </li>
+        <% } %>
+    </ul>
 </div>

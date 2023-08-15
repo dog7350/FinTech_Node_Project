@@ -2,5 +2,34 @@
     display: flex;
     width: 100%;
     text-align: center;
-    background-color: aqua;
+}
+
+.mainmenu {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.mainmenu > ul {
+    list-style: none;
+}
+.mainmenu:hover > ul {
+    visibility: visible;
+    height: 120px; /* 1 : 60px */
+}
+.submenu {
+    z-index: 1;
+    position: absolute;
+    visibility: hidden;
+    overflow: hidden;
+    margin-top: 5px;
+    margin-left: -13px;
+    padding: 0;
+    height: 0px;
+    transition: all 0.3s linear;
+}
+.submenu > li {
+    display: block;
+    margin-top: 5px;
 }
