@@ -1,0 +1,22 @@
+<link rel="stylesheet" type="text/css" href="/public/css/default/chatting.css">
+
+<div id="ChatList" class="border border-success p-2 mb-2">
+    <ul id="messageList">
+        <li id="chatNoti"><p style="color: goldenrod; font-weight: bold;">[채팅방 입장]</p></li>
+    </ul>
+</div>
+
+<form id="ChatForm">
+    <div class="mb-3" style="display: flex;">
+        <input id="msg" class="form-control" autocomplete="off" />
+        <button class="btn btn-success">Send</button>
+    </div>
+
+    <input id="chatId" type="hidden" name="id" value="<%= user.ID %>">
+    <input id="chatNick" type="hidden" name="nick" value="<%= user.NICK %>">
+    <input id="chatProfile" type="hidden" name="profile" value="<%= user.PROFILE %>">
+</form>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/public/js/jquery.js"></script>
+<script src="/public/js/chatting.js"></script>

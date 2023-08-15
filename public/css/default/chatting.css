@@ -1,0 +1,23 @@
+#ChatList {
+    width: 100%;
+    height: 500px;
+}
+#messageList {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    list-style: none;
+}
+#messageList > #chatNoti {
+    text-align: center;
+}
+#messageList > li {
+    margin-top: 3px;
+    padding: 0;
+    text-align: left;
+}
+
+#ChatForm {
+    margin-top: 10px;
+    width: 100%;
+}

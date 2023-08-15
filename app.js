@@ -28,4 +28,7 @@ app.set("views", __dirname + "/src/views");
 app.set("view engine", "ejs");
 app.set("layout", __dirname + "/src/views/layout/layout");
 
-app.listen(3000, () => { console.log("Server Starting...") } );
+const http = require("http").createServer(app);
+const io = require("socket.io")(http);
+
+module.exports = { http, io };

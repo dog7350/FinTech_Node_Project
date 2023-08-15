@@ -18,6 +18,8 @@
     <% } %>
 </div>
 
-<div id="chatContainer" class="p-3 bg-info bg-opacity-10 border border-info rounded">
-    채팅 컨테이너
-</div>
+<% if (user != undefined) { %>
+    <div id="chatContainer" class="p-3 bg-info bg-opacity-10 border border-info rounded">
+        <%- include("./chatting") %>
+    </div>
+<% } %>
