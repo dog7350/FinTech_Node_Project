@@ -32,6 +32,10 @@ io.on('connection', (socket) => {
         io.emit('chat message', msg);
     });
 
+    socket.on("qna message", (msg) => {
+        io.emit("qna message", msg);
+    });
+
     socket.on("disconnect", () => {
         try {
             mongoose.disconnect();

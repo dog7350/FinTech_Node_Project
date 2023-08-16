@@ -1,0 +1,93 @@
+<link rel="stylesheet" type="text/css" href="/public/css/views/qnaContent.css">
+
+<%
+    const dateFormat = (date) => {
+        DAYS = date.getFullYear() + ". " + (date.getMonth() + 1) + ". " + date.getDate() + " / " + date.getHours() + " : " + date.getMinutes();
+        return DAYS;
+    }
+%>
+
+<div id="qnaHeader">
+    <div id="qnaWriter" class="mb-3">
+        <label class="form-label headerLabel">작성자</label>
+        <p id="headerWriter"><img src="/upload/<%= chat[0].WPROFILE %>" width="40px" height="40px">&nbsp;<%= chat[0].WRITER %></p>
+    </div>
+    <div id="qnaTitle" class="mb-3">
+        <label class="form-label headerLabel">제목</label>
+        <p id="headerTitle"><%= chat[0].TITLE %></p>
+    </div>
+    <div id="qnaTime" class="mb-3">
+        <label class="form-label headerLabel">작성시간</label>
+        <p id="headerTime"><%= dateFormat(chat[0].TIME) %></p>
+    </div>
+</div>
+
+<div id="qnaContent" class="mb-3">
+    <label class="form-label headerLabel">질문 내용</label>
+    <div id="qnaContentDiv"></div>
+</div>
+
+<div id="qnaContentContainer">
+    <div id="qnaChatContainer">
+        <div id="qnaChatList">
+            <% for(i = 1; i < chat.length; i++) { %>
+                <% if (chat[i].WRITER == user.ID) { %>
+                    <div id="rightContent">
+                        <div>
+                            <b><%= chat[i].WRITER %></b><br>
+                            <%= chat[i].CONTENT %>
+                        </div>
+                        <img src="/upload/<%= chat[i].WPROFILE %>">
+                    </div>
+                <% } else { %>
+                    <div id="leftContent">
+                        <img src="/upload/<%= chat[i].WPROFILE %>">
+                        <div>
+                            <b><%= chat[i].WRITER %></b><br>
+                            <%= chat[i].CONTENT %>
+                        </div>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+
+        <form id="qnaChatForm">
+            <input id="chatBno" type="hidden" name="bno" value="<%= chat[0].BNO %>">
+            <input id="chatTitle" type="hidden" name="title" value="<%= chat[0].TITLE %>">
+            <input id="chatId" type="hidden" name="id" value="<%= user.ID %>">
+            <input id="chatProfile" type="hidden" name="profile" value="<%= user.PROFILE %>">
+
+            <div class="mb-3" style="display: flex;">
+                <input id="msg" class="form-control" name="content" autocomplete="off"  />
+                <button class="btn btn-success">Send</button>
+            </div>
+        </form>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/public/js/jquery.js"></script>
+        <script src="/public/js/qnaChatting.js"></script>
+    </div>
+
+    <div id="qnaFileContainer">
+        <div id="qnaFileList">
+
+        </div>
+        
+        <form id="chatFileForm" action="#" method="post" enctype="multipart/form-data">
+            <input class="form-control" type="file" name="qnaFile" onchange="" multiple>
+        </form>
+    </div>
+</div>
+
+<script>
+    window.onload = () => {
+        contDiv = document.getElementById("qnaContentDiv");
+        str = '<%= chat[0].CONTENT %>';
+        str = str.replaceAll("&lt;", "<");
+        str = str.replaceAll("&gt;", ">");
+        str = str.replaceAll("\"", "");
+        str = str.replaceAll("&quot;", "\"");
+        str = str.replaceAll("&#34;", "\"");
+        contDiv.innerHTML = str;
+    }
+</script>

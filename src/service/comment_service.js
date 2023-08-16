@@ -1,5 +1,15 @@
-const dao = require("../../database/commentDAO");
+const dao = require("../database/commentDAO");
 
+const read = {
 
+}
 
-module.exports = { };
+const insert = {
+    
+}
+
+const remove = {
+
+}
+
+module.exports = { read, insert, remove };

@@ -1,0 +1,23 @@
+<link rel="stylesheet" type="text/css" href="/public/css/views/qnaInsertForm.css">
+<script type="text/javascript" src="/smart/js/HuskyEZCreator.js"></script>
+
+<div id="qnaInsertFormContainer">
+    <form id="qnaInsertForm" action="/qna/insert" method="post">
+        <div class="mb-3">
+            <input id="titleTxt" class="form-control" type="text" name="title" placeholder="제목을 입력하세요." required>
+        </div>
+    
+        <input name="writer" type="hidden" value="<%= user.ID %>">
+        <input name="wprofile" type="hidden" value="<%= user.PROFILE %>">
+
+        <textarea id="contentTxt" name="content" maxlength="4000" rows="20" cols="150"></textarea>
+        
+        <hr>
+    
+        <div class="d-grid gap-2">
+            <input class="btn btn-primary" type="button" value="작성" onclick="submitForm()">
+            <input class="btn btn-danger" type="button" value="취소" onclick="history.back()">
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/public/js/qnaInsertForm.js"></script>

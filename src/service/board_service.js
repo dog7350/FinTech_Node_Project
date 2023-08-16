@@ -1,5 +1,15 @@
-const dao = require("../../database/boardDAO");
+const dao = require("../database/boardDAO");
 
+const read = {
 
+}
 
-module.exports = { };
+const insert = {
+    
+}
+
+const remove = {
+
+}
+
+module.exports = { read, insert, remove };

@@ -1,0 +1,40 @@
+#qnaContainer {
+    margin: auto;
+    width: 70%;
+    height: 100%;
+}
+
+#qnaHeader {
+    width: 100%;
+}
+#boardTitle {
+    margin: 0;
+    padding: 0;
+    display: inline;
+    font-family: "gaegu", "Nanum Pen Script", serif;
+    font-size: 25pt;
+    font-weight: bold;
+    color: lightseagreen;
+}
+#headerBtn {
+    display: flex;
+    float: right;
+}
+
+#qnaBody {
+    width: 100%;
+    text-align: center;
+}
+.boardLink {
+    text-decoration: none;
+    transition: all 0.5s linear;
+}
+.boardLink:hover {
+    font-size: 13pt;
+    font-weight: bold;
+}
+
+#qnaFooter {
+    width: 100%;
+    text-align: center;
+}

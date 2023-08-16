@@ -1,4 +1,4 @@
-//const service = require("../../service/admin_service");
+const service = require("../../service/admin_service");
 
 const views = {
 

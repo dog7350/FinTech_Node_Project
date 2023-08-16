@@ -1,0 +1,92 @@
+#qnaHeader {
+    margin: auto;
+    margin-bottom: 10px;
+    display: flex;
+    width: 70%;
+    border-bottom: 1px solid gray;
+}
+#qnaWriter {
+    margin: auto;
+    text-align: left;
+}
+#qnaTitle {
+    margin: auto;
+    text-align: center;
+}
+#qnaTime {
+    margin: auto;
+    text-align: right;
+}
+
+#qnaContent {
+    margin: auto;
+    margin-bottom: 10px;
+    width: 70%;
+    border-bottom: 1px solid gray;
+}
+#qnaContentDiv {
+    width: 100%;
+}
+
+.headerLabel {
+    font-size: 12pt;
+    font-weight: bold;
+}
+#headerWriter {
+    font-size: 15pt;
+    font-weight: bold;
+}
+#headerTitle {
+    font-size: 20pt;
+    font-weight: bold;
+}
+#headerTime {
+    font-size: 15pt;
+    font-weight: bold;
+}
+
+#qnaContentContainer {
+    margin: auto;
+    display: flex;
+    width: 70%;
+    height: 100%;
+}
+
+#qnaChatContainer {
+    width: 84.9999%;
+}
+
+#qnaFileContainer {
+    width: 14.9999%;
+}
+
+#qnaChatList {
+    margin-bottom: 10px;
+    width: 100%;
+    min-height: 55vh;
+    background-color: bisque;
+}
+#rightContent {
+    display: flex;
+    width: 100%;
+    justify-content: right;
+}
+#rightContent > img {
+    width: 50px;
+    height: 50px;
+}
+#leftContent {
+    display: flex;
+    width: 100%;
+    justify-content: left;
+}
+#leftContent > img {
+    width: 50px;
+    height: 50px;
+}
+
+#qnaFileList {
+    margin-bottom: 10px;
+    min-height: 55vh;
+    background-color: azure;
+}
