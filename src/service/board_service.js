@@ -1,15 +1,7 @@
 const dao = require("../database/boardDAO");
 
-const read = {
-
+const BoardInsert = async (body,member) => {
+    const result = await dao.daoInsert.boardInsert(body,member);
 }
 
-const insert = {
-    
-}
-
-const remove = {
-
-}
-
-module.exports = { read, insert, remove };
+module.exports = {BoardInsert};
