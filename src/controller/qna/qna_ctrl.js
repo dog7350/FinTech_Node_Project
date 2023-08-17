@@ -21,7 +21,6 @@ const views = {
         logPass(req, res);
         const totalContent = await service.read.totalContent();
         const data = await service.read.list(req.query.start, totalContent);
-
         res.render("qna/qnaList", renObj(req, { list : data.list, totalContent, start : data.start, page : data.page }));
     },
     insertForm : (req, res) => {

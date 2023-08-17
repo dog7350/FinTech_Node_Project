@@ -16,6 +16,7 @@ const pageOperation = (start, totalCounter) => {
 const read = {
     totalContent : async () => {
         const result = await dao.read.totalContent();
+        console.log("start : ", result)
         return result.rows[0]['COUNT(*)'];
     },
     list : async (start, totalCounter) => {
