@@ -1,11 +1,24 @@
 $(() => {
+    contDiv = document.getElementById("qnaContentDiv");
+    str = document.getElementById("qnaContentBtn").value;
+    str = str.replaceAll("&lt;", "<");
+    str = str.replaceAll("&gt;", ">");
+
+    str = str.replaceAll("\"", "");
+    str = str.replaceAll("&quot;", "");
+    str = str.replaceAll("&#34;", "");
+    str = str.replaceAll("le=", "le=\"");
+    str = str.replaceAll(";>", ";\">");
+
+    contDiv.innerHTML = str;
+
     const socket = io();
     $('#qnaChatForm').submit(() => {
-        const bno = document.getElementById("chatBno").value;
-        const id = document.getElementById("chatId").value;
-        const profile = document.getElementById("chatProfile").value;
+        const bno = document.getElementById("qnaChatBno").value;
+        const id = document.getElementById("qnaChatId").value;
+        const profile = document.getElementById("qnaChatProfile").value;
 
-        let str = `${bno}|${id}|${profile}|` + $('#msg').val();
+        let str = `${bno}|${id}|${profile}|` + $('#qnaMsg').val();
         socket.emit('qna message', str);
 
         const form = new FormData(document.getElementById("qnaChatForm"));
@@ -16,20 +29,20 @@ $(() => {
             body: data
         });
 
-        $('#msg').val('');
+        $('#qnaMsg').val('');
 
         return false;
     });
 
     socket.on('qna message', (msg) => {
         if (window.location.pathname == "/qna/content") {
-            const bno = document.getElementById("chatBno").value;
+            const bno = document.getElementById("qnaChatBno").value;
     
             const str = String(msg).split('|');
             const mbno = str[0];
     
             if (bno == mbno) {
-                const id = document.getElementById("chatId").value;
+                const id = document.getElementById("qnaChatId").value;
                 const writer = str[1];
                 const wprofile = str[2];
                 const content = str[3];

@@ -48,6 +48,11 @@ const insert = {
     contentChat : async (body) => {
         const result = dao.insert.contentChat(body);
         return result;
+    },
+    fileUp : async (body, files) => {
+        for(i = 0; i < files.length; i++) {
+            result = await dao.insert.fileUp(body, files[i].filename);
+        }
     }
 }
 
