@@ -17,18 +17,8 @@ const daoInsert = {
         }
         
         
-    },
-    boardFileInsert : async (fileUp) => {
-        const sql = await ``;
-        const con = await db.getConnection(dbConfig);
-        let result;
-
-        try {
-            result = await con.execute(sql);
-        } catch (e) {
-            console.log(e);
-        }
     }
+    
 
 }
 

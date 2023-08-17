@@ -18,12 +18,9 @@ const process = {
         const msg = await service.BoardInsert(req.body,req.session.user);
         
         res.redirect("/board/boardList");
-    },
-
-    download : (req,res) => {
-        const filePath = `/upload/${req.params.fileName}`;
-        res.download(filePath);
     }
+
+    
 }
         
 
