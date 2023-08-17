@@ -4,24 +4,24 @@ function readFile(input) {
         const fileReader = new FileReader();
         fileReader.readAsDataURL(file);
         fileReader.onload = (e) => {
-            document.getElementById("imgView").src = e.target.result;
+            document.querySelector("#imgView").src = e.target.result;
         }
     }
 }
 
 function formCheck() {
-    var Title = document.getElementsByClassName("title").value;
-    if(Title == "") {
+    const title = document.getElementById("title").value;
+    const content = document.getElementById("txt").value;
+    
+    if(title == "") {
         alert("제목을 입력해주세요");
-        Title.focus();
         return false;
-    }
-
-    var Text = document.getElementById("txt").value;
-    if(Text == "") {
+    }else if(content == "") {
         alert("내용을 입력해주세요");
-        Text.focus();
         return false;
+    }else {
+        alert("글이 등록되었습니다!");
+        return true;  
     }
 }
 
