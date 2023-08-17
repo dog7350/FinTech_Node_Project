@@ -1,0 +1,15 @@
+<h3>boardList</h3>
+
+<% list.forEach( list => {%>
+    BNO : <%= list.BNO %><br>
+    CATEGORY : <%= list.CATEGORY %><br>
+    TITLE : <a href="/board/boardContent?id=<%= list.BNO %>"><%= list.TITLE %></a><br>
+    WRITER : <%= list.WRITER %><br>
+    WPROFILE : <%= list.WPROFILE %><br>
+    CONTENT : <%= list.CONTENT %><br>
+    TIME : <%= list.TIME %><br>
+    INQUIRY : <%= list.INQUIRY %><br>
+    <hr>
+<%});%>
+
+<a href="/board/boardContent">content 이동</a>

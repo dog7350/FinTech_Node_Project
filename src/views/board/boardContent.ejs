@@ -1,0 +1,79 @@
+<link rel="stylesheet" type="text/css" href="/public/css/views/boardContent.css">
+
+<%
+    const dateFormat = (date) => {
+        DAYS = date.getFullYear() + ". " + (date.getMonth() + 1) + ". " + date.getDate() + " / " + date.getHours() + " : " + date.getMinutes();
+        return DAYS;
+    }
+%>
+
+<div id="boardContentHeader">
+    <div id="boardContentWriter" class="mb-3">
+        <label class="form-label headerLabel">작성자</label>
+        <p id="headerboardContent"><img src="/upload/<%= content.WPROFILE %>" width="40px" height="40px">&nbsp;<%= content.WRITER %></p>
+    </div>
+    <div id="boardContentCategory" class="mb-3">
+        <label class="form-label headerLabel">Category</label>
+        <p id="headerboardContent"><%= content.CATEGORY %></p>
+    </div>
+    <div id="boardContentTitle" class="mb-3">
+        <label class="form-label headerLabel">제목</label>
+        <p id="headerboardContent"><%= content.TITLE %></p>
+    </div>
+    <div id="boardContentCategory" class="mb-3">
+        <label class="form-label headerLabel">조회수</label>
+        <p id="headerboardContent"><%= content.INQUIRY %></p>
+    </div>
+    <div id="boardContentCategory" class="mb-3">
+        <label class="form-label headerLabel">신고수</label>
+        <p id="headerboardContent"><%= boardReport %></p>
+    </div>
+    <div id="boardContentTime" class="mb-3">
+        <label class="form-label headerLabel">작성시간</label>
+        <p id="headerboardContent"><%= dateFormat(content.TIME) %></p>
+    </div>
+</div>
+
+<div id="boardContent" class="mb-3">
+    <div id="boardContentFile" class="mb-3">
+        <%if(file.length == 0){%>
+            파일 없음
+        <%}else{%> 
+            <% file.forEach (data => {%>
+                <img src="/upload/<%= data.FILENAME %>" width="40px" height="40px">
+            <%})%> 
+        <%}%>
+    </div>
+    <div>
+        <%= content.CONTENT %>
+    </div>
+</div>
+
+<div id="boardContentf" class="mb-3">
+    <div class="mb-3">
+        <%if(cmt.length == 0){%>
+            등록된 댓글이 없습니다. 댓글을 작성해주세요~
+        <%}else{%>
+            <% cmt.forEach (data => {%>
+                <%= data.CNO %><br>
+                <%= data.WRITER %><br>
+                <img src="/upload/<%= data.WPROFILE %>" width="40px" height="40px"><br>
+                <%= data.CONTENT %><br>
+                <%= data.TIME %><br>
+            <%})%>
+        <%}%>
+    </div>
+    <div>
+        <form >
+            <input id="cmtBno" type="hidden" name="bno" value="<%= content.BNO %>">
+            <input id="cmtBno" type="hidden" name="writer" value="<%= content.WRITER %>">
+            <input id="cmtBno" type="hidden" name="file" value="<%= content.WPROFILE %>">
+
+            <div class="mb-3" style="display: flex;">
+                <input id="msg" class="form-control" name="content" autocomplete="off"  />
+                <button class="btn btn-success">Send</button>
+            </div>
+        </form>
+    </div>
+</div>
+
