@@ -27,7 +27,10 @@ const read = {
     boardReport : async (id) => {
         const result = await dao.read.boardReport(id);
         return result['COUNT(*)'];
-    }   
+    },
+    upHit : async (bno) => {
+        pageUpdate.upHit(bno);
+    }  
 }
 
 const insert = {
@@ -38,4 +41,10 @@ const remove = {
 
 }
 
-module.exports = { read, insert, remove };
+const pageUpdate = {
+    upHit : async (bno) => {
+        await dao.daoUpdate.upHit(bno);
+    }
+}
+
+module.exports = { read, insert, remove};

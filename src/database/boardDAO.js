@@ -81,4 +81,13 @@ const remove = {
 
 }
 
-module.exports = { read, insert, remove };
+const daoUpdate = {
+    upHit : async (bno) => {
+        const con = await db.getConnection(dbConfig);
+        const sql =`update board set INQUIRY = INQUIRY+1 where bno='${bno}'`;
+        await con.execute(sql);
+        
+    }
+}
+
+module.exports = { read, insert, remove, daoUpdate };

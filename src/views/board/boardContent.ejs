@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/public/css/views/boardContent.css">
+<script src="/public/js/boardContent.js"></script>
 
 <%
     const dateFormat = (date) => {
@@ -10,7 +11,7 @@
 <div id="boardContentHeader">
     <div id="boardContentWriter" class="mb-3">
         <label class="form-label headerLabel">작성자</label>
-        <p id="headerboardContent"><img src="/upload/<%= content.WPROFILE %>" width="40px" height="40px">&nbsp;<%= content.WRITER %></p>
+        <p id="headerboardContent"><img src="/upload/<%= content.WPROFILE %>" width="25px" height="25px">&nbsp;<%= content.WRITER %></p>
     </div>
     <div id="boardContentCategory" class="mb-3">
         <label class="form-label headerLabel">Category</label>
@@ -20,11 +21,11 @@
         <label class="form-label headerLabel">제목</label>
         <p id="headerboardContent"><%= content.TITLE %></p>
     </div>
-    <div id="boardContentCategory" class="mb-3">
+    <div id="boardContentInquiry" class="mb-3">
         <label class="form-label headerLabel">조회수</label>
         <p id="headerboardContent"><%= content.INQUIRY %></p>
     </div>
-    <div id="boardContentCategory" class="mb-3">
+    <div id="boardContentReport" class="mb-3">
         <label class="form-label headerLabel">신고수</label>
         <p id="headerboardContent"><%= boardReport %></p>
     </div>
@@ -34,46 +35,62 @@
     </div>
 </div>
 
-<div id="boardContent" class="mb-3">
-    <div id="boardContentFile" class="mb-3">
+<div id="boardContentBody" class="mb-3">
+    
         <%if(file.length == 0){%>
-            파일 없음
         <%}else{%> 
+            <div id="boardContentFile" class="mb-3">
             <% file.forEach (data => {%>
-                <img src="/upload/<%= data.FILENAME %>" width="40px" height="40px">
+                <img id="123" src="/upload/<%= data.FILENAME %>" width="40px" height="40px" onclick="MouseEvent()">
             <%})%> 
+            </div>
         <%}%>
-    </div>
-    <div>
+
+    <div id="boardContent" class="mb-3">
         <%= content.CONTENT %>
     </div>
 </div>
-
-<div id="boardContentf" class="mb-3">
-    <div class="mb-3">
-        <%if(cmt.length == 0){%>
-            등록된 댓글이 없습니다. 댓글을 작성해주세요~
-        <%}else{%>
-            <% cmt.forEach (data => {%>
-                <%= data.CNO %><br>
-                <%= data.WRITER %><br>
-                <img src="/upload/<%= data.WPROFILE %>" width="40px" height="40px"><br>
-                <%= data.CONTENT %><br>
-                <%= data.TIME %><br>
-            <%})%>
-        <%}%>
-    </div>
-    <div>
-        <form >
+<div id="boardContentTotal">
+    <div id="boardContentcmt" class="mb-3">
+        <form>
             <input id="cmtBno" type="hidden" name="bno" value="<%= content.BNO %>">
-            <input id="cmtBno" type="hidden" name="writer" value="<%= content.WRITER %>">
-            <input id="cmtBno" type="hidden" name="file" value="<%= content.WPROFILE %>">
+            <input id="cmtWriter" type="hidden" name="writer" value="<%= content.WRITER %>">
+            <input id="cmtFile" type="hidden" name="file" value="<%= content.WPROFILE %>">
 
             <div class="mb-3" style="display: flex;">
-                <input id="msg" class="form-control" name="content" autocomplete="off"  />
+                <input class="form-control" name="content" autocomplete="off" placeholder="댓글을 입력해주세요" />
                 <button class="btn btn-success">Send</button>
             </div>
         </form>
     </div>
+    <%if(cmt.length == 0){%>
+        등록된 댓글이 없습니다. 댓글을 작성해주세요~
+    <%}else{%>
+        <% cmt.forEach (data => {%>
+            <div class="cmtContainer mb-3">
+                <div class="cmtListHeader mb-3">
+                    <div class="cmtListProfile mb-3">
+                        <img src="/upload/<%= data.WPROFILE %>" width="25px" height="25px">&nbsp;<%= data.WRITER %>
+                    </div>
+                    <div class="cmtListTime mb-3">
+                        <%= dateFormat(data.TIME) %>
+                    </div>
+                    <div class="cmtListBtn mb-3">
+                        <form action="#">
+                            <input id="cmtBno" type="hidden" name="bno" value="<%= content.BNO %>">
+                            <input id="cmtCno" type="hidden" name="cno" value="<%= content.CNO %>">
+                
+                            <div class="mb-3">
+                                <button class="btn btn-secondary">수정</button>
+                                <button class="btn btn-secondary">삭제</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="cmtListContent mb-3" >
+                    <%= data.CONTENT %>
+                </div>
+            </div>
+        <%})%>
+    <%}%>    
 </div>
-

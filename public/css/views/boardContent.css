@@ -9,7 +9,19 @@
     margin: auto;
     text-align: left;
 }
+#boardContentCategory{
+    margin: auto;
+    text-align: center;
+}
 #boardContentTitle {
+    margin: auto;
+    text-align: center;
+}
+#boardContentInquiry{
+    margin: auto;
+    text-align: center;
+}
+#boardContentReport{
     margin: auto;
     text-align: center;
 }
@@ -17,20 +29,23 @@
     margin: auto;
     text-align: right;
 }
-#boardContentCategory{
-    margin: auto;
-    text-align: center;
-}
 
-#boardContent {
+#boardContentBody {
     margin: auto;
     margin-bottom: 10px;
     width: 70%;
     border-bottom: 1px solid gray;
     background-color: bisque;
 }
+#boardContentFile{
+    background-color: gray;
+}
+#boardContent{
+    margin: auto;
+    text-align: left;
+}
 
-#boardContentf {
+#boardContentfooter {
     margin: auto;
     margin-bottom: 10px;
     width: 70%;
@@ -39,12 +54,13 @@
 }
 
 #boardContentDiv {
-    width: 100%;
+    margin: auto;
+    margin-bottom: 10px;
+    width: 70%;
+    border-bottom: 1px solid gray;
+    background-color: aquamarine;
 }
 
-#boardContentFile{
-    background-color: gray;
-}
 
 .headerLabel {
     font-size: 12pt;
@@ -68,15 +84,8 @@
     font-weight: bold;
 }
 
-#boardContentfooter {
-    margin: auto;
-    display: flex;
-    width: 70%;
-    height: 100%;
-}
-
 #qnaChatContainer {
-    width: 84.9999%;
+    width: 70%;
 }
 
 #qnaFileContainer {
@@ -112,4 +121,55 @@
     margin-bottom: 10px;
     min-height: 55vh;
     background-color: azure;
+}
+
+.footerLabel {
+    font-size: 10pt;
+    font-weight: bold;
+}
+
+#boardContentTotal{
+    width: 70%;
+    margin: auto;
+    margin-bottom: 10px;
+}
+#boardContentcmt{
+    margin: auto;
+    margin-bottom: 10px;
+    width: 100%;
+    border-bottom: 1px solid gray;
+}
+#boardContentf {
+    margin: auto;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: bisque;
+}
+
+.cmtContainer{
+    width: 100%;
+    border-bottom: 1px solid gray;
+    margin: auto;
+}
+.cmtListHeader{
+    display: flex;
+    font-size: 10pt;
+    margin : 10px 0px;
+}
+.cmtListProfile{
+    margin-right: auto;
+    text-align: left;
+}
+.cmtListTime{
+    margin-left: auto;
+    text-align: right;
+}
+.cmtListBtn{
+    margin : 0px 10px;
+}
+.cmtListContent{
+    margin: 10px 0px;
+    font-size: 13pt;
+    font-weight: bold;
 }
