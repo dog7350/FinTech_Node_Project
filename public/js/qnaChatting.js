@@ -75,4 +75,21 @@ $(() => {
             }
         }
     });
+
+    socket.on('qna fileUp', (msg) => {
+        myId = document.getElementById("qnaChatId").value;
+        id = msg.split("|")[0];
+        url = msg.split("|")[1];
+
+        if (url == window.location.pathname + window.location.search)
+            if (id != myId)
+                location.reload();
+        return;
+    });
+
+    document.getElementById("qnaFileSubBtn").addEventListener("change", () => {
+        document.getElementById("qnaChatFileForm").submit();
+        id = document.getElementById("qnaChatId").value;
+        socket.emit('qna fileUp', id + "|" + window.location.pathname + window.location.search);
+    });
 });

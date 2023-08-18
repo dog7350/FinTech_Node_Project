@@ -36,6 +36,10 @@ io.on('connection', (socket) => {
         io.emit("qna message", msg);
     });
 
+    socket.on("qna fileUp", (msg) => {
+        io.emit("qna fileUp", msg);
+    });
+
     socket.on("disconnect", () => {
         try {
             mongoose.disconnect();

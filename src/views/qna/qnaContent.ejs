@@ -1,5 +1,9 @@
 <link rel="stylesheet" type="text/css" href="/public/css/views/qnaContent.css">
 
+<script src="/socket.io/socket.io.js"></script>
+<script src="/public/js/jquery.js"></script>
+<script src="/public/js/qnaChatting.js"></script>
+
 <%
     const dateFormat = (date) => {
         DAYS = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -86,16 +90,7 @@
             <input type="hidden" name="bno" value="<%= chat[0].BNO %>">
             <input type="hidden" name="writer" value="<%= chat[0].WRITER %>">
             <input type="hidden" name="time" value="<%= dateFormat(chat[0].TIME) %>">
-            <input class="form-control" type="file" name="qnaFiles" onchange="qnaFileUp()" multiple>
+            <input id="qnaFileSubBtn" class="form-control" type="file" name="qnaFiles" onchange="qnaFileUp()" multiple>
         </form>
     </div>
 </div>
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="/public/js/jquery.js"></script>
-<script src="/public/js/qnaChatting.js"></script>
-<script>
-    const qnaFileUp = () => {
-        document.getElementById("qnaChatFileForm").submit();
-    }
-</script>

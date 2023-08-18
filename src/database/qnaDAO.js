@@ -74,7 +74,6 @@ const insert = {
     },
     fileUp : async (body, file) => {
         sql = `INSERT INTO qnaFile VALUES(${body.bno}, '${body.writer}', TO_TIMESTAMP('${body.time}', 'YY/MM/DD HH24:MI:SS'), '${file}')`;
-        console.log(sql);
         const con = await db.getConnection(dbConfig);
         result = 0;
         try {
