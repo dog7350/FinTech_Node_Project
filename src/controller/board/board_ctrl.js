@@ -3,16 +3,12 @@ const renObj = require("../renObj");
 const cookieConfig = require("../../../config/cookie_config");
 
 const views = {
-    boardList : async (req, res) =>{
-        const list = await service.read.boardList();
-        res.render("board/boardList", renObj(req, {list : list}))
-    },
     boardContent : async (req, res) =>{
         const content = await service.read.boardContent(req.query.id);
         const boardFile = await service.read.boardFile(req.query.id);
         const cmt = await service.read.cmt(req.query.id);
-        const boardReport = await service.read.boardReport(req.query.id); 
-
+        const boardReport = await service.read.boardReport(req.query.id);
+        
         let userCookie = req.cookies.myCookie;
   
         console.log("쿠키: ", userCookie);
@@ -24,22 +20,25 @@ const views = {
 
         console.log("123", content)
         res.render("board/boardContent", renObj(req, {content : content, file : boardFile, cmt : cmt, boardReport : boardReport}))
+
+    },
+    list : async (req,res) => {
+        console.log("req.query.start1 :", req.query.start, req.query.category);
+        const totalContent = await service.read.totalContent(req.query.category);
+
+        console.log("req.query.start1 :", req.query.start, req.query.category);
+        const data = await service.read.list(req.query.start, totalContent, req.query.category);
+        
+        console.log("req.query.start2 :", data.start, data.list);
+        const category = req.query.category;
+        res.render("board/boardList", renObj(req,{list:data.list, start:data.start, page:data.page, category:category}));
+
     }
 };
 
-const process = {
 
+const process = {
+    
 };
 
 module.exports = { views, process };
-
-// cmtinsert : async (req, res) => {
-//     cno = await service.read.cmtNum(req.body.bno);
-//     if (cno == null) {
-//         cno = 1
-//     } else {
-//         cno += 1;
-//     }
-//     service.insert(cno, req.body);
-// INSERT INTO cmt VALUSE(body.bno, cno, )
-// }

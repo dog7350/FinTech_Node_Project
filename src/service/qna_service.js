@@ -16,6 +16,7 @@ const pageOperation = (start, totalCounter) => {
 const read = {
     totalContent : async () => {
         const result = await dao.read.totalContent();
+        console.log("start : ", result)
         return result.rows[0]['COUNT(*)'];
     },
     list : async (start, totalCounter) => {
@@ -48,6 +49,11 @@ const insert = {
     contentChat : async (body) => {
         const result = dao.insert.contentChat(body);
         return result;
+    },
+    fileUp : async (body, files) => {
+        for(i = 0; i < files.length; i++) {
+            result = await dao.insert.fileUp(body, files[i].filename);
+        }
     }
 }
 

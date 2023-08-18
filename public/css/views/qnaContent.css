@@ -62,8 +62,10 @@
 
 #qnaChatList {
     margin-bottom: 10px;
+    overflow-y: scroll;
     width: 100%;
     min-height: 55vh;
+    max-height: 55vh;
     background-color: bisque;
 }
 #rightContent {
@@ -87,6 +89,8 @@
 
 #qnaFileList {
     margin-bottom: 10px;
+    overflow-y: scroll;
     min-height: 55vh;
+    max-height: 55vh;
     background-color: azure;
 }
