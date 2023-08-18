@@ -4,10 +4,10 @@ const cookieConfig = require("../../../config/cookie_config");
 
 const views = {
     boardContent : async (req, res) =>{
-        const content = await service.read.boardContent(req.query.id);
-        const boardFile = await service.read.boardFile(req.query.id);
-        const cmt = await service.read.cmt(req.query.id);
-        const boardReport = await service.read.boardReport(req.query.id);
+        const content = await service.read.boardContent(req.query.bno);
+        const boardFile = await service.read.boardFile(req.query.bno);
+        const cmt = await service.read.cmt(req.query.bno);
+        const boardReport = await service.read.boardReport(req.query.bno);
         
         let userCookie = req.cookies.myCookie;
   
@@ -15,7 +15,7 @@ const views = {
 
         if(userCookie == undefined){ //if문으로 걸러서 쿠키가 있다면? 조회수증가하지마, 없다면? 증가해
             res.cookie("myCookie", "valueCookie", cookieConfig); //쿠키 생성
-            await service.read.upHit(req.query.id); //조회수 올리고
+            await service.read.upHit(req.query.bno); //조회수 올리고
         }
 
         console.log("123", content)
@@ -48,7 +48,7 @@ const process = {
         for(let i=0; i < req.files.length; i++) {
             const result =  await service.insert.fileName(bno,req.files[i].filename);
         }
-        res.redirect("/board/boardList");
+        res.redirect("/board/boardList?category=all");
     },
 
     boardModifyForm : async (req,res) => {

@@ -2,9 +2,9 @@ const db = require("./db_object");
 const dbConfig = require("../../config/db_config");
 
 const read = {
-    boardContent : async (id) => {
-        console.log("dao boardContent : ", id)
-        const sql = `select * from board where bno = ${id}`;
+    boardContent : async (bno) => {
+        console.log("dao boardContent : ", bno)
+        const sql = `select * from board where bno = ${bno}`;
         const con = await db.getConnection(dbConfig);
 
         let result = 0;
@@ -16,9 +16,9 @@ const read = {
         }
         return result.rows[0];
     },
-    boardFile : async (id) => {
-        console.log("dao boardFile : ", id)
-        const sql = `select * from boardfile where bno = ${id}`;
+    boardFile : async (bno) => {
+        console.log("dao boardFile : ", bno)
+        const sql = `select * from boardfile where bno = ${bno}`;
         const con = await db.getConnection(dbConfig);
 
         let result = 0;
@@ -30,9 +30,9 @@ const read = {
         }
         return result.rows;
     },
-    cmt : async (id) => {
-        console.log("dao cmt : ", id)
-        const sql = `select * from cmt where bno = ${id}`;
+    cmt : async (bno) => {
+        console.log("dao cmt : ", bno)
+        const sql = `select * from cmt where bno = ${bno}`;
         const con = await db.getConnection(dbConfig);
 
         let result = 0;
@@ -44,9 +44,9 @@ const read = {
         }
         return result.rows;
     },
-    boardReport : async (id) => {
-        console.log("dao boardReport : ", id)
-        const sql = `select count(*) from boardreport where bno = ${id}`;
+    boardReport : async (bno) => {
+        console.log("dao boardReport : ", bno)
+        const sql = `select count(*) from boardreport where bno = ${bno}`;
         const con = await db.getConnection(dbConfig);
 
         let result = 0;

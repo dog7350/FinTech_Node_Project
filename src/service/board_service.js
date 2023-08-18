@@ -14,26 +14,26 @@ const pageOperation = (start, totalCounter) => {
 }
 
 const read = {
-    boardContent : async (id) => {
-        console.log("ser boardContent : ", id)
-        const result = await dao.read.boardContent(id);
+    boardContent : async (bno) => {
+        console.log("ser boardContent : ", bno)
+        const result = await dao.read.boardContent(bno);
         console.log("ser boardContent : ", result)
         return result;
     },
-    boardFile : async (id) => {
-        console.log("ser boardFile : ", id)
-        const result = await dao.read.boardFile(id);
+    boardFile : async (bno) => {
+        console.log("ser boardFile : ", bno)
+        const result = await dao.read.boardFile(bno);
         console.log("ser boardFile : ", result)
         return result;
     },
-    cmt : async (id) => {
-        console.log("ser cmt : ", id)
-        const result = await dao.read.cmt(id);
+    cmt : async (bno) => {
+        console.log("ser cmt : ", bno)
+        const result = await dao.read.cmt(bno);
         console.log("ser cmt : ", result)
         return result;
     },
-    boardReport : async (id) => {
-        const result = await dao.read.boardReport(id);
+    boardReport : async (bno) => {
+        const result = await dao.read.boardReport(bno);
         return result['COUNT(*)'];
     },
     upHit : async (bno) => {
@@ -73,6 +73,10 @@ const insert = {
     fileName : async (num,fileName) => {
         const result = await dao.insert.fileNameInsert(num,fileName);
     }
+}
+
+const remove = {
+
 }
 
 const pageUpdate = {

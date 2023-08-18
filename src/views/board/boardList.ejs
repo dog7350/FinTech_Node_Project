@@ -13,7 +13,7 @@
     <div id="boardHeader" class="mb-3">
         <p id="boardTitle">게시판</p>
         <div id="headerBtn">
-            <input class="btn btn-info" type="button" value="글쓰기" onclick="location.href='/board/insertForm'">
+            <input class="btn btn-info" type="button" value="글쓰기" onclick="location.href='/board/boardForm'">
         </div>
     </div>
 
@@ -29,7 +29,7 @@
                         <td width="50px;"><%= data.BNO %></td>
                         <td width="50px"><%= data.CATEGORY %></td>
                         <td style="text-align: left;">
-                            <a class="boardLink" href="/board/content?bno=<%= data.BNO %>"><%= data.TITLE %></a>
+                            <a class="boardLink" href="/board/boardContent?bno=<%= data.BNO %>"><%= data.TITLE %></a>
                             <% if (data.TIME.getDate() == now.getDate()) { %>
                                 <img src="/public/images/DefaultNew.gif">
                             <% } %>
