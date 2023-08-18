@@ -59,21 +59,26 @@ const read = {
         data.start = start;
         data.list = list.rows;
         return data;
+    },
+    maxNumber : async () => {
+        const result = await dao.insert.boardNumber();
+       
+        return result;
     }
 }
-
 const insert = {
-    
-}
-
-const remove = {
-
+    BoardInsert : async (body,member) => {
+        const result = await dao.insert.boardContentInsert(body,member);
+    },
+    fileName : async (num,fileName) => {
+        const result = await dao.insert.fileNameInsert(num,fileName);
+    }
 }
 
 const pageUpdate = {
     upHit : async (bno) => {
-        await dao.daoUpdate.upHit(bno);
+        await dao.update.upHit(bno);
     }
 }
 
-module.exports = { read, insert, remove};
+module.exports = { read, insert, remove };

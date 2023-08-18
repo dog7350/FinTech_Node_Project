@@ -90,14 +90,56 @@ const read = {
 }
 
 const insert = {
+    boardContentInsert : async (body, member) => {
     
+        const sql = await `INSERT INTO board values(board_SEQ.NEXTVAL,'${body.category}','${body.title}','${member.ID}','${member.PROFILE}','${body.content}',sysdate,0)`;
+            
+        const con = await db.getConnection(dbConfig);
+        
+        let result;
+        
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e)
+        }
+        
+        
+    },
+
+    fileNameInsert : async (num,fileName) => {
+        
+        const sql = await `INSERT INTO boardFile values('${num}','${fileName}')`;
+        const con = await db.getConnection(dbConfig);
+        let result;
+
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e)
+        }
+    },
+
+    boardNumber : async () => {
+        const sql = await `SELECT max(bno) from board`;
+        const con = await db.getConnection(dbConfig);
+        let result;
+        
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e);        
+        }
+
+        return result.rows[0]["MAX(BNO)"];
+    }
 }
 
 const remove = {
 
 }
 
-const daoUpdate = {
+const update = {
     upHit : async (bno) => {
         const con = await db.getConnection(dbConfig);
         const sql =`update board set INQUIRY = INQUIRY+1 where bno='${bno}'`;
@@ -105,4 +147,5 @@ const daoUpdate = {
     }
 }
 
-module.exports = { read, insert, remove, daoUpdate };
+
+module.exports = { read, insert, update };
