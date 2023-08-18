@@ -15,13 +15,13 @@ function formCheck() {
     
     if(title == "") {
         alert("제목을 입력해주세요");
-        return false;
+        return;
     }else if(content == "") {
         alert("내용을 입력해주세요");
-        return false;
+        return;
     }else {
         alert("글이 등록되었습니다!");
-        return true;  
+        return document.getElementById("boardForm").submit();  
     }
 }
 

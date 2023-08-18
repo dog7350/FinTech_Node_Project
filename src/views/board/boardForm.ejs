@@ -3,7 +3,7 @@
 
 <h3>글쓰기</h3>
 <div class="boardContainer">
-    <form method="post" enctype="multipart/form-data"  action="/board/boardWrite">
+    <form id="boardForm" method="post" enctype="multipart/form-data"  action="/board/boardWrite">
         <div class="categoryContainer">
             <label for="category">카테고리 : </label>
             <select name="category" class="category">
@@ -17,7 +17,7 @@
                 <% } %>
             </select><br><br>
             <label for="title">제목 : </label>
-            <input name="title" class="title" type="text" placeholder="제목을 입력해주세요">
+            <input id="title" name="title" class="title" type="text" placeholder="제목을 입력해주세요">
         </div>
         <hr>
         
@@ -37,7 +37,7 @@
         
         <hr>
         <div class="save">
-             <input type="submit" onclick="formCheck()" value="작성 완료"> &nbsp;
+             <input type="button" onclick="formCheck()" value="작성 완료"> &nbsp;
             <button type="reset">다시 입력</button> &nbsp;
             <button type="button" onclick="location.href='/board/boardList';">목록 보기</button>
         </div>

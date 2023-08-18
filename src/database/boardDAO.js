@@ -17,8 +17,35 @@ const daoInsert = {
         }
         
         
+    },
+
+    fileNameInsert : async (num,fileName) => {
+        
+        const sql = await `INSERT INTO boardFile values('${num}','${fileName}')`;
+        const con = await db.getConnection(dbConfig);
+        let result;
+
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e)
+        }
+    },
+
+    boardNumber : async () => {
+        const sql = await `SELECT max(bno) from board`;
+        const con = await db.getConnection(dbConfig);
+        let result;
+        
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e);        
+        }
+        // console.log(result.rows[0]["MAX(BNO)"]);
+
+        return result.rows[0]["MAX(BNO)"];
     }
-    
 
 }
 
