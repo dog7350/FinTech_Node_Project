@@ -1,10 +1,17 @@
 <link rel="stylesheet" type="text/css" href="/public/css/views/qnaContent.css">
 
+<script src="/socket.io/socket.io.js"></script>
+<script src="/public/js/jquery.js"></script>
+<script src="/public/js/qnaChatting.js"></script>
+
 <%
     const dateFormat = (date) => {
-        DAYS = date.getFullYear() + ". " + (date.getMonth() + 1) + ". " + date.getDate() + " / " + date.getHours() + " : " + date.getMinutes();
+        DAYS = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
         return DAYS;
     }
+    const image = ['JPG', 'JPEG', 'PNG', 'GIF'];
+    const movie = ['MP4', 'AVI'];
+    const music = ['MP3', 'WAV'];
 %>
 
 <div id="qnaHeader">
@@ -24,7 +31,7 @@
 
 <div id="qnaContent" class="mb-3">
     <label class="form-label headerLabel">질문 내용</label>
-    <div id="qnaContentDiv"></div>
+    <div id="qnaContentDiv"><input id="qnaContentBtn" type="hidden" value="<%= chat[0].CONTENT %>"></div>
 </div>
 
 <div id="qnaContentContainer">
@@ -52,42 +59,38 @@
         </div>
 
         <form id="qnaChatForm">
-            <input id="chatBno" type="hidden" name="bno" value="<%= chat[0].BNO %>">
-            <input id="chatTitle" type="hidden" name="title" value="<%= chat[0].TITLE %>">
-            <input id="chatId" type="hidden" name="id" value="<%= user.ID %>">
-            <input id="chatProfile" type="hidden" name="profile" value="<%= user.PROFILE %>">
+            <input id="qnaChatBno" type="hidden" name="bno" value="<%= chat[0].BNO %>">
+            <input id="qnaChatTitle" type="hidden" name="title" value="<%= chat[0].TITLE %>">
+            <input id="qnaChatId" type="hidden" name="id" value="<%= user.ID %>">
+            <input id="qnaChatProfile" type="hidden" name="profile" value="<%= user.PROFILE %>">
 
             <div class="mb-3" style="display: flex;">
-                <input id="msg" class="form-control" name="content" autocomplete="off"  />
+                <input id="qnaMsg" class="form-control" name="content" autocomplete="off"  />
                 <button class="btn btn-success">Send</button>
             </div>
         </form>
-
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="/public/js/jquery.js"></script>
-        <script src="/public/js/qnaChatting.js"></script>
     </div>
 
     <div id="qnaFileContainer">
         <div id="qnaFileList">
-
+            <% files.forEach(data => { %>
+                <div class="qnaFileDiv">
+                    <% if (image.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
+                        <img src="/upload/<%= data.FILENAME %>" width="100%" height="120px">
+                    <% } else if (movie.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
+                        <video src="/upload/<%= data.FILENAME %>" width="100%" height="120px" controls></video>
+                    <% } else if (music.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
+                        <audio src="/upload/<%= data.FILENAME %>" width="100%" height="120px" controls></audio>
+                    <% } %>
+                </div>
+            <% }) %>
         </div>
         
-        <form id="chatFileForm" action="#" method="post" enctype="multipart/form-data">
-            <input class="form-control" type="file" name="qnaFile" onchange="" multiple>
+        <form id="qnaChatFileForm" action="/qna/fileUp" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="bno" value="<%= chat[0].BNO %>">
+            <input type="hidden" name="writer" value="<%= chat[0].WRITER %>">
+            <input type="hidden" name="time" value="<%= dateFormat(chat[0].TIME) %>">
+            <input id="qnaFileSubBtn" class="form-control" type="file" name="qnaFiles" onchange="qnaFileUp()" multiple>
         </form>
     </div>
 </div>
-
-<script>
-    window.onload = () => {
-        contDiv = document.getElementById("qnaContentDiv");
-        str = '<%= chat[0].CONTENT %>';
-        str = str.replaceAll("&lt;", "<");
-        str = str.replaceAll("&gt;", ">");
-        str = str.replaceAll("\"", "");
-        str = str.replaceAll("&quot;", "\"");
-        str = str.replaceAll("&#34;", "\"");
-        contDiv.innerHTML = str;
-    }
-</script>
