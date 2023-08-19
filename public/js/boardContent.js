@@ -9,3 +9,9 @@ function MouseEvent(){
     container.style.height = "100px";
     }
 }
+
+function Modify() {
+    
+    location.href = "/board/boardModifyForm"
+
+}

@@ -30,11 +30,12 @@ router.get("/boardForm",ctrl.views.boardForm);
 
 router.post("/boardWrite",upload.array("fileUp"),ctrl.process.boardWrite);
 
-router.get("/boardModifyForm",ctrl.process.boardModifyForm);
+router.get("/boardModifyForm/:bno",ctrl.views.boardModifyForm);
+
 
 
 
 router.get("/boardContent", ctrl.views.boardContent);
-router.get("/boardList", ctrl.views.list);
+
 
 module.exports = router;

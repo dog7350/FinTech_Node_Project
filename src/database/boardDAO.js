@@ -3,63 +3,65 @@ const dbConfig = require("../../config/db_config");
 
 const read = {
     boardContent : async (bno) => {
-        console.log("dao boardContent : ", bno)
+        
         const sql = `select * from board where bno = ${bno}`;
         const con = await db.getConnection(dbConfig);
 
         let result = 0;
         try {
             result = await con.execute(sql);
-            console.log("dao boardContent : ", result)
+            
         } catch (e) {
             console.log(e);
         }
+        console.log("DAO : " + result.rows[0]);
+        console.log("=============");
         return result.rows[0];
     },
     boardFile : async (bno) => {
-        console.log("dao boardFile : ", bno)
+        
         const sql = `select * from boardfile where bno = ${bno}`;
         const con = await db.getConnection(dbConfig);
 
         let result = 0;
         try {
             result = await con.execute(sql);
-            console.log("dao boardFile : ", result)
+            
         } catch (e) {
             console.log(e);
         }
         return result.rows;
     },
     cmt : async (bno) => {
-        console.log("dao cmt : ", bno)
+        
         const sql = `select * from cmt where bno = ${bno}`;
         const con = await db.getConnection(dbConfig);
 
         let result = 0;
         try {
             result = await con.execute(sql);
-            console.log("dao cmt : ", result)
+            
         } catch (e) {
             console.log(e);
         }
         return result.rows;
     },
     boardReport : async (bno) => {
-        console.log("dao boardReport : ", bno)
+        
         const sql = `select count(*) from boardreport where bno = ${bno}`;
         const con = await db.getConnection(dbConfig);
 
         let result = 0;
         try {
             result = await con.execute(sql);
-            console.log("dao boardReport : ", result)
+            
         } catch (e) {
             console.log(e);
         }
         return result.rows[0];
     },
    totalContent : async (category) => {
-        console.log(category);
+        
         var sql = ``;
         if (category == "all") sql = `SELECT count(*) FROM board`;
         else sql = `SELECT count(*) FROM board WHERE category='${category}'`;
@@ -68,9 +70,9 @@ const read = {
         result = 0;
         try{
             result = await con.execute(sql);
-            console.log("리스트: ", result);
+            
         }catch(e){
-            console.log(err);
+            console.log(e);
         }
         return result;
     },
@@ -87,7 +89,25 @@ const read = {
         }
         return result;
     }
+
+    // WriterCheck : async (bno) => {
+        
+    //     const sql = `SELECT * FROM board where bno = ${bno}`;
+    //     const con = await db.getConnection(dbConfig);
+
+    //     let result = 0;
+    //     try {
+    //         result = await con.execute(sql);
+            
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    //     console.log(result.rows);
+    //     return result.rows;
+    // }
 }
+
+
 
 const insert = {
     boardContentInsert : async (body, member) => {

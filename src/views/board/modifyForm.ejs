@@ -1,1 +1,15 @@
-<h1>변경페이지</h1>
+<h1>수정하기</h1>
+<%= console.log("-----------") %>
+<%= console.log(content) %>
+<%= console.log(file) %>
+
+<from action="">
+    <div>
+        <label for="title">제목 : </label><br>
+        <input type="text" id="title" value="<%= content.TITLE %>">
+        <br>
+        <label for="content">내용 : </label><br>
+        <textarea id="content" ><%= content.CONTENT %></textarea>
+        <hr>
+    </div>
+</from>

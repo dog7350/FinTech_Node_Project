@@ -50,6 +50,20 @@
         <%= content.CONTENT %>
     </div>
 </div>
+
+<!-- <%= console.log(content) %>
+<%= console.log(user) %> -->
+<% if(content.WRITER === user.ID) { %>
+<div id="boardModifyContainer">
+    
+        <div id="ModifyMenu" class="mb-3">
+            <input type="button" onclick="location.href='/board/boardModifyForm/<%=content.BNO %>'" value="수정하기">
+            <input type="button" onclick="" value="삭제하기">
+        </div>
+    
+</div>
+<% } %>
+
 <div id="boardContentTotal">
     <div id="boardContentcmt" class="mb-3">
         <form>
@@ -79,10 +93,12 @@
                         <form action="#">
                             <input id="cmtBno" type="hidden" name="bno" value="<%= content.BNO %>">
                             <input id="cmtCno" type="hidden" name="cno" value="<%= content.CNO %>">
-                
+                            
                             <div class="mb-3">
+                            <% if(content.WRITER === user.ID ) { %>    
                                 <button class="btn btn-secondary">수정</button>
                                 <button class="btn btn-secondary">삭제</button>
+                            <% } %>
                             </div>
                         </form>
                     </div>
