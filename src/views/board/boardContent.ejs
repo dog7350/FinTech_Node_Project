@@ -41,7 +41,9 @@
         <%}else{%> 
             <div id="boardContentFile" class="mb-3">
             <% file.forEach (data => {%>
-                <img id="123" src="/upload/<%= data.FILENAME %>" width="40px" height="40px" onclick="MouseEvent()">
+                <div>
+                    <img id="<%= data.FILENAME %>" src="/upload/<%= data.FILENAME %>" width="40px" height="40px" onclick="MouseEvent('<%= data.FILENAME %>')">
+                </div>
             <%})%> 
             </div>
         <%}%>
@@ -52,10 +54,9 @@
 </div>
 <div id="boardContentTotal">
     <div id="boardContentcmt" class="mb-3">
-        <form>
+        <form action="/comment/register" method="post">
             <input id="cmtBno" type="hidden" name="bno" value="<%= content.BNO %>">
-            <input id="cmtWriter" type="hidden" name="writer" value="<%= content.WRITER %>">
-            <input id="cmtFile" type="hidden" name="file" value="<%= content.WPROFILE %>">
+            <input id="cmtWriter" type="hidden" name="writer" value="<%=userCookie%>">
 
             <div class="mb-3" style="display: flex;">
                 <input class="form-control" name="content" autocomplete="off" placeholder="댓글을 입력해주세요" />
@@ -76,18 +77,19 @@
                         <%= dateFormat(data.TIME) %>
                     </div>
                     <div class="cmtListBtn mb-3">
-                        <form action="#">
-                            <input id="cmtBno" type="hidden" name="bno" value="<%= content.BNO %>">
-                            <input id="cmtCno" type="hidden" name="cno" value="<%= content.CNO %>">
-                
+                        <%if(userCookie === data.WRITER ) {%>
                             <div class="mb-3">
-                                <button class="btn btn-secondary">수정</button>
-                                <button class="btn btn-secondary">삭제</button>
+                                <button class="btn btn-secondary" onclick="cmtModify('<%=data.CNO%>')">수정</button>
+                                <form action="/comment/delete" method="get">
+                                    <input id="cmtBno" type="hidden" name="bno" value="<%=data.BNO%>">
+                                    <input id="cmtCno" type="hidden" name="cno" value="<%=data.CNO%>">
+                                    <button class="btn btn-secondary" >삭제</button>
+                                </form>
                             </div>
-                        </form>
+                        <%}%>
                     </div>
                 </div>
-                <div class="cmtListContent mb-3" >
+                <div id="cmtContent<%= data.CNO%>" class="cmtListContent">
                     <%= data.CONTENT %>
                 </div>
             </div>

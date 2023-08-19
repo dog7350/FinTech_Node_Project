@@ -8,22 +8,22 @@ const views = {
         res.render("board/boardList", renObj(req, {list : list}))
     },
     boardContent : async (req, res) =>{
-        const content = await service.read.boardContent(req.query.id);
-        const boardFile = await service.read.boardFile(req.query.id);
-        const cmt = await service.read.cmt(req.query.id);
-        const boardReport = await service.read.boardReport(req.query.id); 
+        const content = await service.read.boardContent(req.query.id); //게시글
+        const boardFile = await service.read.boardFile(req.query.id);   //게시글 파일
+        const cmt = await service.read.cmt(req.query.id);   //댓글
+        const boardReport = await service.read.boardReport(req.query.id);  //게시글 조회수
 
-        let userCookie = req.cookies.myCookie;
+        const userCookie = req.cookies.myCookie;
   
         console.log("쿠키: ", userCookie);
 
         if(userCookie == undefined){ //if문으로 걸러서 쿠키가 있다면? 조회수증가하지마, 없다면? 증가해
-            res.cookie("myCookie", "valueCookie", cookieConfig); //쿠키 생성
+            res.cookie("myCookie", req.session.user.ID, cookieConfig); //쿠키 생성
             await service.read.upHit(req.query.id); //조회수 올리고
         }
+        console.log("쿠키2: ", userCookie);
 
-        console.log("123", content)
-        res.render("board/boardContent", renObj(req, {content : content, file : boardFile, cmt : cmt, boardReport : boardReport}))
+        res.render("board/boardContent", renObj(req, {content : content, file : boardFile, cmt, boardReport, userCookie}))
     }
 };
 
@@ -32,14 +32,3 @@ const process = {
 };
 
 module.exports = { views, process };
-
-// cmtinsert : async (req, res) => {
-//     cno = await service.read.cmtNum(req.body.bno);
-//     if (cno == null) {
-//         cno = 1
-//     } else {
-//         cno += 1;
-//     }
-//     service.insert(cno, req.body);
-// INSERT INTO cmt VALUSE(body.bno, cno, )
-// }
