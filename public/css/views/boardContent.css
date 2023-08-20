@@ -2,7 +2,7 @@
     margin: auto;
     margin-bottom: 10px;
     display: flex;
-    width: 70%;
+    width: 100%;
     border-bottom: 1px solid gray;
 }
 #boardContentWriter {
@@ -33,7 +33,7 @@
 #boardContentBody {
     margin: auto;
     margin-bottom: 10px;
-    width: 70%;
+    width: 100%;
     border-bottom: 1px solid gray;
     background-color: bisque;
 }
@@ -48,7 +48,7 @@
 #boardContentfooter {
     margin: auto;
     margin-bottom: 10px;
-    width: 70%;
+    width: 100%;
     border-bottom: 1px solid gray;
     background-color: lightgray;
 }
@@ -56,7 +56,7 @@
 #boardContentDiv {
     margin: auto;
     margin-bottom: 10px;
-    width: 70%;
+    width: 100%;
     border-bottom: 1px solid gray;
     background-color: aquamarine;
 }
@@ -129,7 +129,7 @@
 }
 
 #boardContentTotal{
-    width: 70%;
+    width: 100%;
     margin: auto;
     margin-bottom: 10px;
 }

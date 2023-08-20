@@ -16,7 +16,6 @@ const pageOperation = (start, totalCounter) => {
 const read = {
     totalContent : async () => {
         const result = await dao.read.totalContent();
-        console.log("start : ", result)
         return result.rows[0]['COUNT(*)'];
     },
     list : async (start, totalCounter) => {
@@ -43,11 +42,11 @@ const read = {
 
 const insert = {
     insert : async (body) => {
-        const result = dao.insert.insert(body);
+        const result = await dao.insert.insert(body);
         return result;
     },
     contentChat : async (body) => {
-        const result = dao.insert.contentChat(body);
+        const result = await dao.insert.contentChat(body);
         return result;
     },
     fileUp : async (body, files) => {
@@ -58,7 +57,14 @@ const insert = {
 }
 
 const remove = {
-
+    delete : async (bno) => {
+        const result = await dao.remove.delete(bno);
+        return result;
+    },
+    fileDelete : async (bno, fileName) => {
+        const result = await dao.remove.fileDelete(bno, fileName);
+        return result;
+    }
 }
 
 module.exports = { read, insert, remove };

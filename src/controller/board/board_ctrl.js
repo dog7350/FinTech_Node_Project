@@ -2,8 +2,23 @@ const service = require("../../service/board_service");
 const renObj = require("../renObj");
 const cookieConfig = require("../../../config/cookie_config");
 
+const rtnMsg = (msg, url) => {
+    var str = `
+                <script>
+                    alert('${msg}');
+                    location.href='${url}';
+                </script>
+              `;
+    return str;
+}
+
 const views = {
     boardContent : async (req, res) =>{
+        if (req.session.user == undefined) {
+            res.send(rtnMsg("로그인이 필요합니다.", "/"));
+            return;
+        }
+        
         const content = await service.read.boardContent(req.query.bno);
         const boardFile = await service.read.boardFile(req.query.bno);
         const cmt = await service.read.cmt(req.query.bno);
@@ -27,7 +42,6 @@ const views = {
         
         const category = req.query.category;
         res.render("board/boardList", renObj(req,{list:data.list, notice:notice, start:data.start, page:data.page, category:category}));
-
     },
     boardForm : (req,res) => {
         res.render("board/boardForm",renObj(req,{user : req.session.user}));

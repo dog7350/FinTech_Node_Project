@@ -1,13 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/public/css/views/boardList.css">
-
-<%
-    let now = new Date();
-
-    const dateFormat = (date) => {
-        DAYS = date.getFullYear() + ". " + (date.getMonth() + 1) + ". " + date.getDate() + " / " + date.getHours() + " : " + date.getMinutes();
-        return DAYS;
-    }
-%>
+<link rel="stylesheet" type="text/css" href="/public/css/views/albumBoard.css">
 
 <div id="boardContainer">
     <div id="boardHeader" class="mb-3">
@@ -28,65 +20,11 @@
     </div>
 
     <div id="boardBody">
-        <table class="table table-light tabal-hover table-striped">
-            <thead>
-                <% if (category == "all") { %>
-                    <tr><th>번호</th> <th width="100px;">카테고리</th> <th>제목</th> <th>작성자</th> <th>작성시간</th><th>조회수</th></tr>
-                <% } else { %>
-                    <tr><th>번호</th> <th>제목</th> <th>작성자</th> <th>작성시간</th><th>조회수</th></tr>
-                <% } %>
-            </thead>
-
-            <tbody>
-                <% if (category != "notice") { %>
-                    <% notice.forEach( data => { %>
-                        <tr>
-                            <% if (category == "all") { %>
-                                <td width="50px" colspan="2" style="color : red; font-weight: bold;">공지사항</td>
-                            <% } else { %>
-                                <td width="50px" style="color : red; font-weight: bold;">공지</td>
-                            <% } %>
-                            <td style="text-align: left;">
-                                <a class="boardLink" href="/board/boardContent?bno=<%= data.BNO %>" style="color : red; font-weight: bold;">
-                                    <%= data.TITLE %>
-                                </a>
-                                <% if (data.TIME.getDate() == now.getDate()) { %>
-                                    <img src="/public/images/DefaultNew.gif">
-                                <% } %>
-                            </td>
-                            <td width="300px;"><%= data.WRITER %></td> <td width="200px;"><%= dateFormat(data.TIME) %></td>
-                            <td width="100px;"><%= data.INQUIRY %></td>
-                        </tr>
-                    <% }) %>
-                <% } %>
-
-                <% list.forEach( data => { %>
-                    <tr>
-                        <td width="50px;"><%= data.BNO %></td>
-                        <% if (category == "all") { %>
-                            <td width="50px"><%= data.CATEGORY %></td>
-                        <% } %>
-                        <td style="text-align: left;">
-                            <% if (data.CATEGORY == "notice") { %>
-                                <a class="boardLink" href="/board/boardContent?bno=<%= data.BNO %>" style="color : red; font-weight: bold;">
-                            <% } else { %>
-                                <a class="boardLink" href="/board/boardContent?bno=<%= data.BNO %>">
-                            <% } %>
-                                <%= data.TITLE %>
-                            </a>
-                            <% if (data.TIME.getDate() == now.getDate()) { %>
-                                <img src="/public/images/DefaultNew.gif">
-                            <% } %>
-                        </td>
-                        <td width="300px;"><%= data.WRITER %></td> <td width="200px;"><%= dateFormat(data.TIME) %></td>
-                        <td width="100px;"><%= data.INQUIRY %></td>
-                    </tr>
-                <% }) %>
-                <% if (list.length == 0) { %>
-                    <tr><td colspan="4">등록된 글이 없습니다.</td></tr>
-                <% } %>
-            </tbody>
-        </table>
+        <% if (category == "sell") { %>
+            <%- include("./albumBoard") %>
+        <% } else { %>
+            <%- include("./defaultBoard") %>
+        <% } %>
     </div>
 
     <div id="boardFooter">

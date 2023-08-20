@@ -10,8 +10,7 @@
 
 #sectionContainer {
     margin: auto;
-    width: 100%;
-    /* width: 70vw; */
+    width: 68vw;
 }
 #sectionContainer > section {
     min-height: 60vh;
