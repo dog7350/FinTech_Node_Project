@@ -6,15 +6,16 @@
     <form id="boardForm" method="post" enctype="multipart/form-data"  action="/board/boardWrite">
         <div class="categoryContainer">
             <label for="category">카테고리 : </label>
-            <select name="category" class="category">
+            <select id="category" name="category" class="category">
                 <option value="buy">일반</option>
                 
                 <% if(user.ADMIN == 1) {%>
                 <option value="notice">공지</option>
-                <option value="sell">판매</option> 
+                <option id="SELL" value="sell">판매</option> 
                 <% }else if(user.SELLER === "sell") { %>
-                <option value="sell">판매</option> 
+                <option id="SELL" value="sell">판매</option> 
                 <% } %>
+               
             </select><br><br>
             <label for="title">제목 : </label>
             <input id="title" name="title" class="title" type="text" placeholder="제목을 입력해주세요">
@@ -35,6 +36,20 @@
             </div>
         </div>
         
+        <% if(user.SELLER === "sell") { %>
+        <hr>
+        <div id="thumbnailbox">
+            <label for="thumbnailCheck">썸네일 넣기</label>
+            <input id="thumbnailCheck" type="checkbox">
+            <div id="thumbnailContainer">
+                <label>썸네일파일첨부</label><br>
+                <input type="file" id="thumbnail" name="thumbnailFile" onchange="thumReadFile(this)">
+                <div>
+                    <img id="thumbnailView" src="" width="100" height="100">
+                </div>
+            </div>
+        </div>
+        <% } %>
         <hr>
         <div class="save">
              <input type="button" onclick="formCheck()" value="작성 완료"> &nbsp;

@@ -9,6 +9,17 @@ function readFile(input) {
     }
 }
 
+function thumReadFile(input) {
+    const file = input.file[0];
+    if(file != "") {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = (e) => {
+            document.querySelector("#thumnailView").src = e.target.result;
+        }
+    }
+}
+
 function formCheck() {
     const title = document.getElementById("title").value;
     const content = document.getElementById("txt").value;
@@ -24,4 +35,6 @@ function formCheck() {
         return document.getElementById("boardForm").submit();  
     }
 }
+
+
 
