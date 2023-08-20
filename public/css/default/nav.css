@@ -15,11 +15,10 @@
 
 .mainmenu > ul {
     list-style: none;
-    background-color: white;
 }
 .mainmenu:hover > ul {
     visibility: visible;
-    height: 120px; /* 1 : 60px */
+    height: 180px; /* 1 : 60px */
 }
 .submenu {
     z-index: 1;
@@ -35,4 +34,5 @@
 .submenu > li {
     display: block;
     margin-top: 5px;
+    background-color: white;
 }

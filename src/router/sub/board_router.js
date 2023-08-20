@@ -17,22 +17,15 @@ const f_Filter = (req,file,callback) => {
         callback(null,true);
     }else {
         callback(null,false);
-        
     }
 }
-
 const upload = multer({ storage : storage, fileFilter : f_Filter});
 
 
 router.get("/boardList",ctrl.views.list);
-
 router.get("/boardForm",ctrl.views.boardForm);
-
 router.post("/boardWrite",upload.array("fileUp"),ctrl.process.boardWrite);
-
 router.get("/boardModifyForm",ctrl.process.boardModifyForm);
-
-
 
 router.get("/boardContent", ctrl.views.boardContent);
 router.get("/boardList", ctrl.views.list);
