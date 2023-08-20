@@ -9,10 +9,10 @@ const read = {
 }
 
 const insert = {
-    register : async (body, cno) => {
-        const cmtFile = await dao.read.cmtFile(body.writer);
+    register : async (body, id, cno) => {
+        const cmtFile = await dao.read.cmtFile(id);
         const file = cmtFile.rows[0]["PROFILE"];
-        const result = await dao.insert.register(body, cno, file);
+        const result = await dao.insert.register(body, id, cno, file);
         console.log("ser2", result);
         return result;
     }

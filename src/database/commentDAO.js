@@ -31,9 +31,9 @@ const read = {
 }
 
 const insert = {
-    register : async (body, cno, file) => {
+    register : async (body, id, cno, file) => {
         console.log("dao123", body, cno)
-        const sql = `INSERT INTO cmt VALUES('${body.bno}','${cno}', '${body.writer}', '${file}', '${body.content}', SYSDATE)`;
+        const sql = `INSERT INTO cmt VALUES('${body.bno}','${cno}', '${id}', '${file}', '${body.content}', SYSDATE)`;
         const con = await db.getConnection(dbConfig);
         let result = 0;
 

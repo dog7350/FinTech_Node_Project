@@ -16,13 +16,14 @@ const views = {
 
 const process = {
     register : async (req, res) =>{
-        //const loginId = req.cookies.myCookie;
         let cno = await service.read.cno(req.body.bno);
         console.log("ctrl", cno)
         const cno2 = (cno == undefined) ? 1 : cno+=1;
         console.log("ctrl2", cno2)
         console.log("req.body", req.body)
-        const result = await service.insert.register(req.body, cno2);
+        console.log("req.body", req.session.user)
+        console.log("req.body 123", req.session.user.ID)
+        const result = await service.insert.register(req.body, req.session.user.ID, cno2);
         console.log("ctrl3", result)
         if(result == 1 ){
             res.send(rtnMsg("댓글이 등록 되었습니다", "/board/boardContent?id="+req.body.bno));

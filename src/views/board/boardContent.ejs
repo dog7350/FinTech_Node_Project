@@ -56,7 +56,6 @@
     <div id="boardContentcmt" class="mb-3">
         <form action="/comment/register" method="post">
             <input id="cmtBno" type="hidden" name="bno" value="<%= content.BNO %>">
-            <input id="cmtWriter" type="hidden" name="writer" value="<%=userCookie%>">
 
             <div class="mb-3" style="display: flex;">
                 <input class="form-control" name="content" autocomplete="off" placeholder="댓글을 입력해주세요" />
@@ -77,13 +76,21 @@
                         <%= dateFormat(data.TIME) %>
                     </div>
                     <div class="cmtListBtn mb-3">
-                        <%if(userCookie === data.WRITER ) {%>
+                        <%if(user.ID === data.WRITER ) {%>
                             <div class="mb-3">
-                                <button class="btn btn-secondary" onclick="cmtModify('<%=data.CNO%>')">수정</button>
+                                <button class="btn btn-secondary mb-2" onclick="cmtModify('<%=data.CNO%>')">수정</button>
                                 <form action="/comment/delete" method="get">
                                     <input id="cmtBno" type="hidden" name="bno" value="<%=data.BNO%>">
                                     <input id="cmtCno" type="hidden" name="cno" value="<%=data.CNO%>">
-                                    <button class="btn btn-secondary" >삭제</button>
+                                    <button class="btn btn-secondary mb-2" >삭제</button>
+                                </form>
+                            </div>
+                        <%}else{%>
+                            <div class="mb-3">
+                                <form action="/comment/report" method="get">
+                                    <input id="cmtBno" type="hidden" name="bno" value="<%=data.BNO%>">
+                                    <input id="cmtCno" type="hidden" name="cno" value="<%=data.CNO%>">
+                                    <button class="btn btn-secondary mb-3" >신고</button>
                                 </form>
                             </div>
                         <%}%>
