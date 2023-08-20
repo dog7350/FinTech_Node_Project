@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
 
 const f_Filter = (req,file,callback) => {
     const type = file.mimetype.split("/")[1];
-    if(type === "png" || type === "gif" || type === "jpg" || type === "jpeg" || type === "mp3" || type === "mp4") {
+    if(type === "png" || type === "gif" || type === "jpg" || type === "jpeg" || type === "mp3" || type === "mp4" || type === "avi") {
         callback(null,true);
     }else {
         callback(null,false);
@@ -32,7 +32,9 @@ router.post("/boardWrite",upload.array("fileUp"),ctrl.process.boardWrite);
 
 router.get("/boardModifyForm/:bno",ctrl.views.boardModifyForm);
 
+router.post("/boardModify/:bno",upload.array("fileUp"),ctrl.process.boardModify);
 
+router.get("/boardDel/:bno",ctrl.process.boardDel);
 
 
 router.get("/boardContent", ctrl.views.boardContent);

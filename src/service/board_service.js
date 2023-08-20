@@ -78,8 +78,21 @@ const insert = {
     }
 }
 
-const remove = {
+const update = {
+    boardUpdate : async (body) => {
+        const result = await dao.update.boardModify(body);
+    }
+}
 
+
+const remove = {
+    boardFileDel : async (bno) => {
+        const result = await dao.remove.boardFileDel(bno);
+    },
+
+    boardDele : async (bno) => {
+        const result = await dao.remove.boardDel(bno);
+    }
 }
 
 const pageUpdate = {
@@ -88,4 +101,4 @@ const pageUpdate = {
     }
 }
 
-module.exports = { read, insert, remove };
+module.exports = { read, insert, remove, update };

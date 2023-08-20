@@ -2,13 +2,15 @@
 <script src="/public/js/modifyForm.js"></script>
 
 <div id="modifyContainer">
-    <form id="modifyForm" method="post" enctype="multipart/form-data"  action="">
+    
+    <form id="modifyForm" method="post" enctype="multipart/form-data"  action="/board/boardModify/:bno">
+        <input id="bno" type="text" name="bno" value="<%=content.BNO %>">
         <div id="categoryContainer">
             <label for="category">카테고리 : </label>
             <select name="category" id="category">
-                <option value="<%=content.CATEGOTY %>">일반</option>
+                <option value="buy">일반</option>
                 <% if (user.SELLER === "sell") { %>
-                <option value="판매">판매</option>
+                <option value="sell">판매</option>
                 <% } %>
             </select><br><br>
             <label for="title">제목 : </label>

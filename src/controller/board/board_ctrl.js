@@ -42,9 +42,6 @@ const views = {
         const content = await service.read.boardContent(req.params.bno);
         const boardFile = await service.read.boardFile(req.params.bno);
         
-        console.log("ctrl : " + content)
-        console.log("============")
-        
         res.render("board/modifyForm",renObj(req,{user : req.session.user, content : content, file : boardFile}));
     }
 
@@ -58,6 +55,27 @@ const process = {
         for(let i=0; i < req.files.length; i++) {
             const result =  await service.insert.fileName(bno,req.files[i].filename);
         }
+        res.redirect("/board/boardList?category=all");
+    },
+
+    boardModify : async (req,res) => {
+        //board
+        const result = await service.update.boardUpdate(req.body);
+        //boardFile
+        const resultDel = await service.remove.boardFileDel(req.body.bno);
+        for(let i=0; i < req.files.length; i++) {
+            const result =  await service.insert.fileName(req.body.bno,req.files[i].filename);
+        }
+        
+        res.redirect("/board/boardContent?bno="+req.body.bno);
+    },
+
+    boardDel : async (req,res) => {
+        
+        const result = await service.remove.boardDele(req.params.bno);
+        const resultDel = await service.remove.boardFileDel(req.body.bno);
+
+        
         res.redirect("/board/boardList?category=all");
     }
     

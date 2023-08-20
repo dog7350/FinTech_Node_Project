@@ -14,8 +14,7 @@ const read = {
         } catch (e) {
             console.log(e);
         }
-        console.log("DAO : " + result.rows[0]);
-        console.log("=============");
+        
         return result.rows[0];
     },
     boardFile : async (bno) => {
@@ -90,21 +89,7 @@ const read = {
         return result;
     }
 
-    // WriterCheck : async (bno) => {
-        
-    //     const sql = `SELECT * FROM board where bno = ${bno}`;
-    //     const con = await db.getConnection(dbConfig);
-
-    //     let result = 0;
-    //     try {
-    //         result = await con.execute(sql);
-            
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    //     console.log(result.rows);
-    //     return result.rows;
-    // }
+    
 }
 
 
@@ -112,7 +97,7 @@ const read = {
 const insert = {
     boardContentInsert : async (body, member) => {
     
-        const sql = await `INSERT INTO board values(board_SEQ.NEXTVAL,'${body.category}','${body.title}','${member.ID}','${member.PROFILE}','${body.content}',sysdate,0)`;
+        const sql = await `INSERT INTO board values(board_SEQ.NEXTVAL,'${body.category}','${body.title}','${member.ID}','${member.PROFILE}',0,'${body.content}',sysdate,0)`;
             
         const con = await db.getConnection(dbConfig);
         
@@ -156,7 +141,32 @@ const insert = {
 }
 
 const remove = {
+    boardFileDel : async (bno) => {
+        const sql = `DELETE FROM boardfile WHERE bno=${bno}`;
+        const con = await db.getConnection(dbConfig);
+        let result;
 
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e)
+        }
+        
+        return result;
+    },
+
+    boardDel : async (bno) => {
+        const sql = `DELETE FROM board WHERE bno=${bno}`;
+        const con = await db.getConnection(dbConfig);
+        let result;
+
+        try {
+            result = await con.execute(sql)
+        } catch (e) {
+            console.log(e)
+        }
+        return result;
+    }
 }
 
 const update = {
@@ -164,8 +174,24 @@ const update = {
         const con = await db.getConnection(dbConfig);
         const sql =`update board set INQUIRY = INQUIRY+1 where bno='${bno}'`;
         await con.execute(sql);
+    },
+
+    boardModify : async (body) => {
+        const sql = `UPDATE board SET category='${body.category}' ,title='${body.title}', content='${body.content}', time=sysdate WHERE bno=${body.bno}`;
+        const con = await db.getConnection(dbConfig);
+        let result;
+
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e)
+        }
+        
+        return result;
+
     }
+    
 }
 
 
-module.exports = { read, insert, update };
+module.exports = { read, insert, update, remove };
