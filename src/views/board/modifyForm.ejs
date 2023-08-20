@@ -1,15 +1,44 @@
-<h1>수정하기</h1>
-<%= console.log("-----------") %>
-<%= console.log(content) %>
-<%= console.log(file) %>
+<link rel="stylesheet" type="text/css" href="/public/css/views/modifyForm.css">
+<script src="/public/js/modifyForm.js"></script>
 
-<from action="">
-    <div>
-        <label for="title">제목 : </label><br>
-        <input type="text" id="title" value="<%= content.TITLE %>">
-        <br>
-        <label for="content">내용 : </label><br>
-        <textarea id="content" ><%= content.CONTENT %></textarea>
+<div id="modifyContainer">
+    <form id="modifyForm" method="post" enctype="multipart/form-data"  action="">
+        <div id="categoryContainer">
+            <label for="category">카테고리 : </label>
+            <select name="category" id="category">
+                <option value="<%=content.CATEGOTY %>">일반</option>
+                <% if (user.SELLER === "sell") { %>
+                <option value="판매">판매</option>
+                <% } %>
+            </select><br><br>
+            <label for="title">제목 : </label>
+            <input id="title" name="title" type="text" value="<%= content.TITLE %>">
+        </div>
         <hr>
-    </div>
-</from>
+        
+        <div id="textContainer">
+            <label for="content">내용</label><br>
+            <textarea id="content" name="content" maxlength="4000"><%= content.CONTENT %></textarea>
+        </div>
+        
+        <hr>
+        <div id="uploadContainer">
+            
+            <% for(let i=0; i < file.length; i++) { %>
+            <h6><%= file[i]["FILENAME"] %><h6>
+            <% } %>
+            <label for="upload">사진 업로드</label><br>
+            <input type="file" id="upload" name="fileUp" onchange="readFile(this)" multiple>
+            <div>
+                <img id="imgView" src="" width="100" height="100">
+            </div>
+        </div>
+        
+        <hr>
+        <div id="save">
+             <input type="button" onclick="formCheck()" value="수정 완료"> &nbsp;
+            <button type="reset">다시 입력</button> &nbsp;
+            <button type="button" onclick="location.href='/board/boardList';">수정 취소</button>
+        </div>
+    </form>
+</div>

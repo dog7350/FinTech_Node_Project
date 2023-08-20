@@ -1,0 +1,47 @@
+#modifyContainer {
+    margin : auto;
+    border: 3px solid gray;
+    width: 50%;
+    background-color: whitesmoke;   
+    border-radius: 30px;
+}
+
+#categoryContainer {
+    padding: 20px;
+}
+
+#category {
+    width: 300px;
+    height: 35px;
+}
+
+#title {
+    width : 500px
+}
+
+#uploadContainer {
+    text-align: center;
+}
+
+#upload {
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+#textContainer {
+    height: 400px;
+    text-align: center;
+}
+
+#content {
+    width: 80%;
+    height: 90%;
+    font-size: 15pt;
+    
+}
+
+#save {
+    text-align: right;
+    padding-right: 10%;
+    height: 40px;
+}
