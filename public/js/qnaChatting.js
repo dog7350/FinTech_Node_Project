@@ -133,4 +133,4 @@ const headerMenuControl = () => {
         hmcf = false;
         document.getElementById("qnaHeaderBtnDiv").style = "display : none";
     }
-}
+};

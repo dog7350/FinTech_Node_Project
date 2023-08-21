@@ -1,0 +1,31 @@
+#myPageInfoContainer {
+    margin: auto;
+    width: 70%;
+    height: 100%;
+}
+
+#myPageInfoHeader {
+    width: 100%;
+}
+#myPageInfoTitle {
+    margin: 0;
+    padding: 0;
+    display: inline;
+    font-family: "gaegu", "Nanum Pen Script", serif;
+    font-size: 25pt;
+    font-weight: bold;
+    color: lightseagreen;
+}
+
+#modifyBtnDiv {
+    display: flex;
+    width: 100%;
+}
+#modifyBtn {
+    margin: auto;
+    width: 49.9999%;
+}
+#modifyExitBtn {
+    margin: auto;
+    width: 49.9999%;
+}

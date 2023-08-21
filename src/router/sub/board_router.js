@@ -27,10 +27,10 @@ router.get("/boardSearch", ctrl.views.boardSearch);
 
 router.get("/boardList",ctrl.views.list);
 router.get("/boardForm",ctrl.views.boardForm);
+router.get("/boardContent", ctrl.views.boardContent);
+
 router.post("/boardWrite",upload.array("fileUp"),ctrl.process.boardWrite);
 router.get("/boardModifyForm",ctrl.process.boardModifyForm);
-
-router.get("/boardContent", ctrl.views.boardContent);
-router.get("/boardList", ctrl.views.list);
+router.post("/report", ctrl.process.report);
 
 module.exports = router;

@@ -54,27 +54,35 @@ const read = {
         const result = await dao.read.boardReport(bno);
         return result['COUNT(*)'];
     },
+    cmtReport : async (bno) => {
+        const result = await dao.read.cmtReport(bno);
+        return result['COUNT(*)'];
+    },
+    
     upHit : async (bno) => {
+        console.log("123", bno)
         pageUpdate.upHit(bno);
     },
     totalContent : async (category) => {
+        console.log(category);
         const result = await dao.read.totalContent(category);
+        console.log("서비스 리스트: ", result);
+        console.log("으악:", result.rows[0]['COUNT(*)']);  //언디파인
         return result.rows[0]['COUNT(*)'];
+        //return result.rows;
     },
     list : async (start, totalCounter, category) => {
         start = (start && start >= 1) ? Number(start) : 1;
+        console.log("start : ", start); //1
         const page = pageOperation(start, totalCounter);
 
         const list = await dao.read.list(page.startNum, page.endNum, category);
         data = {};
+        console.log("!23", page)
         data.page = page;
         data.start = start;
         data.list = list.rows;
         return data;
-    },
-    noticeList : async () => {
-        notice = await dao.read.noticeList();
-        return notice.rows;
     },
     maxNumber : async () => {
         const result = await dao.insert.boardNumber();
@@ -88,6 +96,10 @@ const insert = {
     },
     fileName : async (num,fileName) => {
         const result = await dao.insert.fileNameInsert(num,fileName);
+    },
+    report : async (bno, id) => {
+        const result = await dao.insert.report(bno, id);
+        return result;
     }
 }
 

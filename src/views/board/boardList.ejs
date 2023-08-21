@@ -1,30 +1,48 @@
 <link rel="stylesheet" type="text/css" href="/public/css/views/boardList.css">
-<link rel="stylesheet" type="text/css" href="/public/css/views/albumBoard.css">
+
+<%
+    let now = new Date();
+
+    const dateFormat = (date) => {
+        DAYS = date.getFullYear() + ". " + (date.getMonth() + 1) + ". " + date.getDate() + " / " + date.getHours() + " : " + date.getMinutes();
+        return DAYS;
+    }
+%>
 
 <div id="boardContainer">
     <div id="boardHeader" class="mb-3">
-        <p id="boardTitle">
-            <% if (category == "all") { %>
-                전체 게시판
-            <% } else if (category == "buy") { %>
-                일반 게시판
-            <% } else if (category == "sell") { %>
-                판매 게시판
-            <% } else if (category == "notice") { %>
-                공지사항
-            <% } %>
-        </p>
+        <p id="boardTitle">게시판</p>
         <div id="headerBtn">
             <input class="btn btn-info" type="button" value="글쓰기" onclick="location.href='/board/boardForm'">
         </div>
     </div>
 
     <div id="boardBody">
-        <% if (category == "sell") { %>
-            <%- include("./albumBoard") %>
-        <% } else { %>
-            <%- include("./defaultBoard") %>
-        <% } %>
+        <table class="table table-light tabal-hover table-striped">
+            <thead>
+                <tr><th>번호</th> <th>카테고리</th> <th>제목</th> <th>작성자</th> <th>작성시간</th><th>조회수</th></tr>
+            </thead>
+
+            <tbody>
+                <% list.forEach( data => { %>
+                    <tr>
+                        <td width="50px;"><%= data.BNO %></td>
+                        <td width="50px"><%= data.CATEGORY %></td>
+                        <td style="text-align: left;">
+                            <a class="boardLink" href="/board/boardContent?bno=<%= data.BNO %>"><%= data.TITLE %></a>
+                            <% if (data.TIME.getDate() == now.getDate()) { %>
+                                <img src="/public/images/DefaultNew.gif">
+                            <% } %>
+                        </td>
+                        <td width="300px;"><%= data.WRITER %></td> <td width="200px;"><%= dateFormat(data.TIME) %></td>
+                        <td width="100px;"><%= data.INQUIRY %></td>
+                    </tr>
+                <% }) %>
+                <% if (list.length == 0) { %>
+                    <tr><td colspan="4">등록된 글이 없습니다.</td></tr>
+                <% } %>
+            </tbody>
+        </table>
     </div>
 
     <div id="boardFooter">
