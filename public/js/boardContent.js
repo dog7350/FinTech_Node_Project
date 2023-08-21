@@ -10,13 +10,9 @@ function MouseEvent(fileName){
 }
 
 function cmtModify(cno){
-    console.log("modify : ", cno);
     const cmtContent = document.getElementById("cmtContent"+cno);
     const bno = document.getElementById("cmtBno").value;
-    console.log("modify2 : ", cmtContent);
-    console.log("modify2 : ", bno);
     const str = cmtContent.innerText;
-    console.log("modify3 : ", str);
     cmtContent.innerHTML = 
     `<form action="/comment/modify" method="post">
         <input id="cmtBno" type="hidden" name="bno" value=${bno}>
@@ -26,7 +22,7 @@ function cmtModify(cno){
         <input type="button" class="btn btn-danger" onclick="location.reload();" value="취소">
     </form>`;
     
-    document.getElementsByClassName("cmtBtn")[0].style.display = "none";
+    document.getElementsByClassName("cmtListBtn")[0].style.display = "none";
 
 }
 

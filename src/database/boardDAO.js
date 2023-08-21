@@ -54,8 +54,8 @@ const read = {
         }
         return result.rows[0];
     },
-    cmtReport : async (id) => {
-        const sql = `select count(*) from cmtreport where bno = ${id}`;
+    cmtReport : async (bno) => {
+        const sql = `select count(*) from cmtreport where bno = ${bno}`;
         const con = await db.getConnection(dbConfig);
 
         let result = 0;

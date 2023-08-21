@@ -30,8 +30,8 @@ const read = {
         const result = await dao.read.boardReport(bno);
         return result['COUNT(*)'];
     },
-    cmtReport : async (id) => {
-        const result = await dao.read.cmtReport(id);
+    cmtReport : async (bno) => {
+        const result = await dao.read.cmtReport(bno);
         return result['COUNT(*)'];
     },
     
