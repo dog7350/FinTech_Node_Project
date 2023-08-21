@@ -29,33 +29,19 @@
         
         <hr>
         <div class="uploadContainer">
-            <label for="upload">사진 업로드</label><br>
+            <label for="upload">일반 사진 업로드</label><br>
             <input type="file" id="upload" name="fileUp" onchange="readFile(this)" multiple>
             <div>
-                <img id="imgView" src="" width="100" height="100">
+                <img id="imgView" src="/upload/DefaultThumbnail.jpg" width="100" height="100">
             </div>
         </div>
-        
-        <% if(user.SELLER === "sell") { %>
-        <hr>
-        <div id="thumbnailbox">
-            <label for="thumbnailCheck">썸네일 넣기</label>
-            <input id="thumbnailCheck" type="checkbox">
-            <div id="thumbnailContainer">
-                <label>썸네일파일첨부</label><br>
-                <input type="file" id="thumbnail" name="thumbnailFile" onchange="thumReadFile(this)">
-                <div>
-                    <img id="thumbnailView" src="" width="100" height="100">
-                </div>
-            </div>
-        </div>
-        <% } %>
-        <hr>
+
         <div class="save">
              <input type="button" onclick="formCheck()" value="작성 완료"> &nbsp;
             <button type="reset">다시 입력</button> &nbsp;
             <button type="button" onclick="location.href='/board/boardList';">목록 보기</button>
         </div>
     </form>
+   
 </div>
     

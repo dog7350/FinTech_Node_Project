@@ -69,6 +69,19 @@
     height: 40px;
 }
 
+#selluploadContainer {
+    text-align: center;
+    display: none;
+}
+
+#sellUpload {
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+
+
+
 
 
 

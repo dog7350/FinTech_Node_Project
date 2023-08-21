@@ -95,9 +95,9 @@ const read = {
 
 
 const insert = {
-    boardContentInsert : async (body, member) => {
+    boardContentInsert : async (body, member,thumfile) => {
     
-        const sql = await `INSERT INTO board values(board_SEQ.NEXTVAL,'${body.category}','${body.title}','${member.ID}','${member.PROFILE}',0,'${body.content}',sysdate,0)`;
+        const sql = await `INSERT INTO board values(board_SEQ.NEXTVAL,'${body.category}','${body.title}','${member.ID}','${member.PROFILE}','${thumfile}','${body.content}',sysdate,0)`;
             
         const con = await db.getConnection(dbConfig);
         

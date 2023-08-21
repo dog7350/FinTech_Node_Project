@@ -7,7 +7,7 @@ const storage = multer.diskStorage({
         cb(null, "upload");
     },
     filename : (req, file, cb) => {
-        cb(null, "qna_" + req.body.bno + "_" + file.originalname);
+        cb(null, "QNA_" + req.body.bno + "_" + file.originalname.toUpperCase());
     }
 });
 const upload = multer( { storage : storage } );

@@ -49,10 +49,11 @@ const views = {
 
 const process = {
     boardWrite : async (req,res) => {
-        const msg = await service.insert.BoardInsert(req.body,req.session.user);
+        const msg = await service.insert.BoardInsert(req.body,req.session.user,req.files[0].filename);
         const bno = await service.read.maxNumber();
-        
-        for(let i=0; i < req.files.length; i++) {
+       
+        for(let i=1; i < req.files.length; i++) {
+            
             const result =  await service.insert.fileName(bno,req.files[i].filename);
         }
         res.redirect("/board/boardList?category=all");
@@ -63,6 +64,7 @@ const process = {
         const result = await service.update.boardUpdate(req.body);
         //boardFile
         const resultDel = await service.remove.boardFileDel(req.body.bno);
+        
         for(let i=0; i < req.files.length; i++) {
             const result =  await service.insert.fileName(req.body.bno,req.files[i].filename);
         }
@@ -78,7 +80,6 @@ const process = {
         
         res.redirect("/board/boardList?category=all");
     }
-    
 
 }
 

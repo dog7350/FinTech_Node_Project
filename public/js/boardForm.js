@@ -9,16 +9,8 @@ function readFile(input) {
     }
 }
 
-function thumReadFile(input) {
-    const file = input.file[0];
-    if(file != "") {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-        fileReader.onload = (e) => {
-            document.querySelector("#thumnailView").src = e.target.result;
-        }
-    }
-}
+
+
 
 function formCheck() {
     const title = document.getElementById("title").value;
@@ -31,10 +23,15 @@ function formCheck() {
         alert("내용을 입력해주세요");
         return;
     }else {
-        alert("글이 등록되었습니다!");
-        return document.getElementById("boardForm").submit();  
+        alert("작성 성공!!!");
+        const baord = document.getElementById("boardForm");
+        return baord.submit();
     }
 }
+
+
+
+
 
 
 

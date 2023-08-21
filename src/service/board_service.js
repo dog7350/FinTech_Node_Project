@@ -70,8 +70,8 @@ const read = {
 
 }
 const insert = {
-    BoardInsert : async (body,member) => {
-        const result = await dao.insert.boardContentInsert(body,member);
+    BoardInsert : async (body,member,thumfile) => {
+        const result = await dao.insert.boardContentInsert(body,member,thumfile);
     },
     fileName : async (num,fileName) => {
         const result = await dao.insert.fileNameInsert(num,fileName);
