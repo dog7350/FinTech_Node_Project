@@ -1,24 +1,30 @@
+const fs = require("fs");
 const service = require("../../service/info_service");
 const renObj = require("../renObj");
 
 const views = {
     infoView :  (req,res) => {
-        // res.send("마이페이지");
-        console.log("ctrl: ", req.session.user);
-        const id = req.session.user;
-        console.log("ctrl infoview: ", id);
-
-        res.render("info/myPage", renObj(req,{id}));
+        res.render("info/myPage", renObj(req,{}));
     },
     modifyForm : async (req,res) => {
-        const id = req.session.user;
-        res.render("info/modifyForm", renObj(req,{id}));
+        res.render("info/modifyForm", renObj(req, {}));
     }
 }
 
 const process = {
-    
-    
+    modify: async (req,res) => {
+        let file = "";
+        if (req.file == undefined) {
+            if (req.session.user.PROFILE != "DefaultProfile.gif") fs.unlinkSync(req.session.user.PROFILE);
+            file = "DefaultProfile.gif";
+        }
+        else file = req.file.filename;
+
+        const msg = await service.process.modify(req.body, file);
+        const result = await service.read.updateInfo(req.body.id);
+        req.session.user = result;
+        res.send(msg);
+    }
 }
 
 module.exports = {views, process};

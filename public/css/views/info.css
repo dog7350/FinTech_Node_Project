@@ -1,13 +1,13 @@
-#infoContainer {
+#myPageInfoContainer {
     margin: auto;
     width: 70%;
     height: 100%;
 }
 
-#infoHeader {
+#myPageInfoHeader {
     width: 100%;
 }
-#infoTitle {
+#myPageInfoTitle {
     margin: 0;
     padding: 0;
     display: inline;
@@ -16,25 +16,16 @@
     font-weight: bold;
     color: lightseagreen;
 }
-#headerBtn {
+
+#modifyBtnDiv {
     display: flex;
-    float: right;
-}
-
-#infoBody {
     width: 100%;
-    text-align: center;
 }
-.infoLink {
-    text-decoration: none;
-    transition: all 0.5s linear;
+#modifyBtn {
+    margin: auto;
+    width: 49.9999%;
 }
-.infoLink:hover {
-    font-size: 13pt;
-    font-weight: bold;
-}
-
-#infoFooter {
-    width: 100%;
-    text-align: center;
+#modifyExitBtn {
+    margin: auto;
+    width: 49.9999%;
 }

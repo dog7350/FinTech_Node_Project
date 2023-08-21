@@ -1,29 +1,65 @@
 <link rel="stylesheet" type="text/css" href="/public/css/views/info.css">
 
+<div id="myPageInfoContainer">
+    <div id="myPageInfoHeader" class="mb-3">
+        <p id="myPageInfoTitle">마이페이지</p>
+    </div>
+    <form action="/info/modifyForm" method="post">
+            <div class="mb-3">
+                <label for="profileFile" class="form-label">프로필 사진 </label><br>
+                <div style="margin-bottom: 10px; text-align: center;">
+                    <img id="preview" class="img-thumbnail" src="/upload/<%= user.PROFILE %>" width="250" height="250">
+                </div>
+            </div>
+            <br><hr><br>
+                
+            <div class="mb-3">
+                <label for="idTxt" class="form-label">아이디</label>
+                <input id="idTxt" class="form-control" type="text" name="id" readonly value="<%=user.ID %>">
+            </div>
 
-<h3>마이페이지</h3>
+            <div class="mb-3">
+                <label for="nickTxt" class="form-label">닉네임</label>
+                <input id="nickTxt" class="form-control" type="text" name="nick" readonly value="<%=user.NICK %>" >
+            </div>
 
+            <div class="mb-3">
+                <label for="nameTxt" class="form-label">이름</label>
+                <input id="nameTxt" class="form-control" type="text" name="name" readonly value="<%=user.NAME %>" >
+            </div>
 
-id: <%=id.ID %> <br> 
-pw: <%=id.PW %> <br>
-nick: <%=id.NICK %> <br>
-profile: <%=id.PROFILE %> <br>
-name: <%=id.NAME %> <br>
-phone: <%=id.PHONE %> <br>
-email: <%=id.EMAIL %> <br>
-zipcode: <%=id.ZIPCODE %> <br>
-addr: <%=id.ADDR %> <br>
-addrdetail: <%=id.ADDRDETAIL %> <br>
-seller: <%=id.SELLER %>  <br>
-cash: <%=id.CASH %> <br>
-admin: <%=id.ADMIN %> <br>
-stop: <%=id.STOP %> <br>
+            <div class="mb-3">
+                <label for="phoneTxt" class="form-label">휴대폰 번호</label>
+                <input id="phoneTxt" class="form-control" type="text" name="phone" readonly value="<%=user.PHONE %>" >
+            </div>
 
+            <div class="mb-3">
+                <label for="emailTxt" class="form-label">이메일</label>
+                <input id="emailTxt" class="form-control" type="email" name="email"  readonly value="<%=user.EMAIL %>" >
+            </div>
 
-<div>
-    <form action="/info/modifyForm" >
-        <input type="submit" value="정보 수정" name="modify">
+            <div class="mb-3">
+                <label for="addrBtn" class="form-label">주소</label>
+                <input id="zipCode" class="form-control" type="text" name="zipCode" value="<%=user.ZIPCODE %>" onclick="openJuso()" readonly >
+                <input id="addr" class="form-control" type="text" name="addr" value="<%=user.ADDR %>" onclick="openJuso()" readonly >
+                <input id="addrDetail" class="form-control" type="text" name="addrDetail" value="<%=user.ADDRDETAIL %>" onclick="openJuso()" readonly >
+            </div>
+
+            <div class="mb-3">
+                <label for="phoneTxt" class="form-label">캐쉬</label>
+                <input id="phoneTxt" class="form-control" type="text" name="phone" readonly value="<%=user.CASH %>" >
+            </div>
+
+            <div class="mb-3">
+                <label for="phoneTxt" class="form-label">회원 유형</label>
+                <input id="phoneTxt" class="form-control" type="text" name="phone" readonly value="<%=user.SELLER %>" >
+            </div>
+
+            <br><hr><br>
+
+            <div id="modifyBtnDiv" class="mb-3">
+                <input id="modifyBtn" class="btn btn-primary" type="submit" value="수정">
+                <input id="modifyExitBtn" class="btn btn-danger" type="submit" value="탈퇴">
+            </div>  
     </form>
-
-    <input type="submit" value="탈퇴" name="delete"> 
 </div>
