@@ -1,4 +1,3 @@
-const fs = require("fs");
 const service = require("../../service/qna_service");
 const renObj = require("../renObj");
 
@@ -54,28 +53,12 @@ const process = {
         const result = await service.insert.insert(req.body);
         res.redirect("/qna/list");
     },
-    delete : async (req, res) => {
-        const files = await service.read.files(req.query.bno);
-        for(i = 0; i < files.length; i++) fs.unlinkSync(`./upload/${files[i].FILENAME}`);
-        const result = await service.remove.delete(req.query.bno);
-        res.send(`
-                    <script>
-                        alert("삭제되었습니다.");
-                        location.href='/qna/list';
-                    </script>
-                 `);
-    },
     contentChat : async (req, res) => {
         const result = await service.insert.contentChat(req.body);
     },
     fileUp : async (req, res) => {
         const result = await service.insert.fileUp(req.body, req.files);
         res.redirect("/qna/content?bno=" + req.body.bno);
-    },
-    fileDelete : async (req, res) => {
-        const result = await service.remove.fileDelete(req.query.bno, req.query.fileName);
-        fs.unlinkSync(`./upload/${req.query.fileName}`);
-        res.redirect(`/qna/content?bno=${req.query.bno}`);
     }
 };
 

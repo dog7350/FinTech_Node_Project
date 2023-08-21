@@ -9,6 +9,8 @@ module.exports = (app) => {
     app.use("/member", member);
     const qna = require("./sub/qna_router");
     app.use("/qna", qna);
+    const info = require("./sub/info_router");
+    app.use("/info", info);
 
     const router = require("express").Router();
 

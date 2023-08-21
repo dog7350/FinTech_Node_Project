@@ -1,0 +1,29 @@
+<link rel="stylesheet" type="text/css" href="/public/css/views/info.css">
+
+
+<h3>마이페이지</h3>
+
+
+id: <%=id.ID %> <br> 
+pw: <%=id.PW %> <br>
+nick: <%=id.NICK %> <br>
+profile: <%=id.PROFILE %> <br>
+name: <%=id.NAME %> <br>
+phone: <%=id.PHONE %> <br>
+email: <%=id.EMAIL %> <br>
+zipcode: <%=id.ZIPCODE %> <br>
+addr: <%=id.ADDR %> <br>
+addrdetail: <%=id.ADDRDETAIL %> <br>
+seller: <%=id.SELLER %>  <br>
+cash: <%=id.CASH %> <br>
+admin: <%=id.ADMIN %> <br>
+stop: <%=id.STOP %> <br>
+
+
+<div>
+    <form action="/info/modifyForm" >
+        <input type="submit" value="정보 수정" name="modify">
+    </form>
+
+    <input type="submit" value="탈퇴" name="delete"> 
+</div>

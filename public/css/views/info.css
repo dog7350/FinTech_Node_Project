@@ -1,13 +1,13 @@
-#boardContainer {
+#infoContainer {
     margin: auto;
     width: 70%;
     height: 100%;
 }
 
-#boardHeader {
+#infoHeader {
     width: 100%;
 }
-#boardTitle {
+#infoTitle {
     margin: 0;
     padding: 0;
     display: inline;
@@ -21,20 +21,20 @@
     float: right;
 }
 
-#boardBody {
+#infoBody {
     width: 100%;
     text-align: center;
 }
-.boardLink {
+.infoLink {
     text-decoration: none;
     transition: all 0.5s linear;
 }
-.boardLink:hover {
+.infoLink:hover {
     font-size: 13pt;
     font-weight: bold;
 }
 
-#boardFooter {
+#infoFooter {
     width: 100%;
     text-align: center;
 }
