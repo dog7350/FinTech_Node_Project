@@ -98,28 +98,28 @@ const image = ['JPG', 'JPEG', 'PNG', 'GIF'];
 const movie = ['MP4', 'AVI'];
 const music = ['MP3', 'WAV'];
 
-const openQnaItemInfo = (name) => {
+const openFileItemInfo = (name) => {
     ext = name.split(".")[1];
 
-    if (image.indexOf(ext) != -1) document.getElementById("qnaModalItem").innerHTML = `<img src='/upload/${name}' width="100%" height="100%">`;
-    else if (movie.indexOf(ext) != -1) document.getElementById("qnaModalItem").innerHTML = `<video src='/upload/${name}' width="100%" height="100%" controls></video>`;
-    else if (music.indexOf(ext) != -1) document.getElementById("qnaModalItem").innerHTML = `<audio src='/upload/${name}' width="100%" height="100%" controls></audio>`;
+    if (image.indexOf(ext) != -1) document.getElementById("fileModalItem").innerHTML = `<img src='/upload/${name}' width="100%" height="100%">`;
+    else if (movie.indexOf(ext) != -1) document.getElementById("fileModalItem").innerHTML = `<video src='/upload/${name}' width="100%" height="100%" controls></video>`;
+    else if (music.indexOf(ext) != -1) document.getElementById("fileModalItem").innerHTML = `<audio src='/upload/${name}' width="100%" height="100%" controls></audio>`;
 
-    $("#qnaModalContainer").slideDown("slow");
-    $("#qnaModalBackground").show();
+    $("#fileModalContainer").slideDown("slow");
+    $("#fileModalBackground").show();
 }
 
-const closeQnaItemInfo = () => {
+const closeFileItemInfo = () => {
     src = "";
-    document.getElementById("qnaModalItem").innerHTML = "";
+    document.getElementById("fileModalItem").innerHTML = "";
     
-    $("#qnaModalContainer").slideUp("fast");
-    $("#qnaModalBackground").hide();
+    $("#fileModalContainer").slideUp("fast");
+    $("#fileModalBackground").hide();
 }
 
-const deleteQnaItem = () => {
+const deleteFileItem = () => {
     bno = document.getElementById("qnaChatBno").value;
-    obj = document.getElementById("qnaModalItem").children[0];
+    obj = document.getElementById("fileModalItem").children[0];
     fileName = obj.src.split("/")[obj.src.split("/").length - 1];
     location.href=`/qna/fileDelete?bno=${bno}&fileName=${fileName}`;
 }

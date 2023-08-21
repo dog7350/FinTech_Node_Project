@@ -2,6 +2,62 @@ const db = require("./db_object");
 const dbConfig = require("../../config/db_config");
 
 const read = {
+    mainBoard : async () => {
+        var sql = `SELECT B.* FROM (SELECT rownum rn, A.* FROM(SELECT * FROM board WHERE category != 'notice' ORDER BY bno DESC) A) B WHERE rn BETWEEN 1 AND 50`;
+        const con = await db.getConnection(dbConfig);
+        result = 0;
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e);
+        }
+        return result;
+    },
+    mainSell : async () => {
+        var sql = sql = `SELECT B.* FROM (SELECT rownum rn, A.* FROM(SELECT * FROM board WHERE category='sell' ORDER BY bno DESC) A) B WHERE rn BETWEEN 1 AND 6`;
+        const con = await db.getConnection(dbConfig);
+        result = 0;
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e);
+        }
+        return result;
+    },
+    mainStar : async () => {
+        var sql = sql = `SELECT B.* FROM (SELECT rownum rn, A.* FROM(SELECT * FROM board ORDER BY inquiry DESC) A) B WHERE rn BETWEEN 1 AND 10`;
+        const con = await db.getConnection(dbConfig);
+        result = 0;
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e);
+        }
+        return result;
+    },
+    searchTotalContent : async (txt, cat) => {
+        var sql = `SELECT count(*) FROM board WHERE ${cat} LIKE '%${txt}%'`;
+
+        const con = await db.getConnection(dbConfig);
+        result = 0;
+        try{
+            result = await con.execute(sql);
+        }catch(e){
+            console.log(err);
+        }
+        return result;
+    },
+    searchList : async (start, end, txt, cat) => {
+        var sql = sql = `SELECT B.* FROM (SELECT rownum rn, A.* FROM(SELECT * FROM board WHERE ${cat} LIKE '%${txt}%' ORDER BY bno DESC) A) B WHERE rn BETWEEN ${start} AND ${end}`;
+        const con = await db.getConnection(dbConfig);
+        result = 0;
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e);
+        }
+        return result;
+    },
     boardContent : async (bno) => {
         const sql = `select * from board where bno = ${bno}`;
         const con = await db.getConnection(dbConfig);

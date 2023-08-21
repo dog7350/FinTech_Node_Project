@@ -1,0 +1,58 @@
+<%
+    let now = new Date();
+
+    const dateFormat = (date) => {
+        DAYS = (date.getMonth() + 1) + ". " + date.getDate() + " / " + date.getHours() + " : " + date.getMinutes();
+        return DAYS;
+    }
+%>
+
+<div class="containerTitle">전체 게시글</div>
+<div id="allBoardContent">
+    <table class="table table-light tabal-hover table-striped">
+        <thead>
+            <tr><th>번호</th> <th>제목</th> <th>작성자</th> <th>시간</th><th>조회</th></tr>
+        </thead>
+            
+        <tbody>
+            <% notice.forEach( data => { %>
+                <tr>
+                    <td width="50px" style="color : red; font-weight: bold;">공지</td>
+                    <td style="text-align: left;">
+                        <a class="boardLink" href="/board/boardContent?bno=<%= data.BNO %>" style="color : red; font-weight: bold;">
+                            <%= data.TITLE %>
+                        </a>
+                        <% if (data.TIME.getDate() == now.getDate()) { %>
+                            <img src="/public/images/DefaultNew.gif">
+                        <% } %>
+                    </td>
+                    <td width="80px;"><%= data.WRITER %></td> <td width="120px;"><%= dateFormat(data.TIME) %></td>
+                    <td width="50px;"><%= data.INQUIRY %></td>
+                </tr>
+            <% }) %>
+            
+            <% list.forEach( data => { %>
+                <tr>
+                    <td width="50px;"><%= data.BNO %></td>
+                    <td style="text-align: left;">
+                        <% if (data.CATEGORY == "notice") { %>
+                            <a class="boardLink" href="/board/boardContent?bno=<%= data.BNO %>" style="color : red; font-weight: bold;">
+                        <% } else { %>
+                            <a class="boardLink" href="/board/boardContent?bno=<%= data.BNO %>">
+                        <% } %>
+                            <%= data.TITLE %>
+                        </a>
+                        <% if (data.TIME.getDate() == now.getDate()) { %>
+                            <img src="/public/images/DefaultNew.gif">
+                        <% } %>
+                    </td>
+                    <td width="80px;"><%= data.WRITER %></td> <td width="120px;"><%= dateFormat(data.TIME) %></td>
+                    <td width="50px;"><%= data.INQUIRY %></td>
+                </tr>
+            <% }) %>
+            <% if (list.length == 0) { %>
+                <tr><td colspan="5">등록된 글이 없습니다.</td></tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>

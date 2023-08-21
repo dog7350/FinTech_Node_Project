@@ -21,9 +21,23 @@ $(() => {
         content = content.replace(nick + ": ", "");
 
         var nowSite = String(window.location.pathname) + String(window.location.search);
-
         var li = `<li><img src='/upload/${img}' style='width:30px; height:30px;'>${nick} : ${content}</li>`;
-        if(site == nowSite) { // 사이트 정제 필요
+
+        const compSite = ["boardContent", "content"];
+        tmpRevSite = site.split("/")[site.split("/").length - 1];
+        tmpRevSite = tmpRevSite.split("?")[0];
+        tmpNowSite = nowSite.split("/")[nowSite.split("/").length - 1];
+        tmpNowSite = tmpNowSite.split("?")[0];
+
+        if ((compSite.indexOf(tmpRevSite) != -1 && compSite.indexOf(tmpNowSite) == -1) || (compSite.indexOf(tmpRevSite) == -1 && compSite.indexOf(tmpNowSite) != -1)) {
+            return;
+        }
+        else if (compSite.indexOf(tmpRevSite) != -1 && compSite.indexOf(tmpNowSite) != -1) {
+            if (site == nowSite) {
+                $('#messageList').append(li);
+                $('#ChatList').scrollTop($('#ChatList')[0].scrollHeight);
+            }
+        } else {
             $('#messageList').append(li);
             $('#ChatList').scrollTop($('#ChatList')[0].scrollHeight);
         }

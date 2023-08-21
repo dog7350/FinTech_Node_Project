@@ -13,6 +13,20 @@ const rtnMsg = (msg, url) => {
 }
 
 const views = {
+    main : async (req, res) => {
+        const data = await service.read.main();
+
+        res.render("index", renObj(req, {list : data.list.rows, notice : data.notice.rows, sell : data.sell.rows, star : data.star.rows}));
+    },
+    boardSearch : async (req, res) => {
+        const totalContent = await service.read.searchTotalContent(req.query.searchTxt, req.query.searchCat);
+
+        const data = await service.read.searchList(req.query.start, totalContent, req.query.searchTxt, req.query.searchCat);
+        const notice = await service.read.noticeList();
+        
+        const category = "all";
+        res.render("board/boardList", renObj(req, {list:data.list, notice:notice, start:data.start, page:data.page, category:category}));
+    },
     boardContent : async (req, res) =>{
         if (req.session.user == undefined) {
             res.send(rtnMsg("로그인이 필요합니다.", "/"));

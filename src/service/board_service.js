@@ -14,6 +14,30 @@ const pageOperation = (start, totalCounter) => {
 }
 
 const read = {
+    main : async () => {
+        data = {};
+        data.list = await dao.read.mainBoard();
+        data.notice = await dao.read.noticeList();
+        data.sell = await dao.read.mainSell();
+        data.star = await dao.read.mainStar();
+
+        return data;
+    },
+    searchTotalContent : async (txt, cat) => {
+        const result = await dao.read.searchTotalContent(txt, cat);
+        return result.rows[0]['COUNT(*)'];
+    },
+    searchList : async (start, totalCounter, txt, cat) => {
+        start = (start && start >= 1) ? Number(start) : 1;
+        const page = pageOperation(start, totalCounter);
+
+        const list = await dao.read.searchList(page.startNum, page.endNum, txt, cat);
+        data = {};
+        data.page = page;
+        data.start = start;
+        data.list = list.rows;
+        return data;
+    },
     boardContent : async (bno) => {
         const result = await dao.read.boardContent(bno);
         return result;

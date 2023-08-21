@@ -1,4 +1,4 @@
-#qnaModalBackground {
+#fileModalBackground {
     display: none;
     z-index: 0;
     position: fixed;
@@ -11,20 +11,20 @@
     background: rgba(0, 0, 0, .9);
 }
 
-#qnaModalContainer {
+#fileModalContainer {
     z-index: 1;
     width: 60%;
     height: 70%;
     background-color: white;
 }
 
-#qnaModalBtn {
+#fileModalBtn {
     position: absolute;
     top: 0%;
     right: 0%;
 }
 
-#qnaModalItem {
+#fileModalItem {
     width: 100%;
     height: 100%;
 }

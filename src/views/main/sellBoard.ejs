@@ -1,0 +1,44 @@
+<%
+    let now = new Date();
+
+    const dateFormat = (date) => {
+        DAYS = (date.getMonth() + 1) + ". " + date.getDate() + " / " + date.getHours() + " : " + date.getMinutes();
+        return DAYS;
+    }
+    let index = 0;
+%>
+
+<div class="containerTitle">최신 판매 게시글</div>
+<div id="sellContent">
+    <div id="albumContainer">
+        <% for (; index < sell.length;) { %>
+            <div id="albumRows">
+                <% for(i = 0; i < 2; i++) { %>
+                    <div id="albumItem">
+                        <a class="albumHref" href="/board/boardContent?bno=<%= sell[index].BNO %>">
+                            <div id="albumThumbnail">
+                                <img src="/upload/<%= sell[index].THUMBNAIL %>" width="100%" height="100%">
+                            </div>
+                            <div id="albumInfo">
+                                <div id="albumInfoHeader">
+                                    <div>
+                                        <p style="font-size: 8pt;"><%= sell[index].INQUIRY %></p>
+                                    </div>
+                                    <div>
+                                        <p><%= sell[index].WRITER %></p>
+                                    </div>
+                                    <div>
+                                        <p style="font-size: 8pt;"><%= dateFormat(sell[index].TIME) %></p>
+                                    </div>
+                                </div>
+                                <div id="albumInfoTitle">
+                                    <%= sell[index].TITLE %>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                <% index++; if (index >= sell.length) break; } %>
+            </div>
+        <% } %>
+    </div>
+</div>

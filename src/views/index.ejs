@@ -1,2 +1,17 @@
 <link rel="stylesheet" type="text/css" href="/public/css/views/index.css">
-메인 내용
+
+<div id="mainContainer">
+    <div id="allBoardContainer">
+        <%- include("./main/allBoard") %>
+    </div>
+
+    <div id="specificBoardContainer">
+        <div id="starContainer">
+            <%- include("./main/starBoard") %>
+        </div>
+        
+        <div id="sellContainer">
+            <%- include("./main/sellBoard") %>
+        </div>
+    </div>
+</div>

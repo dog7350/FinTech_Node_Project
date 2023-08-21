@@ -13,9 +13,7 @@ module.exports = (app) => {
     const router = require("express").Router();
 
     // 메인 페이지
-    router.get("/", (req, res) => {
-        res.render("index", { user : req.session.user });
-    });
+    router.get("/", board);
 
     return router;
 }

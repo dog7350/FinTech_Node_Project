@@ -21,6 +21,9 @@ const f_Filter = (req,file,callback) => {
 }
 const upload = multer({ storage : storage, fileFilter : f_Filter});
 
+router.get("/", ctrl.views.main);
+
+router.get("/boardSearch", ctrl.views.boardSearch);
 
 router.get("/boardList",ctrl.views.list);
 router.get("/boardForm",ctrl.views.boardForm);
