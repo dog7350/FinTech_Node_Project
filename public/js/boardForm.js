@@ -9,24 +9,40 @@ function readFile(input) {
     }
 }
 
+let oEditors = []
 
+createEditor = () => {
+    nhn.husky.EZCreator.createInIFrame({
+        oAppRef: oEditors,
+        elPlaceHolder: "contentTxt",
+        sSkinURI: "/smart/SmartEditor2Skin.html",
+        htParams: {
+            bUseVerticalResizer : false,
+            bUseModeChanger : false
+        },
+        fCreator: "createSEditor2"
+    });
+}
 
+submitForm = () => {
+    oEditors.getById["contentTxt"].exec("UPDATE_CONTENTS_FIELD", []);
+    let title = document.getElementById("titleTxt").value;
+    let content = document.getElementById("contentTxt").value;
 
-function formCheck() {
-    const title = document.getElementById("title").value;
-    const content = document.getElementById("txt").value;
-    
-    if(title == "") {
-        alert("제목을 입력해주세요");
+    if (title == "") {
+        alert("제목을 입력하세요.");
         return;
-    }else if(content == "") {
-        alert("내용을 입력해주세요");
+    } else if(content == "<p>&nbsp;</p>") {
+        alert("내용을 입력하세요.");
+        oEditors.getById["contentTxt"].exec("FOCUS");
         return;
-    }else {
-        alert("작성 성공!!!");
-        const baord = document.getElementById("boardForm");
-        return baord.submit();
+    } else {
+        document.getElementById("boardForm").submit();
     }
+}
+
+window.onload = () => {
+    createEditor();
 }
 
 

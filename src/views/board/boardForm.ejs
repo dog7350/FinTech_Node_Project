@@ -1,47 +1,70 @@
 <link rel="stylesheet" type="text/css" href="/public/css/views/boardForm.css">
 <script src="/public/js/boardForm.js"></script>
+<script type="text/javascript" src="/smart/js/HuskyEZCreator.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/public/js/jquery.js"></script>
 
-<h3>글쓰기</h3>
-<div class="boardContainer">
-    <form id="boardForm" method="post" enctype="multipart/form-data"  action="/board/boardWrite">
-        <div class="categoryContainer">
-            <label for="category">카테고리 : </label>
-            <select id="category" name="category" class="category">
+
+
+
+<%
+    const dateFormat = (date) => {
+        DAYS = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        return DAYS;
+    }
+    const image = ['JPG', 'JPEG', 'PNG', 'GIF'];
+    const movie = ['MP4', 'AVI'];
+    const music = ['MP3', 'WAV'];
+%>
+
+<div id="boardFormContainer">
+    <form id="boardForm" action="/board/boardWrite" method="post">
+        <div class="mb-3" style="width: 30%;">
+            <select id="category" class="form-control" name="category">
                 <option value="buy">일반</option>
-                
                 <% if(user.ADMIN == 1) {%>
-                <option value="notice">공지</option>
-                <option id="SELL" value="sell">판매</option> 
-                <% }else if(user.SELLER === "sell") { %>
-                <option id="SELL" value="sell">판매</option> 
-                <% } %>
-               
-            </select><br><br>
-            <label for="title">제목 : </label>
-            <input id="title" name="title" class="title" type="text" placeholder="제목을 입력해주세요">
+                <option value="sell">판매</option>  
+                <option value="notice">공지</option>  
+                <% }else if(user.SELLER == "sell"){%>
+                <option value="sell">판매</option>   
+                <% }%>       
+            </select> 
         </div>
-        <hr>
-        
-        <div class="textContainer">
-            <label for="txt">내용</label><br>
-            <textarea id="txt" class="textArea" name="content" maxlength="4000"></textarea>
+        <div class="mb-3">
+            <input id="titleTxt" class="form-control" type="text" name="title" placeholder="제목을 입력하세요." required>
         </div>
         
+        <input name="writer" type="hidden" value="<%= user.ID %>">
+        <input name="wprofile" type="hidden" value="<%= user.PROFILE %>">
+
+        <textarea id="contentTxt" name="content" maxlength="4000" rows="20" cols="150"></textarea>
+        
         <hr>
-        <div class="uploadContainer">
-            <label for="upload">일반 사진 업로드</label><br>
-            <input type="file" id="upload" name="fileUp" onchange="readFile(this)" multiple>
-            <div>
-                <img id="imgView" src="/upload/DefaultThumbnail.jpg" width="100" height="100">
-            </div>
+        
+        
+
+        <div class="d-grid gap-2">
+            <input class="btn btn-primary" type="button" value="작성" onclick="submitForm()">
+            <input class="btn btn-danger" type="button" value="취소" onclick="history.back()">
+        </div>
+        <div id="boardFileContainer">
+                <div id="boardFileList">
+                    <% files.forEach(data => { %>
+                        <div class="boardFileDiv">
+                            <% if (image.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
+                                <img src="" width="100%" height="120px">
+                            <% } else if (movie.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
+                                <video src="" width="100%" height="120px" controls></video>
+                            <% } else if (music.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
+                                <audio src="" width="100%" height="120px" controls></audio>
+                            <% } %>    
+                        </div>
+                    <% }) %>
         </div>
 
-        <div class="save">
-             <input type="button" onclick="formCheck()" value="작성 완료"> &nbsp;
-            <button type="reset">다시 입력</button> &nbsp;
-            <button type="button" onclick="location.href='/board/boardList';">목록 보기</button>
-        </div>
+        <input id="boardFileSubBtn" class="form-control" type="file" name="fileUp" onchange="FileUp()" multiple>
+        
     </form>
-   
 </div>
+
     

@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/public/css/views/boardList.css">
-<script src="/public/js/boardList.js"></script>
+
 
 <%
     let now = new Date();
@@ -14,7 +14,7 @@
     <div id="boardHeader" class="mb-3">
         <p id="boardTitle">게시판</p>
         <div id="headerBtn">
-            <input class="btn btn-info" type="button" value="글쓰기" onclick=boardMake()>
+            <input class="btn btn-info" type="button" value="글쓰기"  onclick="location.href='/board/boardForm'">
         </div>
     </div>
 
