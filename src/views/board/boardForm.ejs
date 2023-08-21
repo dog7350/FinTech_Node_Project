@@ -1,26 +1,10 @@
 <link rel="stylesheet" type="text/css" href="/public/css/views/boardForm.css">
-<script src="/public/js/boardForm.js"></script>
 <script type="text/javascript" src="/smart/js/HuskyEZCreator.js"></script>
-<script src="/socket.io/socket.io.js"></script>
-<script src="/public/js/jquery.js"></script>
-
-
-
-
-<%
-    const dateFormat = (date) => {
-        DAYS = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-        return DAYS;
-    }
-    const image = ['JPG', 'JPEG', 'PNG', 'GIF'];
-    const movie = ['MP4', 'AVI'];
-    const music = ['MP3', 'WAV'];
-%>
-
+<script type="text/javascript" src="/public/js/boardForm.js"></script>
 <div id="boardFormContainer">
-    <form id="boardForm" action="/board/boardWrite" method="post">
+    <form id="boardForm" action="/board/boardWrite" method="post" enctype="multipart/form-data">
         <div class="mb-3" style="width: 30%;">
-            <select id="category" class="form-control" name="category">
+            <select id="category" class="form-control" name="category" onclick="priceView()">
                 <option value="buy">일반</option>
                 <% if(user.ADMIN == 1) {%>
                 <option value="sell">판매</option>  
@@ -31,7 +15,7 @@
             </select> 
         </div>
         <div class="mb-3">
-            <input id="titleTxt" class="form-control" type="text" name="title" placeholder="제목을 입력하세요." required>
+            <input id="titleTxt" class="form-control" type="text" name="title" placeholder="제목을 입력하세요.">
         </div>
         
         <input name="writer" type="hidden" value="<%= user.ID %>">
@@ -39,21 +23,20 @@
 
         <textarea id="contentTxt" name="content" maxlength="4000" rows="20" cols="150"></textarea>
         
+        <div id="fileContainer">
+            <input type="file" id="fileUp" name="fileUp" onchange="readFile(this)" multiple>
+            <img id="imgView" src="" width="100" height="100">
+        </div>
+        
         <hr>
-        
-        
+        <div class="mb-3">
+            <input id="price" type="number" value="0" name="price">
+        </div>
 
         <div class="d-grid gap-2">
             <input class="btn btn-primary" type="button" value="작성" onclick="submitForm()">
             <input class="btn btn-danger" type="button" value="취소" onclick="history.back()">
         </div>
-        
-        <div>
-            <input type="file" id="fileUp" name="fileUp" onchange="readFile()">
-            <img id="imgView" src="" width="100" height="100">
-        </div>
-        
-        
     </form>
 </div>
 

@@ -49,9 +49,18 @@ const views = {
 
 const process = {
     boardWrite : async (req,res) => {
-        const msg = await service.insert.BoardInsert(req.body,req.session.user,req.files[0].filename);
+        
+        let file = ""
+        if(req.files[0] == undefined) {
+            file = "DefaultThumbnail.jpg";
+        }else {
+            file = req.files[0].filename
+        }
+        const msg = await service.insert.BoardInsert(req.body,req.session.user,file);
         const bno = await service.read.maxNumber();
-       
+        console.log(req.body);
+        
+        
         for(let i=1; i < req.files.length; i++) {
             
             const result =  await service.insert.fileName(bno,req.files[i].filename);
@@ -61,13 +70,20 @@ const process = {
 
     boardModify : async (req,res) => {
         //board
-        const result = await service.update.boardUpdate(req.body);
-        //boardFile
+        let upfile ="";
+        if(req.files[0] == undefined) {
+            upfile = "DefaultThumbnail.jpg";
+        }else {
+            upfile = req.files[0].filename
+        }
+        const result = await service.update.boardUpdate(req.body,upfile);
+        // boardFile
         const resultDel = await service.remove.boardFileDel(req.body.bno);
         
-        for(let i=0; i < req.files.length; i++) {
+        for(let i=1; i < req.files.length; i++) {
             const result =  await service.insert.fileName(req.body.bno,req.files[i].filename);
         }
+        
         
         res.redirect("/board/boardContent?bno="+req.body.bno);
     },

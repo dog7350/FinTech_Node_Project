@@ -9,18 +9,47 @@ function readFile(input) {
     }
 }
 
-function formCheck() {
-    const title = document.getElementById("title").value;
-    const content = document.getElementById("content").value;
-    
-    if(title == "") {
-        alert("제목을 입력해주세요");
+let oEditors = []
+
+createEditor = () => {
+    nhn.husky.EZCreator.createInIFrame({
+        oAppRef: oEditors,
+        elPlaceHolder: "contentTxt",
+        sSkinURI: "/smart/SmartEditor2Skin.html",
+        htParams: {
+            bUseVerticalResizer : false,
+            bUseModeChanger : false
+        },
+        fCreator: "createSEditor2"
+    });
+}
+
+submitForm = () => {
+    oEditors.getById["contentTxt"].exec("UPDATE_CONTENTS_FIELD", []);
+    let title = document.getElementById("titleTxt").value;
+    let content = document.getElementById("contentTxt").value;
+
+    if (title == "") {
+        alert("제목을 입력하세요.");
         return;
-    }else if(content == "") {
-        alert("내용을 입력해주세요");
+    } else if(content == "<p>&nbsp;</p>") {
+        alert("내용을 입력하세요.");
+        oEditors.getById["contentTxt"].exec("FOCUS");
         return;
+    } else {
+        document.getElementById("modifyForm").submit();
+    }
+}
+
+window.onload = () => {
+    createEditor();
+}
+
+function priceView () {
+    const cate = document.getElementById("category").value;
+    if(cate == "sell") {
+        document.getElementById("price").style.display = "block"; 
     }else {
-        alert("글이 변경되었습니다!");
-        return document.getElementById("modifyForm").submit();  
+        document.getElementById("price").style.display = "none";
     }
 }

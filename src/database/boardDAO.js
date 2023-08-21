@@ -97,7 +97,7 @@ const read = {
 const insert = {
     boardContentInsert : async (body, member,thumfile) => {
     
-        const sql = await `INSERT INTO board values(board_SEQ.NEXTVAL,'${body.category}','${body.title}','${member.ID}','${member.PROFILE}','${thumfile}','${body.content}',sysdate,0)`;
+        const sql = await `INSERT INTO board values(board_SEQ.NEXTVAL,'${body.category}','${body.title}','${member.ID}','${member.PROFILE}','${thumfile}','${body.price}','${body.content}',sysdate,0)`;
             
         const con = await db.getConnection(dbConfig);
         
@@ -176,8 +176,8 @@ const update = {
         await con.execute(sql);
     },
 
-    boardModify : async (body) => {
-        const sql = `UPDATE board SET category='${body.category}' ,title='${body.title}', content='${body.content}', time=sysdate WHERE bno=${body.bno}`;
+    boardModify : async (body,upfile) => {
+        const sql = `UPDATE board SET category='${body.category}' ,title='${body.title}', content='${body.content}',thumbnail='${upfile}',price=${body.price}, time=sysdate WHERE bno=${body.bno}`;
         const con = await db.getConnection(dbConfig);
         let result;
 
@@ -190,6 +190,7 @@ const update = {
         return result;
 
     }
+    
     
 }
 

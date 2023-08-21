@@ -79,8 +79,8 @@ const insert = {
 }
 
 const update = {
-    boardUpdate : async (body) => {
-        const result = await dao.update.boardModify(body);
+    boardUpdate : async (body,upfile) => {
+        const result = await dao.update.boardModify(body,upfile);
     }
 }
 

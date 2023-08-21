@@ -45,6 +45,15 @@ window.onload = () => {
     createEditor();
 }
 
+function priceView () {
+    const cate = document.getElementById("category").value;
+    if(cate == "sell") {
+        document.getElementById("price").style.display = "block"; 
+    }else {
+        document.getElementById("price").style.display = "none";
+    }
+}
+
 
 
 

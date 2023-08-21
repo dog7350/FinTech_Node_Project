@@ -33,15 +33,34 @@
         <label class="form-label headerLabel">작성시간</label>
         <p id="headerboardContent"><%= dateFormat(content.TIME) %></p>
     </div>
+    <div id="boardContentHeaderBtnContainer">
+        <%if(user.ID === content.WRITER || user.ADMIN == 1) {%>
+            <input class="btn btn-success" type="button" value="=" onclick="headerMenuControl()">
+            <div id="boardContentHeaderBtnDiv">
+                <% if(user.ADMIN == 0){%>
+                    <input class="btn btn-warning" type="button" value="수정" onclick="location.href='/board/boardModifyForm/<%=content.BNO %>'"><br>
+                <%}%>
+                <input class="btn btn-danger" type="button" value="삭제" onclick="location.href='/board/boardDel/<%=content.BNO%>'">
+            </div>
+        <%}else{%>
+            <div class="mb-3">
+                <form action="/board/report" method="post">
+                    <input id="cmtBno" type="hidden" name="bno" value="<%=content.BNO%>">
+                    <button class="btn btn-danger mb-3" >신고</button>
+                </form>
+            </div>
+        <%}%>
+    </div>
 </div>
 
 <div id="boardContentBody" class="mb-3">
     
-        <%if(file.length == 0){%>
-        <%}else{%> 
+        <%if(file.length != 0){%>
             <div id="boardContentFile" class="mb-3">
             <% file.forEach (data => {%>
-                <img id="123" src="/upload/<%= data.FILENAME %>" width="40px" height="40px" onclick="MouseEvent()">
+                <div style="margin-right: 10px;">
+                    <img id="<%= data.FILENAME %>" src="/upload/<%= data.FILENAME %>" width="40px" height="40px" onclick="openFileInfo('<%= data.FILENAME %>')">
+                </div>
             <%})%> 
             </div>
         <%}%>
@@ -50,25 +69,10 @@
         <%= content.CONTENT %>
     </div>
 </div>
-
-
-<% if(content.WRITER === user.ID) { %>
-<div id="boardModifyContainer">
-    
-        <div id="ModifyMenu" class="mb-3">
-            <input type="button" onclick="location.href='/board/boardModifyForm/<%=content.BNO %>'" value="수정하기">
-            <input type="button" onclick="location.href='/board/boardDel/<%=content.BNO%>'" value="삭제하기">
-        </div>
-    
-</div>
-<% } %>
-
 <div id="boardContentTotal">
     <div id="boardContentcmt" class="mb-3">
-        <form>
+        <form action="/comment/register" method="post">
             <input id="cmtBno" type="hidden" name="bno" value="<%= content.BNO %>">
-            <input id="cmtWriter" type="hidden" name="writer" value="<%= content.WRITER %>">
-            <input id="cmtFile" type="hidden" name="file" value="<%= content.WPROFILE %>">
 
             <div class="mb-3" style="display: flex;">
                 <input class="form-control" name="content" autocomplete="off" placeholder="댓글을 입력해주세요" />
@@ -82,27 +86,33 @@
         <% cmt.forEach (data => {%>
             <div class="cmtContainer mb-3">
                 <div class="cmtListHeader mb-3">
-                    <div class="cmtListProfile mb-3">
-                        <img src="/upload/<%= data.WPROFILE %>" width="25px" height="25px">&nbsp;<%= data.WRITER %>
+                    <div class="cmtListProfile">
+                        <img src="/upload/<%= data.WPROFILE %>" width="40px" height="40px">&nbsp;<%= data.WRITER %>
                     </div>
-                    <div class="cmtListTime mb-3">
-                        <%= dateFormat(data.TIME) %>
+                    <div class="cmtListTime">
+                        <%= dateFormat(data.TIME) %> <br>
+                        👎 <%= cmtReport%>
                     </div>
-                    <div class="cmtListBtn mb-3">
-                        <form action="#">
-                            <input id="cmtBno" type="hidden" name="bno" value="<%= content.BNO %>">
-                            <input id="cmtCno" type="hidden" name="cno" value="<%= content.CNO %>">
-                            
-                            <div class="mb-3">
-                            <% if(content.WRITER === user.ID ) { %>    
-                                <button class="btn btn-secondary">수정</button>
-                                <button class="btn btn-secondary">삭제</button>
-                            <% } %>
-                            </div>
-                        </form>
-                    </div>
+                    <%if(user.ID === data.WRITER ) {%>
+                        <div class="cmtListBtn">
+                            <button class="btn btn-secondary" onclick="cmtModify('<%=data.CNO%>')">수정</button> &nbsp;
+                            <form action="/comment/delete" method="get">
+                                <input id="cmtBno" type="hidden" name="bno" value="<%=data.BNO%>">
+                                <input id="cmtCno" type="hidden" name="cno" value="<%=data.CNO%>">
+                                <button class="btn btn-secondary" >삭제</button>
+                            </form>
+                        </div>
+                    <%}else{%>
+                        <div class="cmtListBtn">
+                            <form action="/comment/report" method="post">
+                                <input id="cmtBno" type="hidden" name="bno" value="<%=data.BNO%>">
+                                <input id="cmtCno" type="hidden" name="cno" value="<%=data.CNO%>">
+                                <button class="btn btn-danger" >신고</button>
+                            </form>
+                        </div>
+                    <%}%>
                 </div>
-                <div class="cmtListContent mb-3" >
+                <div id="cmtContent<%= data.CNO%>" class="cmtListContent">
                     <%= data.CONTENT %>
                 </div>
             </div>

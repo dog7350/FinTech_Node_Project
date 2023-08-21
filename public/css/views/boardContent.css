@@ -2,7 +2,7 @@
     margin: auto;
     margin-bottom: 10px;
     display: flex;
-    width: 70%;
+    width: 100%;
     border-bottom: 1px solid gray;
 }
 #boardContentWriter {
@@ -33,12 +33,13 @@
 #boardContentBody {
     margin: auto;
     margin-bottom: 10px;
-    width: 70%;
+    width: 100%;
     border-bottom: 1px solid gray;
     background-color: bisque;
 }
 #boardContentFile{
     background-color: gray;
+    display: flex;
 }
 #boardContent{
     margin: auto;
@@ -48,7 +49,7 @@
 #boardContentfooter {
     margin: auto;
     margin-bottom: 10px;
-    width: 70%;
+    width: 100%;
     border-bottom: 1px solid gray;
     background-color: lightgray;
 }
@@ -85,7 +86,7 @@
 }
 
 #qnaChatContainer {
-    width: 70%;
+    width: 100%;
 }
 
 #qnaFileContainer {
@@ -128,19 +129,8 @@
     font-weight: bold;
 }
 
-
-
-#boardModifyContainer {
-    margin : auto;
-    width: 70%;
-    text-align: right;
-}
-
-
-
-
 #boardContentTotal{
-    width: 70%;
+    width: 100%;
     margin: auto;
     margin-bottom: 10px;
 }
@@ -166,11 +156,13 @@
 .cmtListHeader{
     display: flex;
     font-size: 10pt;
-    margin : 10px 0px;
+    margin: 0;
+    padding: 0;
 }
 .cmtListProfile{
     margin-right: auto;
     text-align: left;
+    font-weight: bold;
 }
 .cmtListTime{
     margin-left: auto;
@@ -178,9 +170,16 @@
 }
 .cmtListBtn{
     margin : 0px 10px;
+    display: flex;
 }
 .cmtListContent{
-    margin: 10px 0px;
+    margin: 0;
+    padding: 0;
     font-size: 13pt;
-    font-weight: bold;
+}
+#boardContentHeaderBtnDiv {
+    display: none;
+    position: absolute;
+    margin-top: -38px;
+    margin-left: -60px;
 }
