@@ -21,6 +21,11 @@ const read = {
         const result = await dao.read.boardReport(id);
         return result['COUNT(*)'];
     },
+    cmtReport : async (id) => {
+        const result = await dao.read.cmtReport(id);
+        return result['COUNT(*)'];
+    },
+    
     upHit : async (bno) => {
         console.log("123", bno)
         pageUpdate.upHit(bno);
@@ -28,7 +33,10 @@ const read = {
 }
 
 const insert = {
-    
+    report : async (bno, id) => {
+        const result = await dao.insert.report(bno, id);
+        return result;
+    }
 }
 
 const remove = {

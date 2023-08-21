@@ -23,7 +23,34 @@ function cmtModify(cno){
         <input id="cmtCno" type="hidden" name="cno" value=${cno}>
         <textarea row="3" cols="50" name="cmtContent">${str}</textarea>
         <button class="btn btn-secondary">수정</button>
+        <input type="button" class="btn btn-danger" onclick="location.reload();" value="취소">
     </form>`;
+    
+    document.getElementsByClassName("cmtBtn")[0].style.display = "none";
+
 }
 
-cmtDelete
+const openFileInfo = (name) => {
+    document.getElementById("fileModalItem").innerHTML = `<img src='/upload/${name}' width="100%" height="100%">`;
+    $("#fileModalContainer").slideDown("slow");
+    $("#fileModalBackground").show();
+}
+
+const closeFileItemInfo = () => {
+    src = "";
+    document.getElementById("fileModalItem").innerHTML = "";
+    
+    $("#fileModalContainer").slideUp("fast");
+    $("#fileModalBackground").hide();
+}
+
+var hmcf = false;
+const headerMenuControl = () => {
+    if (hmcf == false) {
+        hmcf = true;
+        document.getElementById("boardContentHeaderBtnDiv").style = "display : block";
+    } else {
+        hmcf = false;
+        document.getElementById("boardContentHeaderBtnDiv").style = "display : none";
+    }
+}

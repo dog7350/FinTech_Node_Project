@@ -45,6 +45,20 @@ const insert = {
             console.log(e);
         }
         return result;
+    },
+    report : async (body, id) => {
+        console.log("123", body);
+        const sql = `insert into cmtreport values('${body.bno}', '${body.cno}', '${id}') `;
+        const con = await db.getConnection(dbConfig);
+        let result = 0;
+
+        try {
+            result = await con.execute(sql);
+            result = 1;
+        } catch (e) {
+            console.log(e);
+        }
+        return result;
     }
 }
 
@@ -57,7 +71,6 @@ const remove = {
 
         try {
             result = await con.execute(sql, query);
-            console.log("dao", result)
             result = 1;
         } catch (e) {
             console.log(e);
@@ -75,7 +88,6 @@ const update = {
 
         try {
             result = await con.execute(sql, body);
-            console.log("dao", result)
             result = 1;
         } catch (e) {
             console.log(e);

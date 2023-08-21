@@ -61,11 +61,35 @@ const read = {
             console.log(e);
         }
         return result.rows[0];
+    },
+    cmtReport : async (id) => {
+        const sql = `select count(*) from cmtreport where bno = ${id}`;
+        const con = await db.getConnection(dbConfig);
+
+        let result = 0;
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e);
+        }
+        return result.rows[0];
     }
 }
 
 const insert = {
-    
+    report : async (bno, id) => {
+        const sql = `insert into boardreport values('${bno}', '${id}') `;
+        const con = await db.getConnection(dbConfig);
+        let result = 0;
+
+        try {
+            result = await con.execute(sql);
+            result = 1;
+        } catch (e) {
+            console.log(e);
+        }
+        return result;
+    }
 }
 
 const remove = {
