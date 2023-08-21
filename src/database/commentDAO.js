@@ -9,7 +9,6 @@ const read = {
         let result = 0;
         try{
             result = await con.execute(sql);
-            console.log(result);
         }catch (e) {
             console.log(e);
         }
@@ -22,7 +21,6 @@ const read = {
         let result = 0;
         try{
             result = await con.execute(sql);
-            console.log(result);
         }catch (e) {
             console.log(e);
         }
@@ -32,14 +30,12 @@ const read = {
 
 const insert = {
     register : async (body, id, cno, file) => {
-        console.log("dao123", body, cno)
         const sql = `INSERT INTO cmt VALUES('${body.bno}','${cno}', '${id}', '${file}', '${body.content}', SYSDATE)`;
         const con = await db.getConnection(dbConfig);
         let result = 0;
 
         try {
             result = await con.execute(sql);
-            console.log("dao", result)
             result = 1;
         } catch (e) {
             console.log(e);
@@ -47,7 +43,6 @@ const insert = {
         return result;
     },
     report : async (body, id) => {
-        console.log("123", body);
         const sql = `insert into cmtreport values('${body.bno}', '${body.cno}', '${id}') `;
         const con = await db.getConnection(dbConfig);
         let result = 0;
@@ -64,7 +59,6 @@ const insert = {
 
 const remove = {
     delete : async (query) => {
-        console.log("dao delete", query)
         const sql = `delete from cmt where bno=:bno and cno=:cno`;
         const con = await db.getConnection(dbConfig);
         let result = 0;
@@ -81,7 +75,6 @@ const remove = {
 
 const update = {
     modify : async (body) => {
-        console.log("dao modify", body)
         const sql = `update cmt set content=:cmtContent where bno=:bno and cno=:cno`;
         const con = await db.getConnection(dbConfig);
         let result = 0;

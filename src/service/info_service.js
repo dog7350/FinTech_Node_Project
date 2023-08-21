@@ -21,6 +21,26 @@ const process = {
             url="/info/myPage?id="+body.id;
         }
         return getMsg(msg,url);
+    },
+    boardList : async (id) => {
+        const result = await dao.process.boardList(id);
+        return result;
+    },
+    fileList : async (bno) => {
+        const result = await dao.process.fileList(bno);
+        return result;
+    },
+    qnaList : async (id) => {
+        const result = await dao.process.qnaList(id);
+        return result;
+    },
+    qnaFiles : async (bno) => {
+        const result = await dao.process.qnaFiles(bno);
+        return result;
+    },
+    exit : async (id) => {
+        const result = await dao.process.exit(id);
+        return result;
     }
 }
 

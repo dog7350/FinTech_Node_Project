@@ -3,7 +3,6 @@ const dao = require("../database/commentDAO");
 const read = {
     cno : async (bno) => {
         const result = await dao.read.cno(bno);
-        console.log("service", result);
         return result.rows[0]['MAX(CNO)'];
     }
 }
@@ -32,8 +31,7 @@ const update = {
     modify : async (body)=>{
         const result = await dao.update.modify(body);
         return result;
-    },
-
+    }
 }
 
 module.exports = { read, insert, remove, update };

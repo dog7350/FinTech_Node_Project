@@ -18,7 +18,13 @@
         <tbody>
             <% star.forEach( data => { %>
                 <tr>
-                    <td width="50px;"><%= data.BNO %></td>
+                    <td width="50px;">
+                        <% if (data.CATEGORY == "notice") { %>
+                            <span style="font-weight: bold; color: red;">공지</span>
+                        <% } else { %>
+                            <%= data.BNO %>
+                        <% } %>
+                    </td>
                     <td style="text-align: left;">
                         <% if (data.CATEGORY == "notice") { %>
                             <a class="boardLink" href="/board/boardContent?bno=<%= data.BNO %>" style="color : red; font-weight: bold;">

@@ -28,6 +28,11 @@ const views = {
         res.render("board/boardList", renObj(req, {list:data.list, notice:notice, start:data.start, page:data.page, category:category}));
     },
     boardContent : async (req, res) =>{
+        if (req.session.user == undefined) {
+            res.send(rtnMsg("로그인이 필요합니다.", "/"));
+            return;
+        }
+        
         const content = await service.read.boardContent(req.query.bno); //게시글
         const boardFile = await service.read.boardFile(req.query.bno);   //게시글 파일
         const cmt = await service.read.cmt(req.query.bno);   //댓글
@@ -35,8 +40,6 @@ const views = {
         const cmtReport = await service.read.cmtReport(req.query.bno);  //댓글 신고수
 
         const userCookie = req.cookies.myCookie;
-
-        console.log("쿠키: ", userCookie);
 
         if(userCookie == undefined){ 
             res.cookie("myCookie", req.session.user.ID, cookieConfig); //쿠키 생성
@@ -46,18 +49,20 @@ const views = {
         res.render("board/boardContent", renObj(req, {content : content, file : boardFile, cmt, boardReport, cmtReport}));
     },
     list : async (req,res) => {
-        console.log("req.query.start1 :", req.query.start, req.query.category);
         const totalContent = await service.read.totalContent(req.query.category);
 
-        console.log("req.query.start1 :", req.query.start, req.query.category);
         const data = await service.read.list(req.query.start, totalContent, req.query.category);
+        const notice = await service.read.noticeList();
         
-        console.log("req.query.start2 :", data.start, data.list);
         const category = req.query.category;
-        res.render("board/boardList", renObj(req,{list:data.list, start:data.start, page:data.page, category:category}));
-
+        res.render("board/boardList", renObj(req,{list:data.list, notice:notice, start:data.start, page:data.page, category:category}));
     },
     boardForm : (req,res) => {
+        if (req.session.user == undefined) {
+            res.send(rtnMsg("로그인이 필요합니다.", "/"));
+            return;
+        }
+
         res.render("board/boardForm",renObj(req,{user : req.session.user}));
     }
 };
@@ -66,7 +71,6 @@ const process = {
     boardWrite : async (req,res) => {
         const msg = await service.insert.BoardInsert(req.body,req.session.user);
         const bno = await service.read.maxNumber();
-        // console.log(bno);
         for(let i=0; i < req.files.length; i++) {
             const result =  await service.insert.fileName(bno,req.files[i].filename);
         }

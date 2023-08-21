@@ -59,7 +59,15 @@
 
             <div id="modifyBtnDiv" class="mb-3">
                 <input id="modifyBtn" class="btn btn-primary" type="submit" value="수정">
-                <input id="modifyExitBtn" class="btn btn-danger" type="submit" value="탈퇴">
+                <input id="modifyExitBtn" class="btn btn-danger" type="button" value="탈퇴" onclick="exit()">
             </div>  
     </form>
 </div>
+
+<script>
+    const exit = () => {
+        res = confirm("탈퇴 하시겠습니까?");
+        if (res) location.href="/info/exit?id=<%= user.ID %>";
+        else return;
+    }
+</script>

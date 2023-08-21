@@ -29,7 +29,62 @@ const process = {
             console.log(err);
         }
         return result;
-    } 
+    },
+    boardList : async (id) => {
+        const sql = `SELECT * FROM board WHERE writer='${id}'`;
+        const con = await db.getConnection(dbConfig);
+        result = 0;
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e);
+        }
+        return result.rows;
+    },
+    fileList : async (bno) => {
+        const sql = `SELECT * FROM boardFile WHERE bno=${bno}`;
+        const con = await db.getConnection(dbConfig);
+        result = 0;
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e);
+        }
+        return result.rows;
+    },
+    qnaList : async (id) => {
+        const sql = `SELECT * FROM qna WHERE writer='${id}'`;
+        const con = await db.getConnection(dbConfig);
+        result = 0;
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e);
+        }
+        return result.rows;
+    },
+    qnaFiles : async (bno) => {
+        const sql = `SELECT * FROM qnaFile WHERE bno=${bno}`;
+        const con = await db.getConnection(dbConfig);
+        result = 0;
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e);
+        }
+        return result.rows;
+    },
+    exit : async (id) => {
+        const sql = `DELETE FROM member WHERE id='${id}'`;
+        const con = await db.getConnection(dbConfig);
+        result = 0;
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e);
+        }
+        return result;
+    }
 }
 
 module.exports = {read, process};

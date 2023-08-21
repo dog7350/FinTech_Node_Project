@@ -59,7 +59,6 @@ const read = {
         return result;
     },
     boardContent : async (bno) => {
-        console.log("dao boardContent : ", bno)
         const sql = `select * from board where bno = ${bno}`;
         const con = await db.getConnection(dbConfig);
 
@@ -72,7 +71,6 @@ const read = {
         return result.rows[0];
     },
     boardFile : async (bno) => {
-        console.log("dao boardFile : ", bno)
         const sql = `select * from boardfile where bno = ${bno}`;
         const con = await db.getConnection(dbConfig);
 
@@ -85,7 +83,6 @@ const read = {
         return result.rows;
     },
     cmt : async (bno) => {
-        console.log("dao cmt : ", bno)
         const sql = `select * from cmt where bno = ${bno} order by cno desc`;
         const con = await db.getConnection(dbConfig);
 
@@ -98,7 +95,6 @@ const read = {
         return result.rows;
     },
     boardReport : async (bno) => {
-        console.log("dao boardReport : ", bno)
         const sql = `select count(*) from boardreport where bno = ${bno}`;
         const con = await db.getConnection(dbConfig);
 
@@ -123,7 +119,6 @@ const read = {
         return result.rows[0];
     },
    totalContent : async (category) => {
-        console.log(category);
         var sql = ``;
         if (category == "all") sql = `SELECT count(*) FROM board`;
         else sql = `SELECT count(*) FROM board WHERE category='${category}'`;
@@ -140,8 +135,19 @@ const read = {
     },
     list : async (start, end, category) => {
         var sql = ``;
-        if (category == "all") sql = `SELECT B.* FROM (SELECT rownum rn, A.* FROM(SELECT * FROM board ORDER BY bno DESC) A) B WHERE rn BETWEEN ${start} AND ${end}`;
+        if (category == "all") sql = `SELECT B.* FROM (SELECT rownum rn, A.* FROM(SELECT * FROM board WHERE category != 'notice' ORDER BY bno DESC) A) B WHERE rn BETWEEN ${start} AND ${end}`;
         else sql = `SELECT B.* FROM (SELECT rownum rn, A.* FROM(SELECT * FROM board WHERE category='${category}' ORDER BY bno DESC) A) B WHERE rn BETWEEN ${start} AND ${end}`;
+        const con = await db.getConnection(dbConfig);
+        result = 0;
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e);
+        }
+        return result;
+    },
+    noticeList : async () => {
+        var sql = sql = `SELECT B.* FROM (SELECT rownum rn, A.* FROM(SELECT * FROM board WHERE category='notice' ORDER BY bno DESC) A) B WHERE rn BETWEEN 1 AND 5`;
         const con = await db.getConnection(dbConfig);
         result = 0;
         try {
@@ -166,7 +172,6 @@ const insert = {
         }
     },
     fileNameInsert : async (num,fileName) => {
-        
         const sql = await `INSERT INTO boardFile values('${num}','${fileName}')`;
         const con = await db.getConnection(dbConfig);
         let result;

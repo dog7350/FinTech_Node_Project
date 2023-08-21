@@ -27,6 +27,15 @@
         <label class="form-label headerLabel">작성시간</label>
         <p id="headerTime"><%= dateFormat(chat[0].TIME) %></p>
     </div>
+    <% if (user.ADMIN == 1) { %>
+        <div id="qnaHeaderBtnContainer">
+            <input class="btn btn-success" type="button" value="=" onclick="headerMenuControl()">
+            <div id="qnaHeaderBtnDiv">
+                <input class="btn btn-danger" type="button" value="삭제" onclick="location.href='/qna/delete?bno=<%= chat[0].BNO %>'">
+                <!-- <br><input class="btn btn-warning" type="button" value="수정" onclick=""> -->
+            </div>
+        </div>
+    <% } %>
 </div>
 
 <div id="qnaContent" class="mb-3">

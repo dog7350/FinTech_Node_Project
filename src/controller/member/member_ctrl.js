@@ -76,7 +76,8 @@ const process = {
     login : async (req, res) => {
         const result = await service.read.login(req.body);
 
-        if (result == -1) res.send(`<script>alert("아이디가 존재하지 않습니다."); history.back();</script>`);
+        if (result == -9) res.send(`<script>alert("정지된 아이디 입니다. 관리자에게 문의하세요."); history.back();</script>`);
+        else if (result == -1) res.send(`<script>alert("아이디가 존재하지 않습니다."); history.back();</script>`);
         else if (result == 0) res.send(`<script>alert("비밀번호가 올바르지 않습니다."); history.back();</script>`);
         else {
             req.session.user = result;

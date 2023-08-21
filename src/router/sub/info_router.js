@@ -14,6 +14,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer( { storage : storage } );
 
+router.get("/exit", ctrl.process.exit);
 router.get("/myPage", ctrl.views.infoView);
 router.post("/modifyForm", ctrl.views.modifyForm);
 router.post("/modify", upload.single("file_name"), ctrl.process.modify);

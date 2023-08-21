@@ -86,7 +86,28 @@ const insert = {
 }
 
 const remove = {
-
+    delete : async (bno) => {
+        sql = `DELETE FROM qna WHERE bno=${bno}`;
+        const con = await db.getConnection(dbConfig);
+        result = 0;
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e);
+        }
+        return result;
+    },
+    fileDelete : async (bno, fileName) => {
+        sql = `DELETE FROM qnaFile WHERE bno=${bno} AND fileName='${fileName}'`;
+        const con = await db.getConnection(dbConfig);
+        result = 0;
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e);
+        }
+        return result;
+    }
 }
 
 module.exports = { read, insert, remove };
