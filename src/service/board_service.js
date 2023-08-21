@@ -15,28 +15,28 @@ const pageOperation = (start, totalCounter) => {
 
 const read = {
     boardContent : async (bno) => {
-        console.log("ser boardContent : ", bno)
         const result = await dao.read.boardContent(bno);
-        console.log("ser boardContent : ", result)
         return result;
     },
     boardFile : async (bno) => {
-        console.log("ser boardFile : ", bno)
         const result = await dao.read.boardFile(bno);
-        console.log("ser boardFile : ", result)
         return result;
     },
     cmt : async (bno) => {
-        console.log("ser cmt : ", bno)
         const result = await dao.read.cmt(bno);
-        console.log("ser cmt : ", result)
         return result;
     },
     boardReport : async (bno) => {
         const result = await dao.read.boardReport(bno);
         return result['COUNT(*)'];
     },
+    cmtReport : async (id) => {
+        const result = await dao.read.cmtReport(id);
+        return result['COUNT(*)'];
+    },
+    
     upHit : async (bno) => {
+        console.log("123", bno)
         pageUpdate.upHit(bno);
     },
     totalContent : async (category) => {
@@ -72,6 +72,10 @@ const insert = {
     },
     fileName : async (num,fileName) => {
         const result = await dao.insert.fileNameInsert(num,fileName);
+    },
+    report : async (bno, id) => {
+        const result = await dao.insert.report(bno, id);
+        return result;
     }
 }
 

@@ -9,8 +9,7 @@ const read = {
 
         let result = 0;
         try {
-            result = await con.execute(sq);
-            console.log("dao boardContent : ", result)
+            result = await con.execute(sql);
         } catch (e) {
             console.log(e);
         }
@@ -24,7 +23,6 @@ const read = {
         let result = 0;
         try {
             result = await con.execute(sql);
-            console.log("dao boardFile : ", result)
         } catch (e) {
             console.log(e);
         }
@@ -32,13 +30,12 @@ const read = {
     },
     cmt : async (bno) => {
         console.log("dao cmt : ", bno)
-        const sql = `select * from cmt where bno = ${bno}`;
+        const sql = `select * from cmt where bno = ${bno} order by cno desc`;
         const con = await db.getConnection(dbConfig);
 
         let result = 0;
         try {
             result = await con.execute(sql);
-            console.log("dao cmt : ", result)
         } catch (e) {
             console.log(e);
         }
@@ -52,7 +49,18 @@ const read = {
         let result = 0;
         try {
             result = await con.execute(sql);
-            console.log("dao boardReport : ", result)
+        } catch (e) {
+            console.log(e);
+        }
+        return result.rows[0];
+    },
+    cmtReport : async (id) => {
+        const sql = `select count(*) from cmtreport where bno = ${id}`;
+        const con = await db.getConnection(dbConfig);
+
+        let result = 0;
+        try {
+            result = await con.execute(sql);
         } catch (e) {
             console.log(e);
         }
@@ -91,22 +99,16 @@ const read = {
 
 const insert = {
     boardContentInsert : async (body, member) => {
-    
         const sql = await `INSERT INTO board values(board_SEQ.NEXTVAL,'${body.category}','${body.title}','${member.ID}','${member.PROFILE}','${body.content}',sysdate,0)`;
-            
         const con = await db.getConnection(dbConfig);
         
         let result;
-        
         try {
             result = await con.execute(sql);
         } catch (e) {
             console.log(e)
         }
-        
-        
     },
-
     fileNameInsert : async (num,fileName) => {
         
         const sql = await `INSERT INTO boardFile values('${num}','${fileName}')`;
@@ -119,7 +121,6 @@ const insert = {
             console.log(e)
         }
     },
-
     boardNumber : async () => {
         const sql = await `SELECT max(bno) from board`;
         const con = await db.getConnection(dbConfig);
@@ -132,6 +133,19 @@ const insert = {
         }
 
         return result.rows[0]["MAX(BNO)"];
+    },
+    report : async (bno, id) => {
+        const sql = `insert into boardreport values('${bno}', '${id}') `;
+        const con = await db.getConnection(dbConfig);
+        let result = 0;
+
+        try {
+            result = await con.execute(sql);
+            result = 1;
+        } catch (e) {
+            console.log(e);
+        }
+        return result;
     }
 }
 
@@ -146,6 +160,5 @@ const update = {
         await con.execute(sql);
     }
 }
-
 
 module.exports = { read, insert, update };
