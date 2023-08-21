@@ -47,22 +47,12 @@
             <input class="btn btn-primary" type="button" value="작성" onclick="submitForm()">
             <input class="btn btn-danger" type="button" value="취소" onclick="history.back()">
         </div>
-        <div id="boardFileContainer">
-                <div id="boardFileList">
-                    <% files.forEach(data => { %>
-                        <div class="boardFileDiv">
-                            <% if (image.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
-                                <img src="" width="100%" height="120px">
-                            <% } else if (movie.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
-                                <video src="" width="100%" height="120px" controls></video>
-                            <% } else if (music.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
-                                <audio src="" width="100%" height="120px" controls></audio>
-                            <% } %>    
-                        </div>
-                    <% }) %>
+        
+        <div>
+            <input type="file" id="fileUp" name="fileUp" onchange="readFile()">
+            <img id="imgView" src="" width="100" height="100">
         </div>
-
-        <input id="boardFileSubBtn" class="form-control" type="file" name="fileUp" onchange="FileUp()" multiple>
+        
         
     </form>
 </div>
