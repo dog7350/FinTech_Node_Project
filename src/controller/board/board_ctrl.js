@@ -1,6 +1,8 @@
 const service = require("../../service/board_service");
 const renObj = require("../renObj");
 const cookieConfig = require("../../../config/cookie_config");
+const { query } = require("express");
+const fs = require("fs");
 
 const rtnMsg = (msg, url) => {
     var str = `
@@ -50,10 +52,9 @@ const views = {
     },
     list : async (req,res) => {
         const totalContent = await service.read.totalContent(req.query.category);
-
         const data = await service.read.list(req.query.start, totalContent, req.query.category);
         const notice = await service.read.noticeList();
-        
+
         const category = req.query.category;
         res.render("board/boardList", renObj(req,{list:data.list, notice:notice, start:data.start, page:data.page, category:category}));
     },
@@ -64,20 +65,31 @@ const views = {
         }
 
         res.render("board/boardForm",renObj(req,{user : req.session.user}));
+    },
+    boardModifyForm : async (req,res) => {
+        const content = await service.read.boardContent(req.params.bno);
+        const boardFile = await service.read.boardFile(req.params.bno);
+        
+        res.render("board/modifyForm",renObj(req,{user : req.session.user, content : content, file : boardFile}));
     }
 };
 
 const process = {
     boardWrite : async (req,res) => {
-        const msg = await service.insert.BoardInsert(req.body,req.session.user);
+        
+        let file = ""
+        if(req.files[0] == undefined) {
+            file = "DefaultThumbnail.jpg";
+        }else {
+            file = req.files[0].filename
+        }
+        const msg = await service.insert.BoardInsert(req.body,req.session.user,file);
         const bno = await service.read.maxNumber();
-        for(let i=0; i < req.files.length; i++) {
+
+        for(let i=1; i < req.files.length; i++) {
             const result =  await service.insert.fileName(bno,req.files[i].filename);
         }
         res.redirect("/board/boardList?category=all");
-    },
-    boardModifyForm : async (req,res) => {
-        res.render("/board/modifyForm");
     },
     report : async (req, res) => {
         const result = await service.insert.report(req.body.bno, req.session.user.ID);
@@ -86,6 +98,37 @@ const process = {
         }else{
             res.send(rtnMsg("이미 신고 하셨습니다.", "/board/boardContent?bno="+req.body.bno));
         }
+    },
+    boardModify : async (req,res) => {
+        //board
+        const boardInfo = await service.read.boardContent(req.body.bno);
+        const readFile = await service.read.boardFile(req.params.bno);
+
+        if (boardInfo["THUMBNAIL"] != "DefaultThumbnail.jpg") fs.unlinkSync(`./upload/${boardInfo["THUMBNAIL"]}`);
+        for (j = 0; j < readFile.length; j++) fs.unlinkSync(`./upload/${readFile[j].FILENAME}`);
+        await service.remove.boardFileDel(req.body.bno);
+        
+        let upfile = "";
+        if (req.files[0] == undefined) upfile = "DefaultThumbnail.jpg";
+        else upfile = req.files[0].filename;
+        
+        
+        for(let i=1; i < req.files.length; i++) {
+            const msg =  await service.insert.fileName(req.body.bno, req.files[i].filename);
+        }
+        
+        const result = await service.update.boardUpdate(req.body, upfile);
+        
+        res.redirect("/board/boardContent?bno="+req.body.bno);
+    },
+    boardDel : async (req,res) => {
+        const readFile = await service.read.boardFile(req.params.bno);
+        const resultDel = await service.remove.boardFileDel(req.params.bno);
+        const result = await service.remove.boardDele(req.params.bno);
+        for(let i=0; i < readFile.length; i++){
+            fs.unlinkSync(`./upload/${readFile[i]["FILENAME"]}`);
+        }
+        res.redirect("/board/boardList?category=all");
     }
 };
 

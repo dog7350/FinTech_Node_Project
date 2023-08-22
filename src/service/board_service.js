@@ -71,7 +71,7 @@ const read = {
 
         const list = await dao.read.list(page.startNum, page.endNum, category);
         data = {};
-        console.log("!23", page)
+        
         data.page = page;
         data.start = start;
         data.list = list.rows;
@@ -87,9 +87,10 @@ const read = {
         return result;
     }
 }
+
 const insert = {
-    BoardInsert : async (body,member) => {
-        const result = await dao.insert.boardContentInsert(body,member);
+    BoardInsert : async (body,member,thumfile) => {
+        const result = await dao.insert.boardContentInsert(body,member,thumfile);
     },
     fileName : async (num,fileName) => {
         const result = await dao.insert.fileNameInsert(num,fileName);
@@ -100,8 +101,20 @@ const insert = {
     }
 }
 
-const remove = {
+const update = {
+    boardUpdate : async (body,upfile) => {
+        const result = await dao.update.boardModify(body,upfile);
+    }
+}
 
+
+const remove = {
+    boardFileDel : async (bno) => {
+        const result = await dao.remove.boardFileDel(bno);
+    },
+    boardDele : async (bno) => {
+        const result = await dao.remove.boardDel(bno);
+    }
 }
 
 const pageUpdate = {
@@ -110,4 +123,4 @@ const pageUpdate = {
     }
 }
 
-module.exports = { read, insert, remove };
+module.exports = { read, insert, remove, update };

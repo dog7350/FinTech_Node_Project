@@ -1,0 +1,13 @@
+#modifyFormContainer {
+    margin: auto;
+    width: 60%;
+    height: 100%;
+}
+
+#fileContainer {
+    text-align: center;
+}
+
+#price {
+    display: none;
+}

@@ -50,3 +50,17 @@ const headerMenuControl = () => {
         document.getElementById("boardContentHeaderBtnDiv").style = "display : none";
     }
 }
+
+onload = () => {
+    contentDiv = document.getElementById("boardContent");
+    str = document.getElementById("boardContentTmp").value;
+    str = str.replaceAll("&lt;", "<");
+    str = str.replaceAll("&gt;", ">");
+
+    str = str.replaceAll("\"", "");
+    str = str.replaceAll("&quot;", "");
+    str = str.replaceAll("&#34;", "");
+    str = str.replaceAll("le=", "le=\"");
+    str = str.replaceAll(";>", ";\">");
+    contentDiv.innerHTML = str;
+}
