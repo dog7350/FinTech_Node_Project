@@ -72,30 +72,22 @@ const process = {
     boardModify : async (req,res) => {
         //board
         const boardInfo = await service.read.boardContent(req.body.bno);
-        let upfile ="";
-        if(req.files[0] == undefined) {
-            upfile = "DefaultThumbnail.jpg";
-        }else {
-            upfile = req.files[0].filename
-        }
         const readFile = await service.read.boardFile(req.params.bno);
-        fs.unlinkSync(`./upload/${boardInfo["THUMBNAIL"]}`);
-        for(let i=0; i < readFile.length; i++){
-            fs.unlinkSync(`./upload/${readFile[i]["FILENAME"]}`);
-        }
+
+        if (boardInfo["THUMBNAIL"] != "DefaultThumbnail.jpg") fs.unlinkSync(`./upload/${boardInfo["THUMBNAIL"]}`);
+        for (j = 0; j < readFile.length; j++) fs.unlinkSync(`./upload/${readFile[j].FILENAME}`);
+        await service.remove.boardFileDel(req.body.bno);
         
-        const result = await service.update.boardUpdate(req.body,upfile);
-        // boardFile
-        
-        const resultDel = await service.remove.boardFileDel(req.body.bno);
-        
-        
+        let upfile = "";
+        if (req.files[0] == undefined) upfile = "DefaultThumbnail.jpg";
+        else upfile = req.files[0].filename;
         
         
         for(let i=1; i < req.files.length; i++) {
-            const msg =  await service.insert.fileName(req.body.bno,req.files[i].filename);
+            const msg =  await service.insert.fileName(req.body.bno, req.files[i].filename);
         }
         
+        const result = await service.update.boardUpdate(req.body, upfile);
         
         res.redirect("/board/boardContent?bno="+req.body.bno);
     },

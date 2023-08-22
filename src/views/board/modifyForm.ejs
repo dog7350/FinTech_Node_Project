@@ -1,3 +1,12 @@
+<%
+    buy = "";
+    sell = "";
+    notice = "";
+    if (content.CATEGORY == 'buy') buy = "selected";
+    else if(content.CATEGORY == 'sell') sell = "selected";
+    else notice = "selected";
+%>
+
 <link rel="stylesheet" type="text/css" href="/public/css/views/modifyForm.css">
 <script type="text/javascript" src="/smart/js/HuskyEZCreator.js"></script>
 <script type="text/javascript" src="/public/js/modifyForm.js"></script>
@@ -5,12 +14,12 @@
     <form id="modifyForm" action="/board/boardModify/<%=content.BNO %>" method="post" enctype="multipart/form-data">
         <div class="mb-3" style="width: 30%;">
             <select id="category" class="form-control" name="category" onclick="priceView()">
-                <option value="buy">일반</option>
+                <option value="buy" <%= buy %>>일반</option>
                 <% if(user.ADMIN == 1) {%>
-                <option value="sell">판매</option>  
-                <option value="notice">공지</option>  
+                <option value="sell" <%= sell %>>판매</option>  
+                <option value="notice" <%= notice %>>공지</option>  
                 <% }else if(user.SELLER == "sell"){%>
-                <option value="sell">판매</option>   
+                <option value="sell" <%= sell %>>판매</option>   
                 <% }%>       
             </select> 
         </div>

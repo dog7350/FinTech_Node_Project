@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
     },
     filename : (req, file, callback) => {
         
-        callback(null, "BOARD_"+ new Date().getTime() + "_" + file.originalname.toUpperCase());
+        callback(null, "BOARD_"+ req.body.category + "_" + req.body.title + "_" + req.session.user.ID + "_" + file.originalname.toUpperCase());
     }
 });
 

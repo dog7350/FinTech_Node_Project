@@ -27,10 +27,3 @@ const userMenuClose = () => {
         chat.style.display = "none";
     }, 160);
 }
-
-window.onload = () => {
-    const userMenuButton = document.getElementById("userMenuButton");
-    const exitUserButton = document.getElementById("exitUserMenu");
-    userMenuButton.addEventListener("click", userMenuOpen);
-    exitUserButton.addEventListener("click", userMenuClose);
-}
