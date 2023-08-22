@@ -10,8 +10,8 @@ const read = {
     login : async (body) => {
         const result = await dao.read.login(body.id);
 
-        if (result.STOP == 1) return -9;
         if (result == undefined) return -1;
+        if (result.STOP == 1) return -9;
         if (bcrypt.compareSync(body.pw, result.PW)) {
             return result;
         } else {
