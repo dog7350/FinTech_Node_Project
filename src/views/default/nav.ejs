@@ -30,8 +30,16 @@
             </li>
         <% } %>
         <% if (user != undefined && user.ADMIN == 1) { %>
-            <li class="nav-item btn btn-outline-warning mainmenu">
-                <a class="nav-link" href="#">관리자 페이지</a>
+            <li class="nav-item btn btn-outline-warning adminmenu">
+                <a class="nav-link" href="/admin/list"> 관 리 자 </a>
+                <ul class="submenu">
+                    <li class="nav-item btn btn-outline-warning">
+                        <a class="nav-link" href="/admin/list"> 회원관리 </a>
+                    </li>
+                    <li class="nav-item btn btn-outline-warning">
+                        <a class="nav-link" href="/admin/allChat"> 채팅로그 </a>
+                    </li>
+                </ul>
             </li>
         <% } %>
     </ul>

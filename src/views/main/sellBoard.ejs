@@ -2,7 +2,7 @@
     let now = new Date();
 
     const dateFormat = (date) => {
-        DAYS = (date.getMonth() + 1) + ". " + date.getDate() + " / " + date.getHours() + " : " + date.getMinutes();
+        DAYS = (date.getMonth() + 1) + ". " + date.getDate() + " " + date.getHours() + " : " + date.getMinutes();
         return DAYS;
     }
     let index = 0;
@@ -21,13 +21,13 @@
                             </div>
                             <div id="albumInfo">
                                 <div id="albumInfoHeader">
-                                    <div>
+                                    <div style="width: 50px;">
                                         <p style="font-size: 8pt;"><%= sell[index].INQUIRY %></p>
                                     </div>
                                     <div>
-                                        <p><%= sell[index].WRITER %></p>
+                                        <p><b><%= sell[index].WRITER %></b></p>
                                     </div>
-                                    <div>
+                                    <div style="width: 60px;">
                                         <p style="font-size: 8pt;"><%= dateFormat(sell[index].TIME) %></p>
                                     </div>
                                 </div>

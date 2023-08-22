@@ -4,6 +4,7 @@
     <div id="headerContent">
         <a id="iconImg" href="/"><img src="/public/images/icon.jpg" alt="아이콘" width="100px" height="100px"></a>
         <div id="searchFormContainer">
+            <% if (nowUrl != "admin") { %>
             <form id="searchForm" action="/board/boardSearch" method="get">
                 <select name="searchCat">
                     <option value="title">제목</option>
@@ -12,6 +13,17 @@
                 <input type="text" class="form-control" name="searchTxt" placeholder="Input Search Keyword">
                 <input type="submit" class="btn btn-success" value="Search">
             </form>
+            <% } else { %>
+                <form id="searchForm" action="/admin/adminSearch" method="get">
+                    <select name="searchCat">
+                        <option value="id">아이디</option>
+                        <option value="nick">닉네임</option>
+                        <option value="name">이름</option>
+                    </select>
+                    <input type="text" class="form-control" name="searchTxt" placeholder="Input Search Keyword">
+                    <input type="submit" class="btn btn-success" value="Search">
+                </form>
+            <% } %>
         </div>
         <div id="userButtonContainer">
             <input id="userMenuButton" class="btn btn-primary" type="button" value="유저">

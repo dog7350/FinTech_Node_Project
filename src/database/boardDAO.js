@@ -127,7 +127,6 @@ const read = {
         result = 0;
         try{
             result = await con.execute(sql);
-            console.log("리스트: ", result);
         }catch(e){
             console.log(err);
         }

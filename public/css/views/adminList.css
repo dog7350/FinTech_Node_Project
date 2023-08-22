@@ -1,0 +1,19 @@
+#adminContainer {
+    width: 100%;
+}
+#boardTitle {
+    font-size: 30pt;
+    font-weight: bold;
+    color: aquamarine;
+}
+
+#adminBody {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+}
+
+#adminFooter {
+    width: 100%;
+    text-align: center;
+}

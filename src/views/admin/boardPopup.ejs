@@ -1,0 +1,65 @@
+<link rel="stylesheet" type="text/css" href="/public/css/bootstrap/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="/public/css/default/layout.css">
+<script src="/public/js/layout.js"></script>
+<link rel="stylesheet" type="text/css" href="/public/css/views/boardList.css">
+
+<%
+    let now = new Date();
+
+    const dateFormat = (date) => {
+        DAYS = date.getFullYear() + ". " + (date.getMonth() + 1) + ". " + date.getDate() + " / " + date.getHours() + " : " + date.getMinutes();
+        return DAYS;
+    }
+%>
+
+<div id="boardBody">
+    <table class="table table-light tabal-hover table-striped">
+        <thead>
+            <tr><th>번호</th> <th width="100px;">카테고리</th> <th>제목</th> <th>작성자</th> <th>작성시간</th><th>조회수</th></tr>
+        </thead>
+
+        <tbody>
+            <% list.forEach( data => { %>
+                <tr>
+                    <td width="50px;"><%= data.BNO %></td>
+                    <td width="50px"><%= data.CATEGORY %></td>
+                    <td style="text-align: left;">
+                        <% if (data.CATEGORY == "notice") { %>
+                            <a class="boardLink" href="/board/boardContent?bno=<%= data.BNO %>" style="color : red; font-weight: bold;">
+                        <% } else { %>
+                            <a class="boardLink" href="/board/boardContent?bno=<%= data.BNO %>">
+                        <% } %>
+                            <%= data.TITLE %>
+                        </a>
+                        <% if (data.TIME.getDate() == now.getDate()) { %>
+                            <img src="/public/images/DefaultNew.gif">
+                        <% } %>
+                    </td>
+                    <td width="300px;"><%= data.WRITER %></td> <td width="200px;"><%= dateFormat(data.TIME) %></td>
+                    <td width="100px;"><%= data.INQUIRY %></td>
+                </tr>
+            <% }) %>
+            <% if (list.length == 0) { %>
+                <tr><td colspan="6">등록된 글이 없습니다.</td></tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+
+<div id="boardFooter">
+    <% if (start <= 1) { %>
+        <input class="btn btn-outline-primary" type="button" value="◀" disabled>
+    <% } else { %>
+        <input class="btn btn-outline-primary" type="button" value="◀" onclick="location.href='/admin/memberBoard?id=<%= id %>&start=<%= start - 1 %>'">
+    <% } %>
+        &nbsp;&nbsp;
+    <% for (i = 1; i <= page.totPage; i++) { %>
+        <input class="btn btn-outline-success" type="button" value="<%= i %>" onclick="location.href='/admin/memberBoard?id=<%= id %>&start=<%= i %>'">
+    <% } %>
+        &nbsp;&nbsp;
+    <% if (start < page.totPage) { %>
+        <input class="btn btn-outline-primary" type="button" value="▶" onclick="location.href='/admin/memberBoard?id=<%= id %>&start=<%= start + 1 %>'">
+    <% } else { %>
+        <input class="btn btn-outline-primary" type="button" value="▶" disabled>
+    <% } %>
+</div>

@@ -5,6 +5,20 @@
     min-height: 5vh;
     text-align: center;
 }
+.adminmenu {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.adminmenu > ul {
+    list-style: none;
+}
+.adminmenu:hover > ul {
+    visibility: visible;
+    height: 120px; /* 1 : 60px */
+}
 
 .mainmenu {
     margin-top: 0;

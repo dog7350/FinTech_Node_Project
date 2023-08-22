@@ -1,0 +1,48 @@
+<link rel="stylesheet" type="text/css" href="/public/css/views/adminList.css">
+
+<div id="adminContainer">
+    <div id="adminHeader" class="mb-3">
+        <p id="boardTitle">회원 목록</p>
+    </div>
+
+    <div id="adminBody">
+        <table class="table table-light tabal-hover table-striped">
+            <thead>
+                <tr><th>아이디</th> <th>닉네임</th> <th>이름</th> <th style="width: 140px;">전화번호</th> <th style="width: 100px;">회원 종류</th></tr>
+            </thead>
+
+            <tbody>
+                <% list.forEach( data => { %>
+                    <tr>
+                        <td><a href="/admin/info?id=<%= data.ID %>"><%= data.ID %></a></td>
+                        <td><%= data.NICK %></td>
+                        <td><%= data.NAME %></td>
+                        <td><%= data.PHONE %></td>
+                        <td><%= data.SELLER %></td>
+                    </tr>
+                <% }) %>
+                <% if (list.length == 0) { %>
+                    <tr><td colspan="5">회원이 없습니다.</td></tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="adminFooter">
+        <% if (start <= 1) { %>
+            <input class="btn btn-outline-primary" type="button" value="◀" disabled>
+        <% } else { %>
+            <input class="btn btn-outline-primary" type="button" value="◀" onclick="location.href='/admin/list?start=<%= start - 1 %>'">
+        <% } %>
+            &nbsp;&nbsp;
+        <% for (i = 1; i <= page.totPage; i++) { %>
+            <input class="btn btn-outline-success" type="button" value="<%= i %>" onclick="location.href='/admin/list?start=<%= i %>'">
+        <% } %>
+            &nbsp;&nbsp;
+        <% if (start < page.totPage) { %>
+            <input class="btn btn-outline-primary" type="button" value="▶" onclick="location.href='/admin/list?start=<%= start + 1 %>'">
+        <% } else { %>
+            <input class="btn btn-outline-primary" type="button" value="▶" disabled>
+        <% } %>
+    </div>
+</div>

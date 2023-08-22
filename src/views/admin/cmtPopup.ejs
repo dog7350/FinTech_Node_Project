@@ -1,0 +1,54 @@
+<link rel="stylesheet" type="text/css" href="/public/css/bootstrap/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="/public/css/default/layout.css">
+<script src="/public/js/layout.js"></script>
+<link rel="stylesheet" type="text/css" href="/public/css/views/boardList.css">
+
+<%
+    let now = new Date();
+
+    const dateFormat = (date) => {
+        DAYS = date.getFullYear() + ". " + (date.getMonth() + 1) + ". " + date.getDate() + " " + date.getHours() + " : " + date.getMinutes();
+        return DAYS;
+    }
+%>
+
+<div id="boardBody">
+    <table class="table table-light tabal-hover table-striped">
+        <thead>
+            <tr><th style="width: 110px">게시판 번호</th> <th style="width: 90px">댓글 번호</th> <th style="width: 100px">작성자</th> <th>내용</th> <th style="width: 100px">작성시간</th></tr>
+        </thead>
+
+        <tbody>
+            <% list.forEach( data => { %>
+                <tr>
+                    <td><%= data.BNO %></td>
+                    <td><%= data.CNO %></td>
+                    <td><%= data.WRITER %></td>
+                    <td><a href="/board/boardContent?bno=<%= data.BNO %>"><%= data.CONTENT %></a></td>
+                    <td><%= dateFormat(data.TIME) %></td>
+                </tr>
+            <% }) %>
+            <% if (list.length == 0) { %>
+                <tr><td colspan="5">작성한 댓글이 없습니다.</td></tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+
+<div id="boardFooter">
+    <% if (start <= 1) { %>
+        <input class="btn btn-outline-primary" type="button" value="◀" disabled>
+    <% } else { %>
+        <input class="btn btn-outline-primary" type="button" value="◀" onclick="location.href='/admin/memberCmt?id=<%= id %>&start=<%= start - 1 %>'">
+    <% } %>
+        &nbsp;&nbsp;
+    <% for (i = 1; i <= page.totPage; i++) { %>
+        <input class="btn btn-outline-success" type="button" value="<%= i %>" onclick="location.href='/admin/memberCmt?id=<%= id %>&start=<%= i %>'">
+    <% } %>
+        &nbsp;&nbsp;
+    <% if (start < page.totPage) { %>
+        <input class="btn btn-outline-primary" type="button" value="▶" onclick="location.href='/admin/memberCmt?id=<%= id %>&start=<%= start + 1 %>'">
+    <% } else { %>
+        <input class="btn btn-outline-primary" type="button" value="▶" disabled>
+    <% } %>
+</div>

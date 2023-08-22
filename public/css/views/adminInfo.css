@@ -1,0 +1,51 @@
+#adminContainer {
+    margin: auto;
+    width: 60%;
+}
+#adminHeader {
+    width: 100%;
+    text-align: center;
+}
+#boardTitle {
+    font-size: 30pt;
+    font-weight: bold;
+}
+#adminBtnDiv {
+    display: flex;
+    margin-bottom: 5px;
+    float: right;
+}
+#adminBtnDiv > input {
+    margin-left: 10px;
+}
+
+#adminBody {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+}
+.memberRows {
+    display: flex;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.memberInfoTitle {
+    width: 19.9999%;
+    font-size: 20pt;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid black;
+}
+.memberInfo {
+    padding: 5px;
+    width: 79.9999%;
+    align-content: center;
+    vertical-align: middle;
+    text-align: left;
+    border: 1px solid black;
+}
+
+#adminFooter {
+    width: 100%;
+    text-align: center;
+}

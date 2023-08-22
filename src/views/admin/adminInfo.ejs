@@ -1,0 +1,100 @@
+<link rel="stylesheet" type="text/css" href="/public/css/views/adminInfo.css">
+<script src="/public/js/adminInfo.js"></script>
+
+<div id="adminContainer">
+    <div id="adminHeader" class="mb-3">
+        <p id="boardTitle"><%= member.ID %>(<%= member.NICK %>)</p>
+        <div id="adminBtnDiv">
+            <input class="btn btn-success" type="button" value="위임" onclick="location.href='/admin/manager?id=<%= member.ID %>&admin=<%= member.ADMIN %>'"><br>
+            <input class="btn btn-warning" type="button" value="정지" onclick="location.href='/admin/stop?id=<%= member.ID %>&stop=<%= member.STOP %>'"><br>
+            <input class="btn btn-danger" type="button" value="강퇴" onclick="location.href='/admin/exit?id=<%= member.ID %>'">
+        </div>
+    </div>
+
+    <div id="adminBody">
+        <div class="memberRows">
+            <div class="memberInfoTitle">아이디</div>
+            <div class="memberInfo"><%= member.ID %></div>
+        </div>
+        
+        <div class="memberRows">
+            <div class="memberInfoTitle">이름</div>
+            <div class="memberInfo"><%= member.NAME %></div>
+        </div>
+        
+        <div class="memberRows">
+            <div class="memberInfoTitle">닉네임</div>
+            <div class="memberInfo"><%= member.NICK %></div>
+        </div>
+        
+        <div class="memberRows">
+            <div class="memberInfoTitle">프로필</div>
+            <div class="memberInfo"><img src="/upload/<%= member.PROFILE %>" width="150px" height="150px"></div>
+        </div>
+        
+        <div class="memberRows">
+            <div class="memberInfoTitle">전화번호</div>
+            <div class="memberInfo"><%= member.PHONE %></div>
+        </div>
+        
+        <div class="memberRows">
+            <div class="memberInfoTitle">이메일</div>
+            <div class="memberInfo"><%= member.EMAIL %></div>
+        </div>
+        
+        <div class="memberRows">
+            <div class="memberInfoTitle">주소</div>
+            <div class="memberInfo">
+                <%= member.ZIPCODE %><br>
+                <%= member.ADDR %><br>
+                <%= member.ADDRDETAIL %>
+            </div>
+        </div>
+        
+        <div class="memberRows">
+            <div class="memberInfoTitle">회원종류</div>
+            <div class="memberInfo">
+                <% if (member.SELLER == "sell") { %>
+                    판매자
+                <% } else { %>
+                    일반
+                <% } %>
+            </div>
+        </div>
+        
+        <div class="memberRows">
+            <div class="memberInfoTitle">보유 캐시</div>
+            <div class="memberInfo"><%= member.CASH %></div>
+        </div>
+        
+        <div class="memberRows">
+            <div class="memberInfoTitle">관리자여부</div>
+            <div class="memberInfo">
+                <% if (member.ADMIN == 1) { %>
+                    관리자
+                <% } else { %>
+                    회원
+                <% } %>
+            </div>
+        </div>
+        
+        <div class="memberRows">
+            <div class="memberInfoTitle">정지여부</div>
+            <div class="memberInfo">
+                <% if (member.STOP == 1) { %>
+                    정지
+                <% } else { %>
+                    활성
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminFooter">
+        <div class="d-grid gap-2">
+            <input class="btn btn-primary" type="button" value="작성 게시글" onclick="openMemberBoard('<%= member.ID %>')">
+            <input class="btn btn-primary" type="button" value="작성 댓글" onclick="openMemberCmt('<%= member.ID %>')">
+            <input class="btn btn-primary" type="button" value="채팅 로그" onclick="openMemberChat('<%= member.ID %>')">
+        </div>
+    </div>
+</div>
