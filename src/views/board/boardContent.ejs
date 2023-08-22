@@ -83,39 +83,50 @@
     <%if(cmt.length == 0){%>
         등록된 댓글이 없습니다. 댓글을 작성해주세요~
     <%}else{%>
-        <% cmt.forEach (data => {%>
+        <% for (i = 0; i < cmt.length; i++) { %>
             <div class="cmtContainer mb-3">
                 <div class="cmtListHeader mb-3">
                     <div class="cmtListProfile">
-                        <img src="/upload/<%= data.WPROFILE %>" width="40px" height="40px">&nbsp;<%= data.WRITER %>
+                        <img src="/upload/<%= cmt[i].WPROFILE %>" width="40px" height="40px">&nbsp;<%= cmt[i].WRITER %>
                     </div>
                     <div class="cmtListTime">
-                        <%= dateFormat(data.TIME) %> <br>
-                        👎 <%= cmtReport%>
+                        <%= dateFormat(cmt[i].TIME) %> <br>
+                        👎 <% 
+                                flag = false;
+                                for (j = 0; j < cmtReport.length; j++) {
+                                    if (cmtReport[j].CNO == cmt[i].CNO) {
+                                        flag = true; %>
+                                        <%= cmtReport[j].CNT %>
+                                    <% }
+                                }
+                                if (flag == false) { %>
+                                    0
+                                <% }
+                            %>
                     </div>
-                    <%if(user.ID === data.WRITER ) {%>
+                    <%if(user.ID === cmt[i].WRITER ) {%>
                         <div class="cmtListBtn">
-                            <button class="btn btn-secondary" onclick="cmtModify('<%=data.CNO%>')">수정</button> &nbsp;
+                            <button class="btn btn-secondary" onclick="cmtModify('<%=cmt[i].CNO%>')">수정</button> &nbsp;
                             <form action="/comment/delete" method="get">
-                                <input id="cmtBno" type="hidden" name="bno" value="<%=data.BNO%>">
-                                <input id="cmtCno" type="hidden" name="cno" value="<%=data.CNO%>">
+                                <input id="cmtBno" type="hidden" name="bno" value="<%=cmt[i].BNO%>">
+                                <input id="cmtCno" type="hidden" name="cno" value="<%=cmt[i].CNO%>">
                                 <button class="btn btn-secondary" >삭제</button>
                             </form>
                         </div>
                     <%}else{%>
                         <div class="cmtListBtn">
                             <form action="/comment/report" method="post">
-                                <input id="cmtBno" type="hidden" name="bno" value="<%=data.BNO%>">
-                                <input id="cmtCno" type="hidden" name="cno" value="<%=data.CNO%>">
+                                <input id="cmtBno" type="hidden" name="bno" value="<%=cmt[i].BNO%>">
+                                <input id="cmtCno" type="hidden" name="cno" value="<%=cmt[i].CNO%>">
                                 <button class="btn btn-danger" >신고</button>
                             </form>
                         </div>
                     <%}%>
                 </div>
-                <div id="cmtContent<%= data.CNO%>" class="cmtListContent">
-                    <%= data.CONTENT %>
+                <div id="cmtContent<%= cmt[i].CNO%>" class="cmtListContent">
+                    <%= cmt[i].CONTENT %>
                 </div>
             </div>
-        <%})%>
+        <% } %>
     <%}%>    
 </div>

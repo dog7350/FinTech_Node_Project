@@ -108,7 +108,7 @@ const read = {
         return result.rows[0];
     },
     cmtReport : async (bno) => {
-        const sql = `select count(*) from cmtreport where bno = ${bno}`;
+        const sql = `SELECT b.cno, count(*) cnt FROM (SELECT * FROM cmtReport WHERE bno=${bno}) b GROUP BY b.cno`;
         const con = await db.getConnection(dbConfig);
 
         let result = 0;
@@ -117,7 +117,7 @@ const read = {
         } catch (e) {
             console.log(e);
         }
-        return result.rows[0];
+        return result.rows;
     },
    totalContent : async (category) => {
         var sql = ``;

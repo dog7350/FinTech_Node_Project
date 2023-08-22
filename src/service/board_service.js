@@ -56,7 +56,7 @@ const read = {
     },
     cmtReport : async (bno) => {
         const result = await dao.read.cmtReport(bno);
-        return result['COUNT(*)'];
+        return result;
     },
     upHit : async (bno) => {
         pageUpdate.upHit(bno);
