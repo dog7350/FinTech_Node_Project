@@ -1,4 +1,9 @@
 <link rel="stylesheet" type="text/css" href="/public/css/default/nav.css">
+<script src="/public/js/jquery.js"></script>
+<script src="/public/js/iamport/iamport_payment.js"></script>
+<script src="/public/js/iamport/iamport.js"></script>
+<script src="/public/js/navIamport.js"></script>
+
 <div id="navContainer" class="justify-content-center">
     <ul class="nav">
         <li class="nav-item btn btn-outline-warning mainmenu">
@@ -26,7 +31,7 @@
                 <a class="nav-link" href="/info/myPage">마이페이지</a>
             </li>
             <li class="nav-item btn btn-outline-warning mainmenu">
-                <a class="nav-link" href="#">결제</a>
+                <a class="nav-link" onclick="payments()">결제</a>
             </li>
         <% } %>
         <% if (user != undefined && user.ADMIN == 1) { %>

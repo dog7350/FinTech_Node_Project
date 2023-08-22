@@ -86,6 +86,14 @@ const views = {
 };
 
 const process = {
+    payments : async (req, res) => {
+        const status = await service.update.cash(req.session.user.ID, req.query.price);
+        const result = await service.read.info(req.session.user.ID);
+
+        req.session.user = result;
+
+        res.send(rtnMsg("충전되었습니다.", "/"));
+    },
     manager : async (req, res) => {
         if (req.query.id == "admin") {
             res.send(bakMsg("메인 관리자는 설정할 수 없습니다."));

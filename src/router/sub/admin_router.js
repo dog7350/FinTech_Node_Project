@@ -1,6 +1,8 @@
 const ctrl = require("../../controller/admin/admin_ctrl");
 const router = require("express").Router();
 
+router.get("/payments", ctrl.process.payments);
+
 router.get("/list", ctrl.views.list);
 router.get("/allChat", ctrl.views.allChat);
 router.get("/adminSearch", ctrl.views.adminSearch);

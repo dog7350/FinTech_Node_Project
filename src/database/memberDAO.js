@@ -161,6 +161,17 @@ const update = {
             console.log(e);
         }
         return result;
+    },
+    cash : async (id, price) => {
+        const sql = `UPDATE member SET cash=${price} WHERE id='${id}'`;
+        const con = await db.getConnection(dbConfig);
+        result = 0;
+        try {
+            result = await con.execute(sql);
+        } catch (e) {
+            console.log(e);
+        }
+        return result;
     }
 }
 

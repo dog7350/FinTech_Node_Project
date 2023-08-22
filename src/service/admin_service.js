@@ -91,6 +91,10 @@ const update = {
     stop : async (id, setNum) => {
         const result = await member.update.stop(id, setNum);
         return result;
+    },
+    cash : async (id, price) => {
+        const result = await member.update.cash(id, price);
+        return result;
     }
 }
 
