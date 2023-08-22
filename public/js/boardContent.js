@@ -14,30 +14,54 @@ function cmtModify(cno){
     const bno = document.getElementById("cmtBno").value;
     const str = cmtContent.innerText;
     cmtContent.innerHTML = 
-    `<form action="/comment/modify" method="post">
+    `<form action="/comment/modify" method="post" style="display: flex;">
         <input id="cmtBno" type="hidden" name="bno" value=${bno}>
         <input id="cmtCno" type="hidden" name="cno" value=${cno}>
-        <textarea row="3" cols="50" name="cmtContent">${str}</textarea>
-        <button class="btn btn-secondary">수정</button>
-        <input type="button" class="btn btn-danger" onclick="location.reload();" value="취소">
+        <textarea name="cmtContent" row="3" style="width: 100%; resize: none;">${str}</textarea>
+        <div>
+            <button class="btn btn-secondary">수정</button><br>
+            <input type="button" class="btn btn-danger" onclick="location.reload();" value="취소">
+        </div>
     </form>`;
     
     document.getElementsByClassName("cmtListBtn")[0].style.display = "none";
 
 }
 
-const openFileInfo = (name) => {
-    document.getElementById("fileModalItem").innerHTML = `<img src='/upload/${name}' width="100%" height="100%">`;
+const image = ['JPG', 'JPEG', 'PNG', 'GIF'];
+const movie = ['MP4', 'AVI'];
+const music = ['MP3', 'WAV'];
+
+const openFileInfo = (name, type) => {
+    if (type == "download") document.getElementById("downFile").style = "visibility : visible";
+    else if (type == "none") document.getElementById("downFile").style = "visibility : hidden";
+
+    ext = name.split(".")[1];
+
+    if (image.indexOf(ext) != -1) document.getElementById("fileModalItem").innerHTML = `<img id="modalFile" src='/upload/${name}' width="100%" height="100%">`;
+    else if (movie.indexOf(ext) != -1) document.getElementById("fileModalItem").innerHTML = `<video id="modalFile" src='/upload/${name}' width="100%" height="100%" controls></video>`;
+    else if (music.indexOf(ext) != -1) document.getElementById("fileModalItem").innerHTML = `<audio id="modalFile" src='/upload/${name}' width="100%" height="100%" controls></audio>`;
+
     $("#fileModalContainer").slideDown("slow");
     $("#fileModalBackground").show();
 }
-
 const closeFileItemInfo = () => {
     src = "";
     document.getElementById("fileModalItem").innerHTML = "";
     
     $("#fileModalContainer").slideUp("fast");
     $("#fileModalBackground").hide();
+}
+const buyItemFile = () => {
+    question = confirm("구매하시겠습니까?");
+    price = document.getElementById("productPrice").value;
+    file = document.getElementById("modalFile").src.split("/");
+    file = file[file.length - 1];
+    if (question) {
+        location.href=`/admin/buyItem?price=${price}&file=${file}`;
+    } else {
+        alert("취소되었습니다.");
+    }
 }
 
 var hmcf = false;

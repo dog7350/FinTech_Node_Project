@@ -41,10 +41,9 @@ const views = {
         const boardReport = await service.read.boardReport(req.query.bno);  //게시글 신고수
         const cmtReport = await service.read.cmtReport(req.query.bno);  //댓글 신고수
 
-        const userCookie = req.cookies.myCookie;
-
-        if(userCookie == undefined){ 
-            res.cookie("myCookie", req.session.user.ID, cookieConfig); //쿠키 생성
+        bno = req.query.bno;
+        if (Object.keys(req.cookies).indexOf(bno) == -1) {
+            res.cookie(bno, bno, cookieConfig);
             await service.read.upHit(req.query.bno); //조회수 올리고
         }
 
@@ -76,19 +75,25 @@ const views = {
 
 const process = {
     boardWrite : async (req,res) => {
-        
         let file = ""
-        if(req.files[0] == undefined) {
+        if (req.files[0] == undefined) {
             file = "DefaultThumbnail.jpg";
-        }else {
-            file = req.files[0].filename
         }
-        const msg = await service.insert.BoardInsert(req.body,req.session.user,file);
-        const bno = await service.read.maxNumber();
 
-        for(let i=1; i < req.files.length; i++) {
-            const result =  await service.insert.fileName(bno,req.files[i].filename);
+        if (req.files.length > 1) {
+            file = req.files[0].filename;
+            const msg = await service.insert.BoardInsert(req.body,req.session.user,file);
+            const bno = await service.read.maxNumber();
+    
+            for(let i=1; i < req.files.length; i++) {
+                const result =  await service.insert.fileName(bno,req.files[i].filename);
+            }
+        } else {
+            const msg = await service.insert.BoardInsert(req.body,req.session.user,file);
+            const bno = await service.read.maxNumber();
+            await service.insert.fileName(bno,req.files[0].filename);
         }
+
         res.redirect("/board/boardList?category=all");
     },
     report : async (req, res) => {

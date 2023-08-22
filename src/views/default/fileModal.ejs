@@ -3,8 +3,11 @@
 <div id="fileModalBackground">
     <div id="fileModalContainer" class="position-absolute top-50 start-50 translate-middle rounded">
         <div id="fileModalBtn">
+            <input id="downFile" class="btn btn-success" type="button" value="다운로드" onclick="buyItemFile()" style="visibility: hidden;">
             <% if (user != undefined && user.ADMIN == 1) { %>
-                <input class="btn btn-danger" type="button" value="삭제" onclick="deleteFileItem()">
+                <% if (nowUrl != "board") { %>
+                    <input class="btn btn-danger" type="button" value="삭제" onclick="deleteFileItem()">
+                <% } %>
             <% } %>
             <input class="btn btn-danger" type="button" value="X" onclick="closeFileItemInfo()">
         </div>

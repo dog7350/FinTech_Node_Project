@@ -1,13 +1,12 @@
 #boardContentHeader {
     margin: auto;
     margin-bottom: 10px;
-    display: flex;
     width: 100%;
     border-bottom: 1px solid gray;
 }
 #boardContentWriter {
     margin: auto;
-    text-align: left;
+    text-align: center;
 }
 #boardContentCategory{
     margin: auto;
@@ -15,6 +14,7 @@
 }
 #boardContentTitle {
     margin: auto;
+    width: 60%;
     text-align: center;
 }
 #boardContentInquiry{
@@ -67,7 +67,7 @@
     font-size: 12pt;
     font-weight: bold;
 }
-#headerboardContent {
+.headerboardContent {
     font-size: 15pt;
     font-weight: bold;
 }

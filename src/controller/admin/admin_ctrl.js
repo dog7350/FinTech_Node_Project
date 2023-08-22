@@ -94,6 +94,22 @@ const process = {
 
         res.send(rtnMsg("충전되었습니다.", "/"));
     },
+    buyItem : async (req, res) => {
+        if (req.session.user.CASH < req.query.price) {
+            res.send(`<script>alert("잔액이 부족합니다."); location.reload();</script>`);
+        } else {
+            money = req.session.user.CASH - req.query.price;
+            const status = await service.update.cash(req.session.user.ID, money);
+            const result = await service.read.info(req.session.user.ID);
+    
+            req.session.user = result;
+
+            path = `./upload/${req.query.file}`;
+            ext = req.query.file.split(".")[1];
+            filename = "download." + ext;
+            res.download(path, filename);
+        }
+    },
     manager : async (req, res) => {
         if (req.query.id == "admin") {
             res.send(bakMsg("메인 관리자는 설정할 수 없습니다."));

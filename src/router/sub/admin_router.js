@@ -2,6 +2,7 @@ const ctrl = require("../../controller/admin/admin_ctrl");
 const router = require("express").Router();
 
 router.get("/payments", ctrl.process.payments);
+router.get("/buyItem", ctrl.process.buyItem);
 
 router.get("/list", ctrl.views.list);
 router.get("/allChat", ctrl.views.allChat);
