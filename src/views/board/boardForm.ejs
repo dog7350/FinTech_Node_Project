@@ -15,22 +15,19 @@
             </select> 
         </div>
         <div class="mb-3">
-            <input id="titleTxt" class="form-control" type="text" name="title" placeholder="제목을 입력하세요.">
+            <input id="boardtitleTxt" class="form-control" type="text" name="title" placeholder="제목을 입력하세요.">
         </div>
         
-        <input name="writer" type="hidden" value="<%= user.ID %>">
-        <input name="wprofile" type="hidden" value="<%= user.PROFILE %>">
-
-        <textarea id="contentTxt" name="content" maxlength="4000" rows="20" cols="150"></textarea>
+        <textarea id="boardcontentTxt" name="content" maxlength="4000" rows="20" cols="150"></textarea>
         
-        <div id="fileContainer">
+        <div id="boardfileContainer">
             <input type="file" id="fileUp" name="fileUp" onchange="readFile(this)" multiple>
             <img id="imgView" src="" width="100" height="100">
         </div>
         
         <hr>
         <div class="mb-3">
-            <input id="price" type="number" value="0" name="price">
+            <input id="boardprice" type="number" value="0" name="price">
         </div>
 
         <div class="d-grid gap-2">

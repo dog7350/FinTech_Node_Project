@@ -2,6 +2,7 @@ const service = require("../../service/board_service");
 const renObj = require("../renObj");
 const cookieConfig = require("../../../config/cookie_config");
 const { query } = require("express");
+const fs = require("fs");
 
 const views = {
     boardContent : async (req, res) =>{
@@ -58,7 +59,7 @@ const process = {
         }
         const msg = await service.insert.BoardInsert(req.body,req.session.user,file);
         const bno = await service.read.maxNumber();
-        console.log(req.body);
+        
         
         
         for(let i=1; i < req.files.length; i++) {
@@ -70,18 +71,29 @@ const process = {
 
     boardModify : async (req,res) => {
         //board
+        const boardInfo = await service.read.boardContent(req.body.bno);
         let upfile ="";
         if(req.files[0] == undefined) {
             upfile = "DefaultThumbnail.jpg";
         }else {
             upfile = req.files[0].filename
         }
+        const readFile = await service.read.boardFile(req.params.bno);
+        fs.unlinkSync(`./upload/${boardInfo["THUMBNAIL"]}`);
+        for(let i=0; i < readFile.length; i++){
+            fs.unlinkSync(`./upload/${readFile[i]["FILENAME"]}`);
+        }
+        
         const result = await service.update.boardUpdate(req.body,upfile);
         // boardFile
+        
         const resultDel = await service.remove.boardFileDel(req.body.bno);
         
+        
+        
+        
         for(let i=1; i < req.files.length; i++) {
-            const result =  await service.insert.fileName(req.body.bno,req.files[i].filename);
+            const msg =  await service.insert.fileName(req.body.bno,req.files[i].filename);
         }
         
         
@@ -89,11 +101,12 @@ const process = {
     },
 
     boardDel : async (req,res) => {
-        
+        const readFile = await service.read.boardFile(req.params.bno);
+        const resultDel = await service.remove.boardFileDel(req.params.bno);
         const result = await service.remove.boardDele(req.params.bno);
-        const resultDel = await service.remove.boardFileDel(req.body.bno);
-
-        
+        for(let i=0; i < readFile.length; i++){
+            fs.unlinkSync(`./upload/${readFile[i]["FILENAME"]}`);
+        }
         res.redirect("/board/boardList?category=all");
     }
 

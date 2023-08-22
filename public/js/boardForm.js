@@ -14,7 +14,7 @@ let oEditors = []
 createEditor = () => {
     nhn.husky.EZCreator.createInIFrame({
         oAppRef: oEditors,
-        elPlaceHolder: "contentTxt",
+        elPlaceHolder: "boardcontentTxt",
         sSkinURI: "/smart/SmartEditor2Skin.html",
         htParams: {
             bUseVerticalResizer : false,
@@ -25,16 +25,16 @@ createEditor = () => {
 }
 
 submitForm = () => {
-    oEditors.getById["contentTxt"].exec("UPDATE_CONTENTS_FIELD", []);
-    let title = document.getElementById("titleTxt").value;
-    let content = document.getElementById("contentTxt").value;
+    oEditors.getById["boardcontentTxt"].exec("UPDATE_CONTENTS_FIELD", []);
+    let title = document.getElementById("boardtitleTxt").value;
+    let content = document.getElementById("boardcontentTxt").value;
 
     if (title == "") {
         alert("제목을 입력하세요.");
         return;
     } else if(content == "<p>&nbsp;</p>") {
         alert("내용을 입력하세요.");
-        oEditors.getById["contentTxt"].exec("FOCUS");
+        oEditors.getById["boardcontentTxt"].exec("FOCUS");
         return;
     } else {
         document.getElementById("boardForm").submit();
@@ -48,9 +48,9 @@ window.onload = () => {
 function priceView () {
     const cate = document.getElementById("category").value;
     if(cate == "sell") {
-        document.getElementById("price").style.display = "block"; 
+        document.getElementById("boardprice").style.display = "block"; 
     }else {
-        document.getElementById("price").style.display = "none";
+        document.getElementById("boardprice").style.display = "none";
     }
 }
 
