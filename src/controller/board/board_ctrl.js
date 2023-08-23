@@ -76,12 +76,10 @@ const views = {
 const process = {
     boardWrite : async (req,res) => {
         let file = ""
-        if (req.files[0] == undefined) {
-            file = "DefaultThumbnail.jpg";
-        }
+        if (req.files[0] == undefined) file = "DefaultThumbnail.jpg";
+        else file = req.files[0].filename;
 
         if (req.files.length > 1) {
-            file = req.files[0].filename;
             const msg = await service.insert.BoardInsert(req.body,req.session.user,file);
             const bno = await service.read.maxNumber();
     
@@ -90,8 +88,10 @@ const process = {
             }
         } else {
             const msg = await service.insert.BoardInsert(req.body,req.session.user,file);
-            const bno = await service.read.maxNumber();
-            await service.insert.fileName(bno,req.files[0].filename);
+            if (req.files.length == 1) {
+                const bno = await service.read.maxNumber();
+                await service.insert.fileName(bno,req.files[0].filename);
+            }
         }
 
         res.redirect("/board/boardList?category=all");
