@@ -103,7 +103,7 @@ const openFileItemInfo = (name) => {
 
     if (image.indexOf(ext) != -1) document.getElementById("fileModalItem").innerHTML = `<img src='/upload/${name}' width="100%" height="100%">`;
     else if (movie.indexOf(ext) != -1) document.getElementById("fileModalItem").innerHTML = `<video src='/upload/${name}' width="100%" height="100%" controls></video>`;
-    else if (music.indexOf(ext) != -1) document.getElementById("fileModalItem").innerHTML = `<audio src='/upload/${name}' width="100%" height="100%" controls></audio>`;
+    else if (music.indexOf(ext) != -1) document.getElementById("fileModalItem").innerHTML = `<audio controls><source src='/upload/${name}' type='audio/mpeg'></audio>`;
 
     $("#fileModalContainer").slideDown("slow");
     $("#fileModalBackground").show();

@@ -76,8 +76,8 @@ const views = {
 const process = {
     boardWrite : async (req,res) => {
         let file = ""
-        if (req.files[0] == undefined) file = "DefaultThumbnail.jpg";
-        else file = req.files[0].filename;
+        if (req.files.length > 1) file = req.files[0].filename;
+        else file = "DefaultThumbnail.jpg";
 
         if (req.files.length > 1) {
             const msg = await service.insert.BoardInsert(req.body,req.session.user,file);
@@ -111,15 +111,19 @@ const process = {
 
         if (boardInfo["THUMBNAIL"] != "DefaultThumbnail.jpg") fs.unlinkSync(`./upload/${boardInfo["THUMBNAIL"]}`);
         for (j = 0; j < readFile.length; j++) fs.unlinkSync(`./upload/${readFile[j].FILENAME}`);
+
         await service.remove.boardFileDel(req.body.bno);
-        
+        //
         let upfile = "";
-        if (req.files[0] == undefined) upfile = "DefaultThumbnail.jpg";
-        else upfile = req.files[0].filename;
+        if (req.files.length > 1) upfile = req.files[0].filename;
+        else upfile = "DefaultThumbnail.jpg";
         
-        
-        for(let i=1; i < req.files.length; i++) {
-            const msg =  await service.insert.fileName(req.body.bno, req.files[i].filename);
+        if (req.files.length > 1) {
+            for(let i=1; i < req.files.length; i++) {
+                const msg =  await service.insert.fileName(req.body.bno, req.files[i].filename);
+            }
+        } else if (req.files.length == 1) {
+            const msg =  await service.insert.fileName(req.body.bno, req.files[0].filename);
         }
         
         const result = await service.update.boardUpdate(req.body, upfile);

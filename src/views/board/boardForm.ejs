@@ -1,8 +1,12 @@
+<% var now = Date.now(); %>
+
 <link rel="stylesheet" type="text/css" href="/public/css/views/boardForm.css">
 <script type="text/javascript" src="/smart/js/HuskyEZCreator.js"></script>
 <script type="text/javascript" src="/public/js/boardForm.js"></script>
 <div id="boardFormContainer">
     <form id="boardForm" action="/board/boardWrite" method="post" enctype="multipart/form-data">
+        <input name="nameTime" type="hidden" value="<%= now %>">
+
         <div class="mb-3" style="width: 30%;">
             <select id="category" class="form-control" name="category" onclick="priceView()">
                 <option value="buy">일반</option>

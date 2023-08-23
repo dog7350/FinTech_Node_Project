@@ -4,16 +4,16 @@ const multer = require("multer");
 
 const image = ['JPG', 'JPEG', 'PNG', 'GIF'];
 const movie = ['MP4', 'AVI'];
-const music = ['MP3', 'WAV'];
+const music = ['MP3', 'MPEG'];
 
 
 const storage = multer.diskStorage({
     destination : (req, file, callback) => {
-        callback(null,"upload");
+        callback(null,"./upload");
     },
     filename : (req, file, callback) => {
-        
-        callback(null, "BOARD_"+ req.body.category + "_" + req.body.title + "_" + req.session.user.ID + "_" + file.originalname.toUpperCase());
+        date = req.body.nameTime;
+        callback(null, date + "_BOARD_" + req.session.user.ID + "_" + file.originalname.toUpperCase());
     }
 });
 

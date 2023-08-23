@@ -6,12 +6,15 @@
     else if(content.CATEGORY == 'sell') sell = "selected";
     else notice = "selected";
 %>
+<% var now = Date.now(); %>
 
 <link rel="stylesheet" type="text/css" href="/public/css/views/modifyForm.css">
 <script type="text/javascript" src="/smart/js/HuskyEZCreator.js"></script>
 <script type="text/javascript" src="/public/js/modifyForm.js"></script>
 <div id="modifyFormContainer">
     <form id="modifyForm" action="/board/boardModify/<%=content.BNO %>" method="post" enctype="multipart/form-data">
+        <input name="nameTime" type="hidden" value="<%= now %>">
+        
         <div class="mb-3" style="width: 30%;">
             <select id="category" class="form-control" name="category" onclick="priceView()">
                 <option value="buy" <%= buy %>>일반</option>
@@ -30,7 +33,7 @@
         <input name="writer" type="hidden" value="<%= user.ID %>">
         <input name="wprofile" type="hidden" value="<%= user.PROFILE %>">
 
-        <textarea id="contentTxt" name="content" maxlength="4000" rows="20" cols="150"><%=content.CONTENT %></textarea>
+        <textarea id="contentTxt" name="content" maxlength="4000" rows="20" style="width: 100%"><%=content.CONTENT %></textarea>
         
         <div id="fileContainer">
             <input type="file" id="fileUp" name="fileUp" onchange="readFile(this)" multiple>

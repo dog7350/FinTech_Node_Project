@@ -6,6 +6,9 @@
         DAYS = date.getFullYear() + ". " + (date.getMonth() + 1) + ". " + date.getDate() + " / " + date.getHours() + " : " + date.getMinutes();
         return DAYS;
     }
+    const image = ['JPG', 'JPEG', 'PNG', 'GIF'];
+    const movie = ['MP4', 'AVI'];
+    const music = ['MP3', 'MPEG'];
 %>
 
 <div id="boardContentHeader">
@@ -70,7 +73,14 @@
             <div id="boardContentFile" class="mb-3">
             <% file.forEach ((data, index) => { fileType="none"; if (index == 0 && content.CATEGORY == "sell") fileType="download"; %>
                 <div style="margin-right: 10px;">
-                    <img id="<%= data.FILENAME %>" src="/upload/<%= data.FILENAME %>" width="40px" height="40px" onclick="openFileInfo('<%= data.FILENAME %>', '<%= fileType %>')">
+                    <% if (image.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
+                        <img src="/upload/<%= data.FILENAME %>" width="40px" height="40px" onclick="openFileInfo('<%= data.FILENAME %>', '<%= fileType %>')">
+                    <% } else if (movie.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
+                        <video src="/upload/<%= data.FILENAME %>" width="40px" height="40px" onclick="openFileInfo('<%= data.FILENAME %>', '<%= fileType %>')"></video>
+                    <% } else if (music.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
+                        <img src="/public/images/DefaultAudio.jpg" width="40px" height="40px" onclick="openFileInfo('<%= data.FILENAME %>', '<%= fileType %>')">
+                        <audio src="/upload/<%= data.FILENAME %>" width="40px" height="40px" onclick="openFileInfo('<%= data.FILENAME %>', '<%= fileType %>')"></audio>
+                    <% } %>
                 </div>
             <% }) %> 
             </div>

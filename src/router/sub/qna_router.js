@@ -4,7 +4,7 @@ const multer = require("multer");
 
 const image = ['JPG', 'JPEG', 'PNG', 'GIF'];
 const movie = ['MP4', 'AVI'];
-const music = ['MP3', 'WAV'];
+const music = ['MP3', 'MPEG'];
 
 const storage = multer.diskStorage({
     destination : (req, file, cb) => {

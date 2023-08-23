@@ -11,7 +11,7 @@
     }
     const image = ['JPG', 'JPEG', 'PNG', 'GIF'];
     const movie = ['MP4', 'AVI'];
-    const music = ['MP3', 'WAV'];
+    const music = ['MP3', 'MPEG'];
 %>
 
 <div id="qnaHeader">
@@ -82,13 +82,13 @@
     <div id="qnaFileContainer">
         <div id="qnaFileList">
             <% files.forEach(data => { %>
-                <div class="qnaFileDiv">
+                <div class="qnaFileDiv" style="width: 100%; height: 120px;">
                     <% if (image.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
-                        <img src="/upload/<%= data.FILENAME %>" width="100%" height="120px" onclick="openFileItemInfo('<%= data.FILENAME %>')">
+                        <img src="/upload/<%= data.FILENAME %>" width="100%" height="100%" onclick="openFileItemInfo('<%= data.FILENAME %>')">
                     <% } else if (movie.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
-                        <video src="/upload/<%= data.FILENAME %>" width="100%" height="120px" onclick="openFileItemInfo('<%= data.FILENAME %>')"></video>
+                        <video src="/upload/<%= data.FILENAME %>" width="100%" height="100%" onclick="openFileItemInfo('<%= data.FILENAME %>')"></video>
                     <% } else if (music.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
-                        <audio src="/upload/<%= data.FILENAME %>" width="100%" height="120px" onclick="openFileItemInfo('<%= data.FILENAME %>')"></audio>
+                        <img src="/public/images/DefaultAudio.jpg" width="100%" height="100%" onclick="openFileItemInfo('<%= data.FILENAME %>')">
                     <% } %>
                 </div>
             <% }) %>
