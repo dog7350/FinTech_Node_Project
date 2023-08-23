@@ -62,7 +62,11 @@
             </tr>
         <% }) %>
         <% if (list.length == 0) { %>
-            <tr><td colspan="5">등록된 글이 없습니다.</td></tr>
+            <% if (category == "all") { %>
+                <tr><td colspan="6">등록된 글이 없습니다.</td></tr>
+            <% } else { %>
+                <tr><td colspan="5">등록된 글이 없습니다.</td></tr>
+            <% } %>
         <% } %>
     </tbody>
 </table>
