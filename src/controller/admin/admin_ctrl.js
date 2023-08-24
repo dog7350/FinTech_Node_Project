@@ -96,7 +96,7 @@ const process = {
     },
     buyItem : async (req, res) => {
         if (req.session.user.CASH < req.query.price) {
-            res.send(`<script>alert("잔액이 부족합니다."); location.reload();</script>`);
+            res.send(`<script>alert("잔액이 부족합니다."); history.back();</script>`);
         } else {
             money = req.session.user.CASH - req.query.price;
             const status = await service.update.cash(req.session.user.ID, money);

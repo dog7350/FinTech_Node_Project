@@ -72,7 +72,7 @@
         <%if(file.length != 0){%>
             <div id="boardContentFile" class="mb-3">
             <% file.forEach ((data, index) => { fileType="none"; if (index == 0 && content.CATEGORY == "sell") fileType="download"; %>
-                <div style="margin-right: 10px;">
+                <div style="margin-right: 10px; cursor: pointer;">
                     <% if (image.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
                         <img src="/upload/<%= data.FILENAME %>" width="40px" height="40px" onclick="openFileInfo('<%= data.FILENAME %>', '<%= fileType %>')">
                     <% } else if (movie.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
