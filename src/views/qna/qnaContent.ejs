@@ -82,7 +82,7 @@
     <div id="qnaFileContainer">
         <div id="qnaFileList">
             <% files.forEach(data => { %>
-                <div class="qnaFileDiv" style="width: 100%; height: 120px;">
+                <div class="qnaFileDiv" style="width: 100%; height: 120px; cursor: pointer;">
                     <% if (image.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
                         <img src="/upload/<%= data.FILENAME %>" width="100%" height="100%" onclick="openFileItemInfo('<%= data.FILENAME %>')">
                     <% } else if (movie.indexOf(data.FILENAME.split(".")[1]) != -1) { %>
