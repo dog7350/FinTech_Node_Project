@@ -76,7 +76,7 @@ const views = {
 const process = {
     boardWrite : async (req,res) => {
         let file = ""
-        if (req.files.length >= 1) file = req.files[0].filename;
+        if (req.files.length > 1) file = req.files[0].filename;
         else file = "DefaultThumbnail.jpg";
 
         if (req.files.length > 1) {
@@ -115,7 +115,7 @@ const process = {
         await service.remove.boardFileDel(req.body.bno);
         //
         let upfile = "";
-        if (req.files.length >= 1) upfile = req.files[0].filename;
+        if (req.files.length > 1) upfile = req.files[0].filename;
         else upfile = "DefaultThumbnail.jpg";
         
         if (req.files.length > 1) {
