@@ -28,7 +28,7 @@ function cmtModify(cno){
 
 }
 const playTimeCheck = () => {
-    mp3 = document.getElementById("audio");
+    mp3 = document.getElementById("audioDown");
     if (mp3.currentTime >= (mp3.duration * 0.3)) {
         mp3.currentTime = 0;
         mp3.pause();
@@ -44,14 +44,18 @@ const movie = ['MP4', 'AVI'];
 const music = ['MP3', 'WAV'];
 
 const openFileInfo = (name, type) => {
-    if (type == "download") document.getElementById("downFile").style = "visibility : visible";
+    audioId = 'noDown';
+    if (type == "download") {
+        document.getElementById("downFile").style = "visibility : visible";
+        audioId = 'audioDown';
+    }
     else if (type == "none") document.getElementById("downFile").style = "visibility : hidden";
 
     ext = name.split(".")[1];
 
     if (image.indexOf(ext) != -1) document.getElementById("fileModalItem").innerHTML = `<img id="modalFile" src='/upload/${name}' width="100%" height="100%">`;
     else if (movie.indexOf(ext) != -1) document.getElementById("fileModalItem").innerHTML = `<video id="modalFile" src='/upload/${name}' width="100%" height="100%" controls></video>`;
-    else if (music.indexOf(ext) != -1) document.getElementById("fileModalItem").innerHTML = `<audio id="audio" onplay="playTimeCheck()" controls>
+    else if (music.indexOf(ext) != -1) document.getElementById("fileModalItem").innerHTML = `<audio id="${audioId}" onplay="playTimeCheck()" controls>
                                                                                                 <source id="modalFile" src='/upload/${name}' type='audio/mpeg'>
                                                                                              </audio>`;
 
