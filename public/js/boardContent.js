@@ -27,6 +27,17 @@ function cmtModify(cno){
     document.getElementsByClassName("cmtListBtn")[0].style.display = "none";
 
 }
+const playTimeCheck = () => {
+    mp3 = document.getElementById("audio");
+    if (mp3.currentTime >= (mp3.duration * 0.3)) {
+        mp3.currentTime = 0;
+        mp3.pause();
+    }
+    runPlayTime();
+}
+const runPlayTime = () => {
+    setTimeout(playTimeCheck, 1000);
+}
 
 const image = ['JPG', 'JPEG', 'PNG', 'GIF'];
 const movie = ['MP4', 'AVI'];
@@ -42,21 +53,7 @@ const openFileInfo = (name, type) => {
     else if (movie.indexOf(ext) != -1) document.getElementById("fileModalItem").innerHTML = `<video id="modalFile" src='/upload/${name}' width="100%" height="100%" controls></video>`;
     else if (music.indexOf(ext) != -1) document.getElementById("fileModalItem").innerHTML = `<audio id="audio" onplay="playTimeCheck()" controls>
                                                                                                 <source id="modalFile" src='/upload/${name}' type='audio/mpeg'>
-                                                                                             </audio>
-                                                                                             <script>
-                                                                                                const playTimeCheck = () => {
-                                                                                                    mp3 = document.getElementById("audio");
-                                                                                                    if (mp3.currentTime >= (mp3.duration * 0.3)) {
-                                                                                                        mp3.currentTime = 0;
-                                                                                                        mp3.pause();
-                                                                                                    }
-                                                                                                    runPlayTime();
-                                                                                                }
-                                                                                                const runPlayTime = () => {
-                                                                                                    setTimeout(playTimeCheck, 1000);
-                                                                                                }
-                                                                                             </script>
-                                                                                            `;
+                                                                                             </audio>`;
 
     $("#fileModalContainer").slideDown("slow");
     $("#fileModalBackground").show();
